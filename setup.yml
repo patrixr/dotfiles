@@ -1,0 +1,17 @@
+---
+- name: MacOS Setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Install packages
+      community.general.homebrew:
+        name: '{{ item }}'
+        state: latest
+      loop:
+        - nvm
+        - imagemagick
+        - tmux
+        - ripgrep
+        - coreutils
+        - fd
