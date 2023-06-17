@@ -1,5 +1,6 @@
 ---
-- name: MacOS Setup
+
+- name: Brew installations
   hosts: localhost
   connection: local
   gather_facts: false
@@ -14,4 +15,63 @@
         - tmux
         - ripgrep
         - coreutils
+        - emacs
         - fd
+
+- name: NPM/PNPM Setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Install latest node
+      shell: source ~/.nvm/nvm.sh && nvm install node
+
+    - name: Source ~/.nvm/nvm.sh
+      shell: source ~/.nvm/nvm.sh && echo $PATH
+      register: updated_path_output
+      args:
+        executable: /bin/bash
+
+    - name: Set updated PATH as a fact
+      set_fact:
+        updated_path: "{{ updated_path_output.stdout }}"
+
+    - name: Global installs via NPM
+      community.general.npm:
+        name: "{{ item }}"
+        global: true
+        state: latest
+      loop:
+        - pnpm
+        - vercel
+      environment:
+        PATH: "{{ updated_path }}"
+
+- name: Install Doom Emacs
+  hosts: localhost
+  tasks:
+    - name: Clone Doom Emacs
+      block:
+        - name: Clone Doom Emacs repository
+          git:
+            repo: https://github.com/doomemacs/doomemacs
+            dest: ~/.config/emacs
+            depth: 1
+
+        - name: Copy contents of backups/doom folder to ~/.config/doom/
+          ansible.builtin.copy:
+            src: backups/doom/
+            dest: ~/.config/doom/
+            remote_src: yes
+
+        - name: Delete ~/.emacs.d folder
+          ansible.builtin.file:
+            path: ~/.emacs.d
+            state: absent
+
+        - name: Run the Doom Emacs installer
+          ansible.builtin.debug:
+            msg:
+              - Doom Emacs is ready to install
+              - If this is the first time, Run the following command '~/.config/emacs/bin/doom install'
+              - Otherwise run '~/.config/emacs/bin/doom sync'
