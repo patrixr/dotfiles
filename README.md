@@ -10,6 +10,8 @@ It automates the installation of various tools and packages, including:
 
 It uses an **Ansible playbook** under the hood to do all of that
 
+![](./assets/Screengrab.png)
+
 ## Getting Started
 
 To set up your macOS development environment, follow these steps:

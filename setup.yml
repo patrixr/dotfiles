@@ -47,7 +47,7 @@
       environment:
         PATH: "{{ updated_path }}"
 
-- name: Install Doom Emacs
+- name: Clone Doom Emacs
   hosts: localhost
   tasks:
     - name: Clone Doom Emacs
@@ -69,7 +69,7 @@
             path: ~/.emacs.d
             state: absent
 
-        - name: Run the Doom Emacs installer
+        - name: Prompt - Doom Emacs installer
           ansible.builtin.debug:
             msg:
               - Doom Emacs is ready to install
