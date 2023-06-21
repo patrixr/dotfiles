@@ -5,6 +5,11 @@
 
 (define-key global-map (kbd "M-p") 'project-find-file)
 
+;; use prettier
+(setq-hook! 'js-mode-hook +format-with-lsp nil)
+(setq-hook! 'js-mode-hook +format-with :none)
+(add-hook 'js-mode-hook 'prettier-js-mode)
+
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "John Doe"
