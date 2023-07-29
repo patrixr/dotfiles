@@ -1,5 +1,9 @@
 ---
 
+# ----------------------------------------------------
+# HOMEBREW
+# ----------------------------------------------------
+
 - name: Brew installations
   hosts: localhost
   connection: local
@@ -11,12 +15,19 @@
         state: latest
       loop:
         - nvm
+        - terraform
+        - pandoc
         - imagemagick
         - tmux
         - ripgrep
         - coreutils
         - emacs
         - fd
+        - ffmpeg
+
+# ----------------------------------------------------
+# NVM/NODE/NPM/PNPM Setup
+# ----------------------------------------------------
 
 - name: NPM/PNPM Setup
   hosts: localhost
@@ -44,8 +55,16 @@
       loop:
         - pnpm
         - vercel
+        - typescript
+        - typescript-language-server
+        - tide
+        - prettier
       environment:
         PATH: "{{ updated_path }}"
+
+# ----------------------------------------------------
+# DOOM EMACS
+# ----------------------------------------------------
 
 - name: Clone Doom Emacs
   hosts: localhost

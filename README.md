@@ -18,10 +18,10 @@ To set up your macOS development environment, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/patrixr/dotfiles.git`
 2. Go into the `dotfiles` directory: `cd dotfiles`
-3. Run the `dependencies.sh` script to install dependencies required by the playbook: `./dependencies.sh`
-4. Run the `apply.sh` script to run the Ansible playbook: `./apply.sh`
+3. Run the `make init` command to install dependencies required by the playbooks
+4. Run the `make apply` script to run the Ansible playbook: `./apply.sh`
 
-You can also run `apply.sh` whenever you want to update the installed packages to the latest version or apply changes to the setup.
+You can also run `make apply` whenever you want to update the installed packages to the latest version or apply changes to the setup.
 
 ## Files and Scripts
 
