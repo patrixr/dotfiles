@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# --------------------------------------------------
+# ONE-TIME SCRIPT
+#--------------------------------------------------
+
 set -e
 
 echo "=== Installing HomeBrew"
@@ -11,7 +15,6 @@ echo "=== Setting up .zprofile with Homebrew information"
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/patrick/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-
 echo "=== Installing zsh and ansible with homebrew"
 
 brew install zsh ansible
@@ -22,7 +25,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 echo "=== Restoring backed-up zsh configurations (.zshrc)"
 
-cat ./backups/zshrc-addons >> ~/.zshrc
+cat ./configs/zshrc.sh >> ~/.zshrc
 
 echo "=== Installing ansible collections needed by the playbook"
 

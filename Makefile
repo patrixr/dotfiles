@@ -1,6 +1,6 @@
-.PHONY: apply init backup
+.PHONY: sync init backup
 
-apply:
+sync:
 	ansible-playbook ./playbooks/setup.yml
 
 init:

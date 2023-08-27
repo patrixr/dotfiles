@@ -15,6 +15,8 @@
         state: latest
       loop:
         - nvm
+        - ansible
+        - zsh
         - terraform
         - pandoc
         - imagemagick
@@ -24,6 +26,22 @@
         - emacs
         - fd
         - ffmpeg
+
+
+# ----------------------------------------------------
+# ZSHRC Sync
+# ----------------------------------------------------
+
+- name: ZSHRC Sync
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - ansible.builtin.blockinfile:
+        path: ~/.zshrc
+        block: "{{ item }}"
+      with_items:
+        - "{{lookup('ansible.builtin.file', '../configs/zshrc.sh') }}"
 
 # ----------------------------------------------------
 # NVM/NODE/NPM/PNPM Setup
@@ -77,9 +95,9 @@
             dest: ~/.config/emacs
             depth: 1
 
-        - name: Copy contents of backups/doom folder to ~/.config/doom/
+        - name: Copy contents of configs/doom folder to ~/.config/doom/
           ansible.builtin.copy:
-            src: backups/doom/
+            src: ../configs/doom/
             dest: ~/.config/doom/
             remote_src: yes
 
@@ -88,9 +106,14 @@
             path: ~/.emacs.d
             state: absent
 
-        - name: Prompt - Doom Emacs installer
-          ansible.builtin.debug:
-            msg:
-              - Doom Emacs is ready to install
-              - If this is the first time, Run the following command '~/.config/emacs/bin/doom install'
-              - Otherwise run '~/.config/emacs/bin/doom sync'
+        - name: Check if doom is installed
+          shell: command -v doom >/dev/null 2>&1
+          register: is_doom_installed
+          ignore_errors: yes
+
+        - name: Install Doom Emacs for the first time
+          shell: ~/.config/emacs/bin/doom install
+          when: is_doom_installed.rc != 0
+
+        - name: Run doom sync
+          shell: doom sync
