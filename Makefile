@@ -1,7 +1,7 @@
 .PHONY: sync init backup
 
 sync:
-	ansible-playbook ./playbooks/setup.yml
+	ansible-playbook -v ./playbooks/setup.yml
 
 init:
 	bash ./scripts/dependencies.sh

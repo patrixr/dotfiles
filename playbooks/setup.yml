@@ -9,6 +9,14 @@
   connection: local
   gather_facts: false
   tasks:
+    - name: Install Cask Apps
+      community.general.homebrew_cask:
+        name: '{{ item }}'
+        state: latest
+      loop:
+        - redisinsight
+        - docker
+
     - name: Install packages
       community.general.homebrew:
         name: '{{ item }}'
