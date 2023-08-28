@@ -8,6 +8,8 @@
   hosts: localhost
   connection: local
   gather_facts: false
+  vars_files:
+    - ../vars.yml
   tasks:
     - name: Install latest node
       shell: source ~/.nvm/nvm.sh && nvm install node
@@ -27,12 +29,6 @@
         name: "{{ item }}"
         global: true
         state: latest
-      loop:
-        - pnpm
-        - vercel
-        - typescript
-        - typescript-language-server
-        - tide
-        - prettier
+      loop: "{{ node.global }}"
       environment:
         PATH: "{{ updated_path }}"

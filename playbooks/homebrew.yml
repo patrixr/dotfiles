@@ -15,24 +15,11 @@
       community.general.homebrew_cask:
         name: '{{ item }}'
         state: latest
-      loop:
-        - redisinsight
-        - docker
-      when: enable_cask
+      loop: "{{ homebrew.cask }}"
+      when: homebrew.enable_cask
 
     - name: Install packages
       community.general.homebrew:
         name: '{{ item }}'
         state: latest
-      loop:
-        - nvm
-        - zsh
-        - terraform
-        - pandoc
-        - imagemagick
-        - tmux
-        - ripgrep
-        - coreutils
-        - emacs
-        - fd
-        - ffmpeg
+      loop: "{{ homebrew.packages }}"

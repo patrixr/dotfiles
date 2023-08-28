@@ -1,2 +1,31 @@
----
-enable_cask: true
+doom:
+  enabled: true
+
+homebrew:
+  enable_cask: true
+
+  cask:
+    - redisinsight
+    - docker
+
+  packages:
+    - nvm
+    - zsh
+    - terraform
+    - pandoc
+    - imagemagick
+    - tmux
+    - ripgrep
+    - coreutils
+    - emacs
+    - fd
+    - ffmpeg
+
+node:
+  global:
+    - pnpm
+    - vercel
+    - typescript
+    - typescript-language-server
+    - tide
+    - prettier
