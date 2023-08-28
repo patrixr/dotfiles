@@ -1,0 +1,38 @@
+---
+
+# ----------------------------------------------------
+# HOMEBREW
+# ----------------------------------------------------
+
+- name: Brew installations
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - ../vars.yml
+  tasks:
+    - name: Install Cask Apps
+      community.general.homebrew_cask:
+        name: '{{ item }}'
+        state: latest
+      loop:
+        - redisinsight
+        - docker
+      when: enable_cask
+
+    - name: Install packages
+      community.general.homebrew:
+        name: '{{ item }}'
+        state: latest
+      loop:
+        - nvm
+        - zsh
+        - terraform
+        - pandoc
+        - imagemagick
+        - tmux
+        - ripgrep
+        - coreutils
+        - emacs
+        - fd
+        - ffmpeg

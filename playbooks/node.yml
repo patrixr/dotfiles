@@ -1,0 +1,38 @@
+---
+
+# ----------------------------------------------------
+# NVM/NODE/NPM/PNPM Setup
+# ----------------------------------------------------
+
+- name: NPM/PNPM Setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Install latest node
+      shell: source ~/.nvm/nvm.sh && nvm install node
+
+    - name: Source ~/.nvm/nvm.sh
+      shell: source ~/.nvm/nvm.sh && echo $PATH
+      register: updated_path_output
+      args:
+        executable: /bin/bash
+
+    - name: Set updated PATH as a fact
+      set_fact:
+        updated_path: "{{ updated_path_output.stdout }}"
+
+    - name: Global installs via NPM
+      community.general.npm:
+        name: "{{ item }}"
+        global: true
+        state: latest
+      loop:
+        - pnpm
+        - vercel
+        - typescript
+        - typescript-language-server
+        - tide
+        - prettier
+      environment:
+        PATH: "{{ updated_path }}"

@@ -1,0 +1,16 @@
+---
+
+# ----------------------------------------------------
+# ZSHRC Sync
+# ----------------------------------------------------
+
+- name: ZSHRC Sync
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - ansible.builtin.blockinfile:
+        path: ~/.zshrc
+        block: "{{ item }}"
+      with_items:
+        - "{{lookup('ansible.builtin.file', '../configs/zshrc.sh') }}"
