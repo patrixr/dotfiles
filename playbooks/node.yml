@@ -17,10 +17,12 @@
     - name: Source ~/.nvm/nvm.sh
       shell: source ~/.nvm/nvm.sh && echo $PATH
       register: updated_path_output
+      changed_when: False
       args:
         executable: /bin/bash
 
     - name: Set updated PATH as a fact
+      changed_when: False
       set_fact:
         updated_path: "{{ updated_path_output.stdout }}"
 
