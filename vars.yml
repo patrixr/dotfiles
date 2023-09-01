@@ -11,9 +11,11 @@ homebrew:
     - obsidian
     - arc
     - firefox
-    - jetbrains-toolbox
+    - intellij-idea-ce
     - zoom
     - microsoft-teams
+    - google-chrome
+    - discord
 
   packages:
     - nvm
@@ -28,6 +30,7 @@ homebrew:
     - fd
     - ffmpeg
     - watch
+    - httpie
 
 node:
   global:
