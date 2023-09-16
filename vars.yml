@@ -20,6 +20,7 @@ homebrew:
     - google-chrome
     - discord
     - godot
+    - authy
 
   packages:
     - bun
