@@ -4,6 +4,9 @@ doom:
 homebrew:
   enable_cask: true
 
+  taps:
+    - oven-sh/bun
+
   cask:
     - redisinsight
     - warp
@@ -16,8 +19,10 @@ homebrew:
     - microsoft-teams
     - google-chrome
     - discord
+    - godot
 
   packages:
+    - bun
     - nvm
     - zsh
     - terraform

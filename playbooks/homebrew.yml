@@ -18,6 +18,12 @@
       loop: "{{ homebrew.cask }}"
       when: homebrew.enable_cask
 
+    - name: Brew Taps
+      community.general.homebrew_tap:
+        name: '{{ item }}'
+        state: present
+      loop: "{{ homebrew.taps }}"
+
     - name: Install packages
       community.general.homebrew:
         name: '{{ item }}'
