@@ -21,6 +21,7 @@ homebrew:
     - discord
     - godot
     - authy
+    - fleet
 
   packages:
     - bun
