@@ -51,8 +51,7 @@ npm () {
     echo "npm project detect, using original npm"
     $NPM_PATH "$@"
   else
-    echo "using pnpm"
-    pnpm "$@"
+    $NPM_PATH "$@"
   fi
 }
 
