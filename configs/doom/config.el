@@ -4,11 +4,35 @@
 ;; sync' after modifying this file!
 
 (define-key global-map (kbd "M-p") 'project-find-file)
+(projectile-register-project-type 'npm '("package-lock.json")
+                                  :project-file "package.json"
+				  :compile "npm install"
+				  :test "npm test"
+				  :run "npm start"
+				  :test-suffix ".test")
+
+
+(projectile-register-project-type 'pnpm '("pnpm-lock.json")
+                                  :project-file "package.json"
+				  :compile "pnpm install"
+				  :test "pnpm test"
+				  :run "pnpm start"
+				  :test-suffix ".test")
+
+(projectile-register-project-type 'deno '("deno.json")
+                                  :project-file "deno.json"
+				  :compile "deno compile"
+				  :test "deno test"
+				  :run "deno run --allow-all"
+				  :test-suffix ".test")
 
 ;; use prettier
 (setq-hook! 'js-mode-hook +format-with-lsp nil)
 (setq-hook! 'js-mode-hook +format-with :none)
 (add-hook 'js-mode-hook 'prettier-js-mode)
+
+(add-hook 'typescript-mode-hook 'deno-fmt-mode)
+(add-hook 'js2-mode-hook 'deno-fmt-mode)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
