@@ -8,6 +8,7 @@ homebrew:
     - oven-sh/bun
 
   cask:
+    - vscodium
     - redisinsight
     - warp
     - docker
@@ -25,6 +26,7 @@ homebrew:
     - protonvpn
 
   packages:
+    - neovim
     - bun
     - nvm
     - zsh
@@ -39,6 +41,7 @@ homebrew:
     - ffmpeg
     - watch
     - httpie
+    - deno
 
 node:
   global:
