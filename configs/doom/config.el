@@ -3,6 +3,7 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+
 (define-key global-map (kbd "M-p") 'project-find-file)
 (projectile-register-project-type 'npm '("package-lock.json")
                                   :project-file "package.json"
@@ -25,6 +26,18 @@
 				  :test "deno test"
 				  :run "deno run --allow-all"
 				  :test-suffix ".test")
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))
+
+  (defclass eglot-deno (eglot-lsp-server) ()
+    :documentation "A custom class for deno lsp.")
+
+  (cl-defmethod eglot-initialization-options ((server eglot-deno))
+    "Passes through required deno initialization options"
+    (list :enable t
+    :lint t))
+)
 
 ;; use prettier
 (setq-hook! 'js-mode-hook +format-with-lsp nil)
