@@ -1,0 +1,16 @@
+---
+
+# ----------------------------------------------------
+# Copy Config files over
+# ----------------------------------------------------
+
+- name: Setup various config files
+  hosts: localhost
+  vars_files:
+    - ../vars.yml
+  tasks:
+    - name: Copy Kitty Config
+      ansible.builtin.copy:
+        src: ../configs/kitty/
+        dest: ~/.config/kitty/
+        remote_src: yes
