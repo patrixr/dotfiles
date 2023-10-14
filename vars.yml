@@ -6,11 +6,11 @@ homebrew:
 
   taps:
     - oven-sh/bun
+    - homebrew/cask-fonts
 
   cask:
     - vscodium
     - redisinsight
-    - warp
     - docker
     - obsidian
     - arc
@@ -24,6 +24,7 @@ homebrew:
     - authy
     - nova
     - protonvpn
+    - font-roboto-mono-nerd-font
 
   packages:
     - neovim
