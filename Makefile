@@ -11,8 +11,8 @@ zsh:
 node:
 	ansible-playbook -v ./playbooks/node.yml
 
-doom:
-	ansible-playbook -v ./playbooks/doom.yml
+#doom:
+#	ansible-playbook -v ./playbooks/doom.yml
 
 configs:
 	ansible-playbook -v ./playbooks/configs.yml

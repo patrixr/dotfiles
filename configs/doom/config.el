@@ -12,7 +12,6 @@
 				  :run "npm start"
 				  :test-suffix ".test")
 
-
 (projectile-register-project-type 'pnpm '("pnpm-lock.json")
                                   :project-file "package.json"
 				  :compile "pnpm install"
@@ -26,6 +25,17 @@
 				  :test "deno test"
 				  :run "deno run --allow-all"
 				  :test-suffix ".test")
+
+(projectile-register-project-type 'maven '("pom.xml")
+                                  :project-file "pom.xml"
+                                  :compile "mvn install"
+                                  :test "mvn test"
+                                  :run "mvn spring-boot:run"
+                                  :test-suffix "Test")
+
+;; COPY PASTA
+(require 'simpleclip)
+(simpleclip-mode 1)
 
 
 ;; EGLOT
