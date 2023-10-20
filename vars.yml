@@ -1,6 +1,3 @@
-doom:
-  enabled: true
-
 homebrew:
   enable_cask: true
 
@@ -22,12 +19,11 @@ homebrew:
     - discord
     - godot
     - authy
-    - nova
     - protonvpn
     - font-roboto-mono-nerd-font
+    - kitty
 
   packages:
-    - neovim
     - bun
     - nvm
     - zsh
@@ -43,6 +39,7 @@ homebrew:
     - watch
     - httpie
     - deno
+    - supabase/tap/supabase
 
 node:
   global:
@@ -52,3 +49,4 @@ node:
     - typescript-language-server
     - tide
     - prettier
+    - supabase

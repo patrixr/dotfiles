@@ -1,4 +1,4 @@
-.PHONY: sync init backup homebrew zsh node doom configs
+.PHONY: sync init backup homebrew zsh node configs
 
 sync: homebrew zsh node configs
 
@@ -10,9 +10,6 @@ zsh:
 
 node:
 	ansible-playbook -v ./playbooks/node.yml
-
-#doom:
-#	ansible-playbook -v ./playbooks/doom.yml
 
 configs:
 	ansible-playbook -v ./playbooks/configs.yml
