@@ -83,6 +83,14 @@
   (ibuffer-sidebar-toggle-sidebar)
 	(neotree-toggle))
 
+(defun +sidebar-hook ()
+  (interactive)
+  (when (eq major-mode 'dired-mode)
+    (call-interactively '+sidebar-toggle)
+    (call-interactively 'other-window)))
+
+(add-hook 'emacs-startup-hook #'+sidebar-hook)
+
 ;; ----------------------------------------------
 ;; MINIBUFFER
 ;; ----------------------------------------------
@@ -319,8 +327,8 @@
 
 (setq visible-bell t)       ; Set up the visible bell
 
-;; Disable splash screen
-(setq inhibit-startup-screen t)
+(setq inhibit-startup-screen t
+      initial-buffer-choice  nil)
 
 (defun move-line (n)
   "Move the current line up or down by N lines."
