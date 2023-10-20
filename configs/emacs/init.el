@@ -60,16 +60,28 @@
     (auto-package-update-at-time "09:00"))
 
 (use-package no-littering)
-(setq auto-save-file-name-transforms
-      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+(require 'no-littering)
 
 ;; ----------------------------------------------
-;; NEOTREE
+;; SIDEBAR
 ;; ----------------------------------------------
 
 (setq neo-window-width 35)
 (setq-default neo-show-hidden-files t)
 (use-package neotree)
+
+(use-package ibuffer-sidebar
+	:quelpa (jsdoc :fetcher github :repo "jojojames/ibuffer-sidebar")
+  :commands (ibuffer-sidebar-toggle-sidebar)
+  :config
+  (setq ibuffer-sidebar-use-custom-font t)
+  (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
+
+(defun +sidebar-toggle ()
+  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
+  (interactive)
+  (ibuffer-sidebar-toggle-sidebar)
+	(neotree-toggle))
 
 ;; ----------------------------------------------
 ;; MINIBUFFER
@@ -111,13 +123,10 @@
 ;; FORMATTING
 ;; ----------------------------------------------
 
-(use-package prettier-js
-  :commands (prettier-mode prettier)
-  :init
-	(add-hook 'js2-mode-hook 'prettier-js-mode)
-	(add-hook 'web-mode-hook 'prettier-js-mode)
-	(add-hook 'typescript-mode-hook 'prettier-js-mode)
-  :config (setq prettier-target-mode "js2-mode"))
+(use-package prettier-js)
+
+(use-package jsdoc
+  :quelpa (jsdoc :fetcher github :repo "isamert/jsdoc.el"))
 
 ;; ----------------------------------------------
 ;; LSP
@@ -393,6 +402,13 @@
 				  :compile "pnpm install"
 				  :test "pnpm test"
 				  :run "pnpm start"
+				  :test-suffix ".test")
+
+(projectile-register-project-type 'deno-fresh '("deno.json", "fresh.config.ts")
+                                  :project-file "deno.json"
+				  :compile "deno task build"
+				  :test "deno test"
+				  :run "deno task run"
 				  :test-suffix ".test")
 
 (projectile-register-project-type 'deno '("deno.json")
