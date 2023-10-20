@@ -1,11 +1,3 @@
-;;; Personal configuration -*- lexical-binding: t -*-
-
-;; Save the contents of this file under ~/.emacs.d/init.el
-;; Do not forget to use Emacs' built-in help system:
-;; Use C-h C-h to get an overview of all help commands.  All you
-;; need to know about Emacs (what commands exist, what functions do,
-;; what variables specify), the help system can provide.
-
 ;; ----------------------------------------------
 ;; PACKAGE MANAGER
 ;; ----------------------------------------------
@@ -34,10 +26,10 @@
 			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
 			 ("elpa" . "https://elpa.gnu.org/packages/")))
 
-; activate all the packages
+;; Activate all the packages
 (package-initialize)
 
-; fetch the list of packages available 
+;; Fetch the list of packages available 
 (unless package-archive-contents
     (package-refresh-contents))
 
@@ -61,15 +53,18 @@
 
 (use-package no-littering)
 (require 'no-littering)
+(setq make-backup-files nil)
 
 ;; ----------------------------------------------
 ;; SIDEBAR
 ;; ----------------------------------------------
 
+;; Neotree
 (setq neo-window-width 35)
 (setq-default neo-show-hidden-files t)
 (use-package neotree)
 
+;; Buffer Sidebar
 (use-package ibuffer-sidebar
 	:quelpa (jsdoc :fetcher github :repo "jojojames/ibuffer-sidebar")
   :commands (ibuffer-sidebar-toggle-sidebar)
@@ -77,12 +72,14 @@
   (setq ibuffer-sidebar-use-custom-font t)
   (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
 
+;; Combine neotree & ibuffer into one sidebar function
 (defun +sidebar-toggle ()
   "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
   (interactive)
   (ibuffer-sidebar-toggle-sidebar)
 	(neotree-toggle))
 
+;; Auto start neotree & ibuffer
 (defun +sidebar-hook ()
   (interactive)
   (when (eq major-mode 'dired-mode)
@@ -133,17 +130,15 @@
 
 (use-package prettier-js)
 
-(use-package jsdoc
-  :quelpa (jsdoc :fetcher github :repo "isamert/jsdoc.el"))
-
 ;; ----------------------------------------------
-;; LSP
+;; EGLOT / LSP
 ;; ----------------------------------------------
 
 (use-package eglot
   :ensure t
   :config
 
+	;; Configure languages
   (add-to-list 'eglot-server-programs '(typescript-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))
 
@@ -185,42 +180,18 @@
 (savehist-mode t)
 (recentf-mode t)
 
-;; Store automatic customisation options elsewhere
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
 (use-package tempel
-  ;; Require trigger prefix before template name when completing.
-  ;; :custom
-  ;; (tempel-trigger-prefix "<")
-
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
-
   :init
-
   ;; Setup completion at point
   (defun tempel-setup-capf ()
-    ;; Add the Tempel Capf to `completion-at-point-functions'.
-    ;; `tempel-expand' only triggers on exact matches. Alternatively use
-    ;; `tempel-complete' if you want to see all matches, but then you
-    ;; should also configure `tempel-trigger-prefix', such that Tempel
-    ;; does not trigger too often when you don't expect it. NOTE: We add
-    ;; `tempel-expand' *before* the main programming mode Capf, such
-    ;; that it will be tried first.
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
 
   (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-
-  ;; Optionally make the Tempel templates available to Abbrev,
-  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
-  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
-  ;; (global-tempel-abbrev-mode)
-  )
+  (add-hook 'text-mode-hook 'tempel-setup-capf))
 
 ;; ----------------------------------------------
 ;; COMPLETION
@@ -264,10 +235,7 @@
   (unless (display-graphic-p)
     (corfu-terminal-mode +1)))
 
-; Add extensions
 (use-package cape
-  ;; Bind dedicated completion commands
-  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
   :bind (("C-c p p" . completion-at-point) ;; capf
          ("C-c p t" . complete-tag)        ;; etags
          ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
@@ -286,10 +254,6 @@
          ("C-c p &" . cape-sgml)
          ("C-c p r" . cape-rfc1345))
   :init
-  ;; Add to the global default value of `completion-at-point-functions' which is
-  ;; used by `completion-at-point'.  The order of the functions matters, the
-  ;; first function returning a result wins.  Note that the list of buffer-local
-  ;; completion functions takes precedence over the global list.
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-elisp-block)
@@ -324,7 +288,6 @@
 (tooltip-mode -1)           ; Disable tooltips
 (global-hl-line-mode 1)     ; Highlight current line
 (menu-bar-mode -1)          ; Disable the menu bar
-
 (setq visible-bell t)       ; Set up the visible bell
 
 (setq inhibit-startup-screen t
@@ -365,18 +328,12 @@
 (use-package doom-themes
   :ensure t
   :config
-  ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
   (load-theme 'doom-horizon t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+  (doom-themes-visual-bell-config) ; Enable flashing mode-line on errors
+  (doom-themes-neotree-config) ; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-org-config)) ; Corrects (and improves) org-mode's native fontification.
 
 (use-package doom-modeline
   :init
@@ -398,6 +355,7 @@
 
 
 (define-key global-map (kbd "M-p") 'project-find-file)
+
 (projectile-register-project-type 'npm '("package-lock.json")
                                   :project-file "package.json"
 				  :compile "npm install"
