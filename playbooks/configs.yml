@@ -9,6 +9,13 @@
   vars_files:
     - ../vars.yml
   tasks:
+    - name: Setup ZSHRC
+      ansible.builtin.blockinfile:
+        path: ~/.zshrc
+        block: "{{ item }}"
+      with_items:
+        - "{{lookup('ansible.builtin.file', '../configs/zshrc.sh') }}"
+        
     - name: Copy Kitty Config
       ansible.builtin.copy:
         src: ../configs/kitty/

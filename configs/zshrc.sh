@@ -1,3 +1,13 @@
+export TERM=xterm-256color
+
+# emacs
+EMACS_COMMAND="emacsclient"
+
+# emacs
+alias emacs="$EMACS_COMMAND"
+alias e="$EMACS_COMMAND"
+# emacs end
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
@@ -75,3 +85,5 @@ if [ -d "$(brew --prefix)/opt/grep/libexec/gnubin" ]; then
     PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
 fi
 # brew grep end
+
+

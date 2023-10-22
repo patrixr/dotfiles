@@ -6,6 +6,7 @@ homebrew:
     - homebrew/cask-fonts
 
   cask:
+    - emacs
     - vscodium
     - redisinsight
     - docker
@@ -24,6 +25,8 @@ homebrew:
     - kitty
 
   packages:
+    - gnu-tar
+    - cmake
     - bun
     - nvm
     - zsh
@@ -33,7 +36,6 @@ homebrew:
     - tmux
     - ripgrep
     - coreutils
-    - emacs
     - fd
     - ffmpeg
     - watch

@@ -1,0 +1,19 @@
+---
+
+# ----------------------------------------------------
+# Setup background services
+# ----------------------------------------------------
+
+- name: Setup background services
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Deploy emacs daeom job definition
+      template:
+        src: ../launchd/org.gnu.emacs.daemon.plist
+        dest: /Library/LaunchDaemons/org.gnu.emacs.daemon.plist
+
+    - name: Run emacs daemon
+      community.general.launchd:
+        name: org.gnu.emacs.daemon
+        state: started

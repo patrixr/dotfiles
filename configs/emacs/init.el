@@ -1,12 +1,16 @@
+;;; init.el --- Personal configuration  -*- lexical-binding: t; -*-
+
+;; Author:  Patrick
+
+;;; Commentary:
+
+;; 
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; ----------------------------------------------
 ;; PACKAGE MANAGER
 ;; ----------------------------------------------
-
-(setq quelpa-update-melpa-p nil)
-(setq quelpa-upgrade-interval 7)
-(setq use-package-always-ensure t)
-
-(add-hook #'after-init-hook #'quelpa-upgrade-all-maybe)
 
 ;; Bootstrap quelpa
 (unless (package-installed-p 'quelpa)
@@ -18,8 +22,13 @@
 (quelpa '(quelpa-use-package
    :fetcher git
    :url "https://github.com/quelpa/quelpa-use-package.git"))
-
 (require 'quelpa-use-package)
+(setq quelpa-update-melpa-p nil)
+(setq quelpa-upgrade-interval 7)
+(setq use-package-ensure-function 'quelpa)
+(setq use-package-always-ensure t)
+
+(add-hook #'after-init-hook #'quelpa-upgrade-all-maybe)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("org" . "https://orgmode.org/elpa/")
@@ -29,7 +38,7 @@
 ;; Activate all the packages
 (package-initialize)
 
-;; Fetch the list of packages available 
+;; Fetch the list of packages available
 (unless package-archive-contents
     (package-refresh-contents))
 
@@ -55,6 +64,13 @@
 (require 'no-littering)
 (setq make-backup-files nil)
 
+
+;; ----------------------------------------------
+;; TERM
+;; ----------------------------------------------
+
+(use-package vterm)
+
 ;; ----------------------------------------------
 ;; SIDEBAR
 ;; ----------------------------------------------
@@ -66,9 +82,10 @@
 
 ;; Buffer Sidebar
 (use-package ibuffer-sidebar
-	:quelpa (jsdoc :fetcher github :repo "jojojames/ibuffer-sidebar")
+	:quelpa (ibuffer-sidebar :fetcher github :repo "jojojames/ibuffer-sidebar")
   :commands (ibuffer-sidebar-toggle-sidebar)
   :config
+	(setq ibuffer-use-other-window nil)
   (setq ibuffer-sidebar-use-custom-font t)
   (setq ibuffer-sidebar-face `(:family "Helvetica" :height 140)))
 
@@ -108,7 +125,7 @@
   (marginalia-align 'left))
 
 ;; Improve directory navigation
-(with-eval-after-load 'vexrtico
+(with-eval-after-load 'vertico
   (define-key vertico-map (kbd "RET") #'vertico-directory-enter)
   (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-word)
   (define-key vertico-map (kbd "M-d") #'vertico-directory-delete-char))
@@ -129,6 +146,7 @@
 ;; ----------------------------------------------
 
 (use-package prettier-js)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; ----------------------------------------------
 ;; EGLOT / LSP
@@ -225,15 +243,28 @@
   (corfu-quit-no-match 'separator) ; Don't quit if there is `corfu-separator' inserted
   (corfu-echo-documentation 0.25) ;; Documentation in the echo area
   (corfu-scroll-margin 4)
+	(corfu-border "white")
 	(corfu-preselect 'prompt)
   
   :config
   (define-key corfu-map (kbd "<tab>") #'corfu-complete))
 
-(use-package corfu-terminal
+(use-package dashboard
+  :ensure t
+	:init
+	(setq dashboard-display-icons-p t)
+	(setq dashboard-center-content t)
+	(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+	(setq dashboard-set-heading-icons t)
+	(setq dashboard-set-file-icons t)
+	(setq dashboard-icon-type 'all-the-icons)
+	(setq dashboard-items '((recents  . 5)
+                        (bookmarks . 5)
+                        (projects . 5)
+                        (agenda . 5)
+                        (registers . 5)))
   :config
-  (unless (display-graphic-p)
-    (corfu-terminal-mode +1)))
+  (dashboard-setup-startup-hook))
 
 (use-package cape
   :bind (("C-c p p" . completion-at-point) ;; capf
@@ -266,6 +297,7 @@
 
 (setq-default tab-width 2)
 (setq-default typescript-indent-level 2)
+(setq-default yaml-indent-offset 2)
 
 (use-package simpleclip
   :quelpa (simpleclip :fetcher github :repo "rolandwalker/simpleclip")
@@ -286,12 +318,22 @@
 
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
+(scroll-bar-mode -1)        ; Disable scrollbars
 (global-hl-line-mode 1)     ; Highlight current line
 (menu-bar-mode -1)          ; Disable the menu bar
 (setq visible-bell t)       ; Set up the visible bell
 
 (setq inhibit-startup-screen t
       initial-buffer-choice  nil)
+
+(use-package beacon
+	:quelpa (beacon :fetcher github :repo "malabarba/beacon")
+	:init
+	(beacon-mode 1))
+
+;; ----------------------------------------------
+;; LINE MOVE SHORTCUTS
+;; ----------------------------------------------
 
 (defun move-line (n)
   "Move the current line up or down by N lines."
@@ -330,7 +372,7 @@
   :config
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-moonlight t)
+  (load-theme 'doom-oceanic-next t)
   (doom-themes-visual-bell-config) ; Enable flashing mode-line on errors
   (doom-themes-neotree-config) ; Enable custom neotree theme (all-the-icons must be installed!)
   (doom-themes-org-config)) ; Corrects (and improves) org-mode's native fontification.
@@ -390,6 +432,12 @@
                                   :test "mvn test"
                                   :run "mvn spring-boot:run"
                                   :test-suffix "Test")
+
+(projectile-register-project-type 'makefile '("Makefile")
+                                  :project-file "Makefile"
+                                  :compile "make"
+                                  :test "make test"
+                                  :run "make start")
 
 
 ;; ----------------------------------------------
