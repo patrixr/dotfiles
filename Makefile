@@ -9,7 +9,8 @@ node:
 	ansible-playbook -v ./playbooks/node.yml
 
 configs:
-	ansible-playbook -v ./playbooks/configs.yml
+	ansible-playbook -v ./playbooks/configs.yml;
+	ansible-playbook -v ./playbooks/doom.yml;
 
 services:
 	ansible-playbook -v ./playbooks/services.yml --ask-become-pass

@@ -1,3 +1,6 @@
+doom:
+  enabled: true
+
 homebrew:
   enable_cask: true
 

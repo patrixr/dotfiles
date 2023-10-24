@@ -10,7 +10,7 @@
   tasks:
     - name: Deploy emacs daeom job definition
       template:
-        src: ../launchd/org.gnu.emacs.daemon.plist
+        src: ../launchd/org.gnu.emacs.daemon.plist.j2
         dest: /Library/LaunchDaemons/org.gnu.emacs.daemon.plist
 
     - name: Run emacs daemon
