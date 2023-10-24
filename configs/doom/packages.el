@@ -9,6 +9,11 @@
 (package! prettier-js)
 (package! feature-mode) ;; cucumber support
 (package! deno-fmt)
+(package! vterm)
+(package! simpleclip
+  :recipe (:host github :repo "rolandwalker/simpleclip"))
+(package! beacon
+  :recipe (:host github :repo "malabarba/beacon"))
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
