@@ -5,6 +5,11 @@
 (set-frame-parameter (selected-frame) 'alpha '(95 95))
 (add-to-list 'default-frame-alist '(alpha 95 95))
 
+;; CORFU
+
+(setq company-async-redisplay-delay 1)
+(setq company-idle-delay 1)
+
 ;; MODES
 
 (defun enable-global-modes ()
@@ -52,27 +57,12 @@
                                   :test "make test"
                                   :run "make start")
 
-
-
 (projectile-register-project-type 'obsidian '(".obsidian")
                                   :project-file ".obsidian/app.json"
                                   :compile "echo 'no-op'"
                                   :test "echo 'no-op'"
                                   :run "echo 'no-op'")
 
-;; EGLOT
-
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))
-
-  (defclass eglot-deno (eglot-lsp-server) ()
-    :documentation "A custom class for deno lsp.")
-
-  (cl-defmethod eglot-initialization-options ((server eglot-deno))
-    "Passes through required deno initialization options"
-    (list :enable t
-    :lint t))
-)
 
 ;; FORMATTING & EDITING
 
