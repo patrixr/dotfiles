@@ -1,5 +1,10 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+;; TRANSPARENCY
+
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
+
 ;; MODES
 
 (defun enable-global-modes ()
@@ -47,6 +52,13 @@
                                   :test "make test"
                                   :run "make start")
 
+
+
+(projectile-register-project-type 'obsidian '(".obsidian")
+                                  :project-file ".obsidian/app.json"
+                                  :compile "echo 'no-op'"
+                                  :test "echo 'no-op'"
+                                  :run "echo 'no-op'")
 
 ;; EGLOT
 
