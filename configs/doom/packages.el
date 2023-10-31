@@ -1,6 +1,8 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
+(unpin! nim-mode flycheck-nim)
+
 (package! terraform-mode)
 (package! prettier-js)
 (package! feature-mode) ;; cucumber support
