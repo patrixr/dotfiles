@@ -17,6 +17,7 @@
   (beacon-mode 1))
 
 (add-hook 'emacs-startup-hook 'enable-global-modes)
+(add-to-list 'auto-mode-alist '("\\.mdx\\'" . markdown-mode))
 
 ;; PROJECTILE
 

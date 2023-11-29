@@ -3,6 +3,8 @@
 
 (unpin! nim-mode flycheck-nim)
 
+
+(package! mermaid-mode)
 (package! terraform-mode)
 (package! prettier-js)
 (package! feature-mode) ;; cucumber support

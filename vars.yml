@@ -44,6 +44,7 @@ homebrew:
     - watch
     - httpie
     - deno
+    - gopls
     - supabase/tap/supabase
 
 node:
@@ -55,3 +56,4 @@ node:
     - tide
     - prettier
     - supabase
+    - "@mermaid-js/mermaid-cli"
