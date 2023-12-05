@@ -64,6 +64,12 @@
                                   :test "echo 'no-op'"
                                   :run "echo 'no-op'")
 
+(projectile-register-project-type 'generic '("README.md")
+                                  :project-file "README.md"
+                                  :compile "echo 'no-op'"
+                                  :test "echo 'no-op'"
+                                  :run "echo 'no-op'")
+
 
 ;; FORMATTING & EDITING
 
