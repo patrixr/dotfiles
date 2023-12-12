@@ -25,7 +25,7 @@
 	           '(min-width  . 1)
                '(width      . 81)
                '(vertical-scroll-bars . nil)
-               '(internal-border-width . 24)
+               '(internal-border-width . 12)
                '(left-fringe    . 1)
                '(right-fringe   . 1)
                '(tool-bar-lines . 0)
@@ -66,7 +66,7 @@
 (setq x-underline-at-descent-line t)
 
 ;; Vertical window divider
-(setq window-divider-default-right-width 24)
+(setq window-divider-default-right-width 12)
 (setq window-divider-default-places 'right-only)
 (window-divider-mode 1)
 
