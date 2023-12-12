@@ -1,11 +1,11 @@
 ;; Language list
-(use-package go-mode)
-(use-package json-mode)
-(use-package lua-mode)
-(use-package rust-mode)
-(use-package typescript-mode)
-(use-package yaml-mode)
-(use-package markdown-mode)
+(use-package go-mode :straight t)
+(use-package json-mode :straight t)
+(use-package lua-mode :straight t)
+(use-package rust-mode :straight t)
+(use-package typescript-mode :straight t)
+(use-package yaml-mode :straight t)
+(use-package markdown-mode :straight t)
 
 (setq-default major-mode
               (lambda () ; guess major mode from file name

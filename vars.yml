@@ -1,5 +1,5 @@
-doom:
-  enabled: true
+emacs:
+  use_doom: false
 
 homebrew:
   enable_cask: true

@@ -21,9 +21,3 @@
         src: ../configs/kitty/
         dest: ~/.config/kitty/
         remote_src: yes
-
-    # - name: Copy Emacs
-    #   ansible.builtin.copy:
-    #     src: ../configs/emacs/
-    #     dest: ~/.config/emacs/
-    #     remote_src: yes

@@ -18,8 +18,8 @@
 (package-initialize)
 
 ;; Path to nano emacs modules (mandatory)
-(add-to-list 'load-path "./nano")
-(add-to-list 'load-path "./my")
+(add-to-list 'load-path "~/.config/emacs/nano")
+(add-to-list 'load-path "~/.config/emacs/my")
 
 ;; Custom
 (require 'my-straight)
