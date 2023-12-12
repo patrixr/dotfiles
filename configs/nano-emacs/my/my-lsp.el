@@ -5,6 +5,10 @@
   :hook (
          (python-mode . lsp)
          (go-mode . lsp)
+         ;; Prefer deno for typescript by disabling ts-ls
+         (typescript-mode . (lambda ()
+			     (setq lsp-disabled-clients '(ts-ls))
+			     (lsp-deferred)))
          (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
