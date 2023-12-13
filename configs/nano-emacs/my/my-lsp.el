@@ -16,6 +16,7 @@
   :commands lsp-ui-mode)
 
 (use-package company
+  :defer 0.1
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
