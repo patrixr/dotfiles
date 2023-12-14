@@ -4,11 +4,6 @@
   :init
   (vertico-mode))
 
-(use-package savehist
-  :straight t
-  :init
-  (savehist-mode))
-
 (use-package orderless
   :straight t
   :after vertico
