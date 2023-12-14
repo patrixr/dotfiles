@@ -1,3 +1,7 @@
+(use-package flycheck
+  :straight t
+  :init (global-flycheck-mode))
+
 (use-package lsp-mode
   :straight t
   :init

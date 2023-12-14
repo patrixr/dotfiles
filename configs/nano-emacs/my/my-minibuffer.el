@@ -1,12 +1,19 @@
 ;; Vertical minibuffer
 (use-package vertico
-  :ensure t
+  :straight t
   :init
   (vertico-mode))
 
 (use-package savehist
+  :straight t
   :init
   (savehist-mode))
+
+(use-package orderless
+  :straight t
+  :after vertico
+  :custom
+  (completion-styles '(orderless basic)))
 
 ;; Add annotations to vertico minibuffer commands
 (use-package marginalia

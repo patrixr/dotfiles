@@ -27,7 +27,9 @@
 (require 'my-modes)
 (require 'my-bindings)
 (require 'my-minibuffer)
-(require 'my-lsp)
+
+(unless (member "--fast" command-line-args)
+  (require 'my-lsp))
 
 ;; Default layout (optional)
 (require 'nano-layout)
