@@ -46,6 +46,9 @@ homebrew:
     - deno
     - gopls
     - supabase/tap/supabase
+    - clojure/tools/clojure
+    - clojure-lsp/brew/clojure-lsp-native
+    - leiningen
 
 node:
   global:

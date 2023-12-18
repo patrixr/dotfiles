@@ -6,6 +6,8 @@
 (use-package yaml-mode :straight t)
 (use-package markdown-mode :straight t)
 (use-package typescript-mode :straight t)
+(use-package clojure-mode :straight t)
+(use-package cider :straight t)
 
 (setq-default major-mode
               (lambda () ; guess major mode from file name
@@ -15,6 +17,7 @@
 
 (setq-default tab-width 2)
 (setq-default typescript-indent-level 2)
+(setq-default js-indent-level 2)
 (setq-default yaml-indent-offset 2)
 
 (provide 'my-modes)

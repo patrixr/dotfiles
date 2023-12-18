@@ -29,6 +29,7 @@
 (require 'my-minibuffer)
 
 (unless (member "--fast" command-line-args)
+  (require 'my-packages)
   (require 'my-lsp))
 
 ;; Default layout (optional)
