@@ -30,6 +30,7 @@
 (require 'my-editor)
 
 (unless (member "--fast" command-line-args)
+  (require 'nano-splash)
   (require 'my-packages)
   (require 'my-lsp))
 
