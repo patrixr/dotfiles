@@ -488,8 +488,8 @@
 ;;         ((nano-modeline-mu4e-view-mode-p)       (nano-modeline-mu4e-view-mode))
            ((nano-modeline-text-mode-p)            (nano-modeline-default-mode))
            ((nano-modeline-pdf-view-mode-p)        (nano-modeline-pdf-view-mode))
-	   ((nano-modeline-docview-mode-p)         (nano-modeline-docview-mode))
-	   ((nano-modeline-completion-list-mode-p) (nano-modeline-completion-list-mode))
+	       ((nano-modeline-docview-mode-p)         (nano-modeline-docview-mode))
+	       ((nano-modeline-completion-list-mode-p) (nano-modeline-completion-list-mode))
            ((nano-modeline-nano-help-mode-p)       (nano-modeline-nano-help-mode))
            (t                                      (nano-modeline-default-mode)))))))
 
