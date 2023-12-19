@@ -16,7 +16,7 @@
 
     - name: Copy Emacs
       ansible.builtin.copy:
-        src: ../configs/nano-emacs/
+        src: ../configs/emacs/
         dest: ~/.config/emacs/
         remote_src: yes
       when: not emacs.use_doom
