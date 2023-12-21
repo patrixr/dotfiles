@@ -35,6 +35,11 @@ load-nvmrc
 export PATH="$HOME/.config/emacs/bin:$PATH"
 # doom emacs end
 
+# golang
+export GOPATH="$HOME/go"
+PATH="$GOPATH/bin:$PATH"
+# golang end
+
 # brew grep
 if [ -d "$(brew --prefix)/opt/grep/libexec/gnubin" ]; then
     PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
