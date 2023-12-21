@@ -16,8 +16,3 @@
       with_items:
         - "{{lookup('ansible.builtin.file', '../configs/zshrc.sh') }}"
         
-    - name: Copy Kitty Config
-      ansible.builtin.copy:
-        src: ../configs/kitty/
-        dest: ~/.config/kitty/
-        remote_src: yes

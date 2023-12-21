@@ -31,45 +31,6 @@ add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 # auto nvm end
 
-# pnpm
-export PNPM_HOME="/Users/patrickrabier/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# auto pnpm
-NPM_PATH=$(which npm)
-NPX_PATH=$(which npx)
-npm () {
-  # Note:
-  # We default to pnpm, but still check for its lockfile
-  # because package-lock.json often sneaks into projects unintentionally
-  if [ -e PNPM-lock.yaml ]
-  then
-    echo "pnpm project detected, using pnpm"
-    pnpm $@
-  elif [ -e package-lock.json ]
-  then
-    echo "npm project detect, using original npm"
-    $NPM_PATH "$@"
-  else
-    $NPM_PATH "$@"
-  fi
-}
-
-npx () {
-  if [ -e PNPM-lock.yaml ]
-  then
-    echo "pnpm project detected, using pnpx instead"
-    pnpx $@
-  else
-    $NPX_PATH "$@"
-  fi
-}
-# auto pnpm end
-
 # doom emacs
 export PATH="$HOME/.config/emacs/bin:$PATH"
 # doom emacs end
