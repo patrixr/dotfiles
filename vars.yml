@@ -26,6 +26,7 @@ homebrew:
     - protonvpn
     - font-roboto-mono-nerd-font
     - warp
+    - android-studio
 
   packages:
     - gnu-tar
@@ -50,6 +51,7 @@ homebrew:
     - clojure-lsp/brew/clojure-lsp-native
     - leiningen
     - wget
+    - android-commandlinetools
 
 node:
   global:
