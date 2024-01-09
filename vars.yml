@@ -27,7 +27,6 @@ homebrew:
     - font-roboto-mono-nerd-font
     - warp
     - android-studio
-    - touchdesigner
 
   packages:
     - gnu-tar
