@@ -1,3 +1,6 @@
+(use-package all-the-icons
+  :straight t)
+
 (use-package vterm
   :straight t)
 

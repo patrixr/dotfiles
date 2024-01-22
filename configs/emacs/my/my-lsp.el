@@ -11,6 +11,7 @@
          (python-mode . lsp)
          (go-mode . lsp)
          (clojure-mode . lsp)
+         (kotlin-mode . lsp)
          ;; Prefer deno for typescript by disabling ts-ls
          (typescript-mode . (lambda ()
 			     (setq lsp-disabled-clients '(jsts-ls ts-ls))

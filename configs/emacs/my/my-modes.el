@@ -8,6 +8,7 @@
 (use-package typescript-mode :straight t)
 (use-package clojure-mode :straight t)
 (use-package cider :straight t)
+(use-package kotlin-mode :straight t)
 
 (setq-default major-mode
               (lambda () ; guess major mode from file name
