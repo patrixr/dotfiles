@@ -46,4 +46,6 @@ if [ -d "$(brew --prefix)/opt/grep/libexec/gnubin" ]; then
 fi
 # brew grep end
 
-
+# homebrew path
+PATH="/opt/homebrew/bin:$PATH"
+# homebrew path end

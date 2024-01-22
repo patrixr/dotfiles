@@ -3,6 +3,7 @@
 (use-package json-mode :straight t)
 (use-package lua-mode :straight t)
 (use-package rust-mode :straight t)
+(use-package python-mode :straight t)
 (use-package yaml-mode :straight t)
 (use-package markdown-mode :straight t)
 (use-package typescript-mode :straight t)
