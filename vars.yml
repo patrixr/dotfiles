@@ -52,6 +52,7 @@ homebrew:
     - leiningen
     - wget
     - android-commandlinetools
+    - gh
 
 node:
   global:
