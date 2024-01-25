@@ -33,7 +33,8 @@
   (require 'nano-splash)
   (require 'my-packages)
   (require 'my-sidebar)
-  (require 'my-lsp))
+  (require 'my-lsp)
+  (require 'my-copilot))
 
 ;; Default layout (optional)
 (require 'nano-layout)
