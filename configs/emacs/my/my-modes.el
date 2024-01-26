@@ -1,5 +1,4 @@
 ;; Language list
-(use-package go-mode :straight t)
 (use-package json-mode :straight t)
 (use-package lua-mode :straight t)
 (use-package rust-mode :straight t)
@@ -10,6 +9,14 @@
 (use-package clojure-mode :straight t)
 (use-package cider :straight t)
 (use-package kotlin-mode :straight t)
+(use-package go-mode :straight t)
+
+(defun my-go-mode-hook ()
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "M-*") 'pop-tag-mark)
+)
+(add-hook 'go-mode-hook 'my-go-mode-hook)
 
 (setq-default major-mode
               (lambda () ; guess major mode from file name

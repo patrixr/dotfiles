@@ -27,6 +27,7 @@ homebrew:
     - font-roboto-mono-nerd-font
     - warp
     - android-studio
+    - proton-drive
 
   packages:
     - gnu-tar
@@ -45,6 +46,7 @@ homebrew:
     - watch
     - httpie
     - deno
+    - go
     - gopls
     - supabase/tap/supabase
     - clojure/tools/clojure
@@ -65,3 +67,8 @@ node:
     - supabase
     - "@mermaid-js/mermaid-cli"
     - ghost-cli
+
+golang:
+  global_installs:
+    - github.com/rogpeppe/godef@latest
+    - github.com/cosmtrek/air@latest

@@ -1,12 +1,12 @@
-.PHONY: sync init backup homebrew node configs services
+.PHONY: sync init backup homebrew development configs services
 
-sync: homebrew zsh node configs services
+sync: homebrew zsh development configs services
 
 homebrew:
 	ansible-playbook -v ./playbooks/homebrew.yml
 
-node:
-	ansible-playbook -v ./playbooks/node.yml
+development:
+	ansible-playbook -v ./playbooks/development.yml
 
 configs:
 	ansible-playbook -v ./playbooks/configs.yml;
