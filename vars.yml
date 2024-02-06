@@ -67,6 +67,7 @@ node:
     - supabase
     - "@mermaid-js/mermaid-cli"
     - ghost-cli
+    - aicommits
 
 golang:
   global_installs:

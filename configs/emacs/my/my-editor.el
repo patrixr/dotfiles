@@ -4,6 +4,9 @@
   :straight t
   :hook (prog-mode . ws-butler-mode))
 
+(use-package add-node-modules-path
+  :straight (add-node-modules-path :type git :host github :repo "codesuki/add-node-modules-path"))
+
 ;; Highlighted current line
 
 (global-hl-line-mode 1)
@@ -21,7 +24,14 @@
 (use-package prettier-js
   :straight t
   :init
+  (add-hook 'typescript-mode-hook 'prettier-js-mode)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode))
+
+(eval-after-load 'js-mode
+  '(add-hook 'js-mode-hook #'add-node-modules-path))
+
+(eval-after-load 'typescript-mode
+  '(add-hook 'typescript-mode-hook #'add-node-modules-path))
 
 (provide 'my-editor)

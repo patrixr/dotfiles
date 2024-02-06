@@ -12,10 +12,11 @@
          (go-mode . lsp)
          (clojure-mode . lsp)
          (kotlin-mode . lsp)
+         (typescript-mode . lsp)
          ;; Prefer deno for typescript by disabling ts-ls
-         (typescript-mode . (lambda ()
-			     (setq lsp-disabled-clients '(jsts-ls ts-ls))
-			     (lsp-deferred)))
+         ;;(typescript-mode . (lambda ()
+		 ;;	                  (setq lsp-disabled-clients '(jsts-ls ts-ls))
+		 ;;	                  (lsp)))
          (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
