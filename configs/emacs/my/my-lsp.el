@@ -3,7 +3,10 @@
   :init (global-flycheck-mode))
 
 (use-package lsp-mode
-  :straight t
+  :straight (lsp-mode
+    :host github
+    :repo "emacs-lsp/lsp-mode"
+    :branch "master")
   :init
   (setq lsp-keymap-prefix "C-c l")
   (setq lsp-headerline-breadcrumb-enable nil)
@@ -15,8 +18,8 @@
          (typescript-mode . lsp)
          ;; Prefer deno for typescript by disabling ts-ls
          ;;(typescript-mode . (lambda ()
-		 ;;	                  (setq lsp-disabled-clients '(jsts-ls ts-ls))
-		 ;;	                  (lsp)))
+		     ;;	                  (setq lsp-disabled-clients '(jsts-ls ts-ls))
+		     ;;	                  (lsp)))
          (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
