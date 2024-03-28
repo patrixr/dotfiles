@@ -4,12 +4,18 @@
 (use-package rust-mode :straight t)
 (use-package python-mode :straight t)
 (use-package yaml-mode :straight t)
-(use-package markdown-mode :straight t)
 (use-package typescript-mode :straight t)
 (use-package clojure-mode :straight t)
 (use-package cider :straight t)
 (use-package kotlin-mode :straight t)
 (use-package go-mode :straight t)
+(use-package markdown-mode
+  :straight t
+  :config
+  (setq markdown-fontify-code-blocks-natively t)
+  (add-to-list 'markdown-code-lang-modes '("js" . typescript-mode))
+  (custom-set-faces
+   '(markdown-code-face ((t (:inherit font-lock-constant-face :background nil))))))
 
 (defun my-go-mode-hook ()
   (add-hook 'before-save-hook 'gofmt-before-save)
