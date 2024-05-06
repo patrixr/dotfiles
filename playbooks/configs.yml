@@ -16,3 +16,14 @@
       with_items:
         - "{{lookup('ansible.builtin.file', '../configs/zshrc.sh') }}"
         
+    - name: Configure Alacritty
+      ansible.builtin.copy:
+        src: ../configs/alacritty/
+        dest: ~/.config/alacritty/
+        remote_src: yes
+
+    - name: Clone Alacritty themes
+      ansible.builtin.git:
+        repo: git@github.com:alacritty/alacritty-theme.git
+        dest: ~/.config/alacritty/themes
+        update: no

@@ -55,6 +55,8 @@ homebrew:
     - wget
     - android-commandlinetools
     - gh
+    - font-meslo-lg-nerd-font # Alacritty
+    - powerlevel10k # Alacritty
 
 node:
   global:

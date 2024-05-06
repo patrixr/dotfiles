@@ -5,6 +5,10 @@ alias emacs="emacsclient -a ''"
 alias e="emacsclient -a ''"
 # emacs end
 
+# ZSH Theme
+source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+# ZSH Theme end
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
