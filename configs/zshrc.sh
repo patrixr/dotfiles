@@ -1,6 +1,9 @@
 export TERM=xterm-256color
 
-alias emacs="emacs -nw"
+# emacs
+alias emacs="emacsclient -a ''"
+alias e="emacsclient -a ''"
+# emacs end
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

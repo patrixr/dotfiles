@@ -10,7 +10,7 @@ homebrew:
 
   cask:
     - emacs
-    - vscodium
+    - vscode
     - redisinsight
     - docker
     - obsidian
@@ -25,7 +25,7 @@ homebrew:
     - authy
     - protonvpn
     - font-roboto-mono-nerd-font
-    - warp
+    - alacritty
     - android-studio
     - proton-drive
 
