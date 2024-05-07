@@ -21,6 +21,14 @@
 (add-to-list 'load-path "~/.config/emacs/nano")
 (add-to-list 'load-path "~/.config/emacs/my")
 
+(setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
+  backup-by-copying t    ; Don't delink hardlinks
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )
+
 ;; Custom
 (require 'my-straight)
 (require 'my-theme)

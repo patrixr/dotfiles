@@ -30,12 +30,11 @@ homebrew:
     - proton-drive
 
   packages:
+    # Basics
     - gnu-tar
     - cmake
-    - bun
-    - nvm
     - zsh
-    - terraform
+    - wget
     - pandoc
     - imagemagick
     - tmux
@@ -45,18 +44,31 @@ homebrew:
     - ffmpeg
     - watch
     - httpie
+    # JS / TS
+    - bun
     - deno
+    - nvm
+    # Golang
     - go
     - gopls
-    - supabase/tap/supabase
+    # Clojure toolkkit
     - clojure/tools/clojure
     - clojure-lsp/brew/clojure-lsp-native
     - leiningen
-    - wget
+    # Android
     - android-commandlinetools
+    # Misc
+    - supabase/tap/supabase
     - gh
-    - font-meslo-lg-nerd-font # Alacritty
-    - powerlevel10k # Alacritty
+    # Infra
+    - terraform
+    - ansible
+    # Terminal / Shell 
+    - font-meslo-lg-nerd-font # Font
+    - powerlevel10k # Themeing
+    - zsh-autosuggestions
+    - zsh-syntax-highlighting
+    - eza # better ls
 
 node:
   global:
