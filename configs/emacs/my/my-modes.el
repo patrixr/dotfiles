@@ -1,6 +1,7 @@
 ;; Language list
 (use-package json-mode :straight t)
 (use-package lua-mode :straight t)
+(use-package ruby-mode :straight t)
 (use-package rust-mode :straight t)
 (use-package python-mode :straight t)
 (use-package yaml-mode :straight t)

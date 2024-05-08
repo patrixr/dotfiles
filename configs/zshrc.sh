@@ -15,10 +15,19 @@ source $ZSH/oh-my-zsh.sh
 alias emacs="emacsclient -a ''"
 alias e="emacsclient -a ''"
 alias ls="eza --icons=always"
+alias killemacs="emacsclient -e '(kill-emacs)'"
 
 # --- Theming
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+# --- Ruby
+
+export PATH="/opt/homebrew/opt/ru/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
+export PATH="$PATH:$(gem env home)/bin"
 
 # --- NVM
 export NVM_DIR="$HOME/.nvm"

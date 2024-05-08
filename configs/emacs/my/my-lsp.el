@@ -11,6 +11,7 @@
   (setq lsp-keymap-prefix "C-c l")
   (setq lsp-headerline-breadcrumb-enable nil)
   :hook (
+         (ruby-mode . lsp)
          (python-mode . lsp)
          (go-mode . lsp)
          (clojure-mode . lsp)

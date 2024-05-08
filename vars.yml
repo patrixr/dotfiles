@@ -44,6 +44,7 @@ homebrew:
     - ffmpeg
     - watch
     - httpie
+    - ruby
     # JS / TS
     - bun
     - deno

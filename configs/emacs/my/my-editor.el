@@ -1,3 +1,7 @@
+;; Automatically reload files when they change on disk
+
+(global-auto-revert-mode t)
+
 ;; Automatic whitespace trimming
 
 (use-package ws-butler
