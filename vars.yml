@@ -60,6 +60,7 @@ homebrew:
     # Misc
     - supabase/tap/supabase
     - gh
+    - neofetch
     # Infra
     - terraform
     - ansible

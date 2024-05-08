@@ -18,6 +18,7 @@ alias ls="eza --icons=always"
 
 # --- Theming
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # --- NVM
 export NVM_DIR="$HOME/.nvm"
@@ -63,6 +64,8 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # --- Cheat Sheet
+
+neofetch
 
 cheatsheet() {
     echo -e "\033[1;34mTMUX Keyboard Shortcuts:\033[0m"

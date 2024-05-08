@@ -22,6 +22,12 @@
         dest: ~/.config/alacritty/
         remote_src: yes
 
+    - name: Configure Tmux
+      ansible.builtin.copy:
+        src: ../configs/tmux/
+        dest: ~/.config/tmux/
+        remote_src: yes
+
     - name: Clone Alacritty themes
       ansible.builtin.git:
         repo: git@github.com:alacritty/alacritty-theme.git
