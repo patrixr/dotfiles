@@ -71,6 +71,8 @@ homebrew:
     - zsh-autosuggestions
     - zsh-syntax-highlighting
     - eza # better ls
+    - love
+    - lua
 
 node:
   global:
