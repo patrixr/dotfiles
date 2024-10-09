@@ -13,6 +13,7 @@
   :hook (
          (ruby-mode . lsp)
          (python-mode . lsp)
+         (lua-mode . lsp)
          (go-mode . lsp)
          (clojure-mode . lsp)
          (kotlin-mode . lsp)
