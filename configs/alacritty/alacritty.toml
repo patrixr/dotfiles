@@ -1,4 +1,4 @@
-import = [
+general.import = [
   "~/.config/alacritty/themes/themes/nightfox.toml"
 ]
 
@@ -20,7 +20,7 @@ dynamic_title=true
 [font]
 
 normal.family = "MesloLGS Nerd Font Mono"
-size = 16
+size = 14
 
 [scrolling]
 history = 10000

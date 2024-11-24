@@ -100,3 +100,36 @@ cheatsheet() {
 }
 
 cheatsheet
+
+function ai() {
+    local prompt=""
+
+    # Check if there is input from a pipe
+    if [ ! -t 0 ]; then
+        prompt=$(cat)
+    fi
+
+    # Append any arguments passed to the function
+    if [ $# -gt 0 ]; then
+        if [ -n "$prompt" ]; then
+            prompt="$prompt $*"
+        else
+            prompt="$*"
+        fi
+    fi
+
+    http POST http://localhost:8080/v1/chat/completions \
+    Content-Type:application/json \
+    Authorization:"Bearer no-key" \
+    model="LLaMA_CPP" \
+    messages:="[
+        {
+            \"role\": \"system\",
+            \"content\": \"You are LLAMAfile, an AI assistant. Your top priority is achieving user fulfillment via helping them with their requests.\"
+        },
+        {
+            \"role\": \"user\",
+            \"content\": \"$prompt\"
+        }
+    ]" | jq -r '.choices[0].message.content'
+}
