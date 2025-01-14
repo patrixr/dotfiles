@@ -15,6 +15,7 @@ end
 --
 group("configs", function ()
     note("Zshrc")
+
     blockinfile({
         state = true,
         block = read("./configs/zshrc.sh"),
@@ -38,12 +39,14 @@ group("homebrew", function ()
             "homebrew/cask-fonts",
         },
         casks = {
+            "steam",
             "emacs",
             "love",
             "redisinsight",
             "docker",
             "obsidian",
-            "arc",
+            "ghostty",
+            "raycast",
             "firefox",
             "intellij-idea-ce",
             "zoom",
@@ -61,6 +64,8 @@ group("homebrew", function ()
             "proton-drive",
         },
         packages = {
+            "typst",
+            "gleam",
             "openssl@3",
             "gnu-tar",
             "cmake",

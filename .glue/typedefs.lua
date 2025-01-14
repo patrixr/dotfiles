@@ -140,5 +140,3 @@ function capitalize(txt) end
 ---@return string the file content
 ---
 function read(path) end
-
-
