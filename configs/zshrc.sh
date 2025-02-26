@@ -23,6 +23,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # --- Ruby
 
+export PATH="$HOME/.rvm/bin:$PATH"
 export PATH="/opt/homebrew/opt/ru/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
@@ -71,6 +72,10 @@ PATH="/opt/homebrew/bin:$PATH"
 # --- ZSH Plugins
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# --- Pipx
+
+export PATH=$PATH:/Users/patrick/.local/bin
 
 # --- Cheat Sheet
 

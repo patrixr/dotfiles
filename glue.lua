@@ -3,7 +3,7 @@
 --
 local function dotconfig(name)
     note(capitalize(name))
-    copy({
+    Copy({
         source = "./configs/" .. name,
         dest = "~/.config/" .. name,
         strategy = "merge"
@@ -16,29 +16,31 @@ end
 group("configs", function ()
     note("Zshrc")
 
-    blockinfile({
+    dotconfig("alacritty")
+    dotconfig("emacs")
+    dotconfig("tmux")
+
+    Blockinfile({
         state = true,
         block = read("./configs/zshrc.sh"),
         path = "~/.zshrc"
     })
-
-    dotconfig("alacritty")
-    dotconfig("emacs")
-    dotconfig("tmux")
 end)
 
 --
 -- Homebrew packages
 --
 group("homebrew", function ()
-    homebrew_install()
+    HomebrewInstall()
 
-    homebrew({
+    Homebrew({
         taps =  {
             "oven-sh/bun",
             "homebrew/cask-fonts",
+            "tronica/tap",
         },
         casks = {
+           "zen-browser",
             "steam",
             "emacs",
             "love",
@@ -47,7 +49,6 @@ group("homebrew", function ()
             "obsidian",
             "ghostty",
             "raycast",
-            "firefox",
             "intellij-idea-ce",
             "zoom",
             "microsoft-teams",
@@ -64,6 +65,8 @@ group("homebrew", function ()
             "proton-drive",
         },
         packages = {
+           "auteur",
+            "gnupg",
             "typst",
             "gleam",
             "openssl@3",
