@@ -147,3 +147,7 @@ USERNAME=$(whoami)
 PROTON_PATH=$(find "/Users/$USERNAME/Library/CloudStorage" -maxdepth 1 -name "ProtonDrive-*" -type d 2>/dev/null)
 
 [ -n "$PROTON_PATH" ] && hash -d proton=$PROTON_PATH
+
+# Clean of emacs backup files with ~ or # but ignore node_modules folders
+
+alias clean="find . -type f \( -name '*~' -o -name '#*#' \) ! -path '*/node_modules/*' -delete"

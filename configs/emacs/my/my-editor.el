@@ -2,6 +2,8 @@
 
 (global-auto-revert-mode t)
 
+(setq backup-directory-alist            '((".*" . "~/.Trash")))
+
 ;; Automatic whitespace trimming
 
 (use-package ws-butler

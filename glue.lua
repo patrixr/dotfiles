@@ -19,6 +19,7 @@ group("configs", function ()
     dotconfig("alacritty")
     dotconfig("emacs")
     dotconfig("tmux")
+    dotconfig("zed")
 
     Blockinfile({
         state = true,

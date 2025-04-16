@@ -1,0 +1,53 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-x o": "workspace::ActivateNextPane",
+      "alt-x": "command_palette::Toggle",
+      "ctrl-x ctrl-f": "file_finder::Toggle",
+      "ctrl-x p f": "file_finder::Toggle",
+      "ctrl-g": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-w": "editor::Copy",
+      "ctrl-x ctrl-s": "workspace::Save",
+      "ctrl-_": "editor::Undo",
+      "ctrl-y": "editor::Paste",
+      "ctrl-k": "editor::CutToEndOfLine",
+      "ctrl-right": "editor::MoveToNextWordEnd",
+      "ctrl-left": "editor::MoveToPreviousWordStart",
+      "ctrl-up": "editor::MoveToStartOfParagraph",
+      "ctrl-down": "editor::MoveToEndOfParagraph",
+      "ctrl-x right": "pane::ActivatePreviousItem",
+      "ctrl-x left": "pane::ActivateNextItem",
+      "ctrl-s": "buffer_search::Deploy",
+      "ctrl-r": "buffer_search::Deploy",
+      "alt-.": "editor::GoToDefinition"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-x 0": "pane::CloseActiveItem",
+      "ctrl-x 2": "pane::SplitDown",
+      "ctrl-x 3": "pane::SplitRight"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-y": "terminal::Paste",
+      "alt-w": "terminal::Copy"
+    }
+  }
+]

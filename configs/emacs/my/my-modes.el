@@ -1,11 +1,22 @@
 ;; Language list
+
+(use-package treesit-auto
+  :straight t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
 (use-package json-mode :straight t)
 (use-package lua-mode :straight t)
 (use-package ruby-mode :straight t)
 (use-package rust-mode :straight t)
 (use-package python-mode :straight t)
 (use-package yaml-mode :straight t)
-(use-package typescript-mode :straight t)
+(use-package typescript-ts-mode
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode)))
 (use-package clojure-mode :straight t)
 (use-package cider :straight t)
 (use-package kotlin-mode :straight t)
@@ -21,7 +32,6 @@
 (defun my-go-mode-hook ()
   (add-hook 'before-save-hook 'gofmt-before-save)
   (local-set-key (kbd "M-.") 'godef-jump)
-  (local-set-key (kbd "M-*") 'pop-tag-mark)
 )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
