@@ -17,6 +17,8 @@ alias e="emacsclient -a ''"
 alias ls="eza --icons=always"
 alias killemacs="emacsclient -e '(kill-emacs)'"
 
+git config --global alias.poc '!git push origin $(git rev-parse --abbrev-ref HEAD)'
+
 # --- Theming
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
