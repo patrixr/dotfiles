@@ -1,0 +1,39 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-x o": "workspace::ActivateNextPane",
+      "alt-x": "command_palette::Toggle",
+      "ctrl-x ctrl-f": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-w": "editor::Copy",
+      "ctrl-x ctrl-s": "workspace::Save",
+      "ctrl-shift-_": "editor::Undo",
+      "ctrl-right": "editor::MoveToNextWordEnd",
+      "ctrl-left": "editor::MoveToPreviousWordStart",
+      "ctrl-up": "editor::MoveToStartOfParagraph",
+      "ctrl-down": "editor::MoveToEndOfParagraph",
+      "ctrl-x right": "pane::ActivatePrevItem",
+      "ctrl-x left": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-x 0": "pane::CloseActiveItem",
+      "ctrl-x 2": "pane::SplitDown",
+      "ctrl-x 3": "pane::SplitRight"
+    }
+  }
+]
