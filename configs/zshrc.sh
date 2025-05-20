@@ -18,6 +18,7 @@ alias ls="eza --icons=always"
 alias killemacs="emacsclient -e '(kill-emacs)'"
 
 git config --global alias.poc '!git push origin $(git rev-parse --abbrev-ref HEAD)'
+git config --global alias.sync '!git pull origin $(git rev-parse --abbrev-ref HEAD)'
 
 # --- Theming
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
