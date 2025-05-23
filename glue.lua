@@ -30,12 +30,10 @@ group("configs", function ()
     Blockinfile({
         state = true,
         path = "~/.gitconfig",
-        block = trim([[
+        block = trim([=[
           [core]
-            pager = "delta"
-          [delta]
-            side-by-side = true
-        ]])
+            pager = DELTA_FEATURES=$([[ $COLUMNS -gt 160 ]] && echo "side-by-side") delta
+        ]=])
     })
 end)
 
