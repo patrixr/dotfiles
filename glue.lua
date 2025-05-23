@@ -26,6 +26,17 @@ group("configs", function ()
         block = read("./configs/zshrc.sh"),
         path = "~/.zshrc"
     })
+
+    Blockinfile({
+        state = true,
+        path = "~/.gitconfig",
+        block = trim([[
+          [core]
+            pager = "delta"
+          [delta]
+            side-by-side = true
+        ]])
+    })
 end)
 
 --
@@ -66,7 +77,8 @@ group("homebrew", function ()
             "proton-drive",
         },
         packages = {
-           "auteur",
+            "delta",
+            "auteur",
             "gnupg",
             "typst",
             "gleam",

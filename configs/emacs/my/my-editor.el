@@ -3,6 +3,9 @@
 (global-auto-revert-mode t)
 
 (setq backup-directory-alist            '((".*" . "~/.Trash")))
+(setq backup-by-copying t)
+(setq auto-save-file-name-transforms `((".", "~/.emacs-saves" t)))
+
 
 ;; Automatic whitespace trimming
 

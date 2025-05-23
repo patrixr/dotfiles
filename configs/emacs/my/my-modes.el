@@ -31,6 +31,7 @@
 
 (defun my-go-mode-hook ()
   (add-hook 'before-save-hook 'gofmt-before-save)
+  (setq-default tab-width 4)
   (local-set-key (kbd "M-.") 'godef-jump)
 )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
@@ -42,6 +43,7 @@
                     (set-auto-mode)))))
 
 (setq-default tab-width 2)
+(setq-default indent-tabs-mode nil)
 (setq-default typescript-indent-level 2)
 (setq-default js-indent-level 2)
 (setq-default yaml-indent-offset 2)

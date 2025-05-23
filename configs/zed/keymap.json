@@ -28,8 +28,8 @@
       "ctrl-left": "editor::MoveToPreviousWordStart",
       "ctrl-up": "editor::MoveToStartOfParagraph",
       "ctrl-down": "editor::MoveToEndOfParagraph",
-      "ctrl-x right": "pane::ActivatePreviousItem",
-      "ctrl-x left": "pane::ActivateNextItem",
+      "ctrl-x right": "pane::GoForward",
+      "ctrl-x left": "pane::GoBack",
       "ctrl-s": "buffer_search::Deploy",
       "ctrl-r": "buffer_search::Deploy",
       "alt-.": "editor::GoToDefinition"
