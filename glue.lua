@@ -23,6 +23,12 @@ group("configs", function ()
 
     Blockinfile({
         state = true,
+        block = read("./configs/nushell/config.nu"),
+        path = "~/Library/Application Support/nushell/config.nu"
+    })
+
+    Blockinfile({
+        state = true,
         block = read("./configs/zshrc.sh"),
         path = "~/.zshrc"
     })
