@@ -23,7 +23,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Base16 Sandcastle"
+    "dark": "Base16 Da One Sea"
   },
   "current_line_highlight": "all",
   "edit_predictions": {
@@ -39,6 +39,9 @@
   "terminal": {
     "toolbar": {
       "breadcrumbs": true
+    },
+    "shell": {
+      "program": "nu",
     },
     "font_size": 13,
     "dock": "right",

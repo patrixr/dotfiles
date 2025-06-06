@@ -20,6 +20,7 @@ group("configs", function ()
     dotconfig("emacs")
     dotconfig("tmux")
     dotconfig("zed")
+    dotconfig("ghostty")
 
     Blockinfile({
         state = true,
@@ -51,37 +52,9 @@ group("homebrew", function ()
 
     Homebrew({
         taps =  {
-            "oven-sh/bun",
-            "homebrew/cask-fonts",
-            "tronica/tap",
-        },
-        casks = {
-           "zen-browser",
-            "steam",
-            "emacs",
-            "love",
-            "redisinsight",
-            "docker",
-            "obsidian",
-            "ghostty",
-            "raycast",
-            "intellij-idea-ce",
-            "zoom",
-            "microsoft-teams",
-            "google-chrome",
-            "discord",
-            "godot",
-            "authy",
-            "protonvpn",
-            "font-roboto-mono-nerd-font",
-            "font-meslo-lg-nerd-font",
-            "android-commandlinetools",
-            "alacritty",
-            "android-studio",
-            "proton-drive",
-        },
         packages = {
             "delta",
+            "nushell",
             "auteur",
             "gnupg",
             "typst",
