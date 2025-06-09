@@ -13,6 +13,7 @@ $env.LDFLAGS = "-L/opt/homebrew/opt/ruby/lib"
 $env.CPPFLAGS = "-I/opt/homebrew/opt/ruby/include"
 $env.PKG_CONFIG_PATH = "/opt/homebrew/opt/ruby/lib/pkgconfig"
 
+path add ($env.HOME | path join ".volta/bin")
 path add ($env.ANDROID_HOME | path join "platform-tools")
 path add ($env.ANDROID_HOME | path join "tools")
 path add "/Users/prabier/Code/glue/.out"
