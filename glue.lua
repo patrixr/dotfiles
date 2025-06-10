@@ -21,6 +21,7 @@ group("configs", function ()
     dotconfig("tmux")
     dotconfig("zed")
     dotconfig("ghostty")
+    dotconfig("starship.toml")
 
     Blockinfile({
         state = true,
@@ -81,6 +82,7 @@ group("homebrew", function ()
             "proton-drive",
         },
         packages = {
+            "starship",
             "delta",
             "nushell",
             "auteur",

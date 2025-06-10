@@ -8,6 +8,10 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+(use-package
+  nushell-mode
+  :straight (nushell-mode :type git :host github :repo "mrkkrp/nushell-mode"))
+
 (use-package json-mode :straight t)
 (use-package lua-mode :straight t)
 (use-package ruby-mode :straight t)
