@@ -12,18 +12,28 @@ group "📦 Packages" {
     install network-manager-applet --sudo
     install volumeicon --sudo
     install rofi --sudo
+    install starship --sudo
     # install cerebro-bin --aur`
     #
     # pacman -S bc paru nerd-fonts
 }
 
 group "📁 Copy configurations" {
+    def conf-src [name: string] {
+        $env.FILE_PWD | path join ("configs/" + $name)
+    }
+
     def dotconf [name: string] {
-        let folder = $env.FILE_PWD | path join ("configs/" + $name)
+        let folder = conf-src $name
         cp -r $folder ~/.config
         print $"✅ ($name)"
     }
 
     dotconf i3
     dotconf polybar
+    dotconf zed
+    dotconf "starship.toml"
+
+    touch ~/.config/nushell/config.nu
+    cat (conf-src "nushell/config.nu") | inject $"($env.HOME)/.config/nushell/config.nu"
 }

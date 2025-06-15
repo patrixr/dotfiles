@@ -23,7 +23,6 @@ export def install [name: string, --aur, --sudo] {
 }
 
 export def inject [file_path] {
-    print $file_path
     let block_content = $in
     let start_marker_text = "# BEGIN MANAGED BLOCK"
     let end_marker_text = "# END MANAGED BLOCK"

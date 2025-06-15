@@ -30,8 +30,6 @@
       "ctrl-down": "editor::MoveToEndOfParagraph",
       "ctrl-x right": "pane::GoForward",
       "ctrl-x left": "pane::GoBack",
-      "ctrl-s": "buffer_search::Deploy",
-      "ctrl-r": "buffer_search::Deploy",
       "alt-.": "editor::GoToDefinition"
     }
   },

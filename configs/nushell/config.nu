@@ -26,9 +26,11 @@ path add "/opt/homebrew/bin"
 path add "/Users/patrick/.local/bin"
 path add "/usr/local/bin"
 
-let gem_home = (do -i { gem env home } | str trim)
-if $gem_home != "" {
-  path add ($gem_home | path join "bin")
+try {
+    let gem_home = (do -i { gem env home } | str trim)
+    if $gem_home != "" {
+        path add ($gem_home | path join "bin")
+    }
 }
 
 # --- Aliases

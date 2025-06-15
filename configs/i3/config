@@ -46,6 +46,7 @@ set $down k
 set $left j
 set $right semicolon
 set $mod Mod4
+set $alt Mod1
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -60,7 +61,11 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+q kill
 
+# Rofi
 bindsym $mod+space exec --no-startup-id rofi -show run
+
+# Alt tab
+bindsym $mod+Tab focus left
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
@@ -99,15 +104,15 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+3 layout stacking
-bindsym Mod1+2 layout tabbed
-bindsym Mod1+1 layout toggle split
+bindsym $alt+3 layout stacking
+bindsym $alt+2 layout tabbed
+bindsym $alt+1 layout toggle split
 
 # toggle tiling / floating
 #bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod1+Escape focus mode_toggle
+bindsym $alt+Escape focus mode_toggle3
 
 # focus the parent container
 bindsym $mod+a focus parent
