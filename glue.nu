@@ -1,3 +1,7 @@
+# ---------------------------------------------------------
+# --- Utils
+# ---------------------------------------------------------
+
 export def group [name: string block: closure] {
   print $"[--- ($name) ---]"
   do $block
@@ -6,6 +10,16 @@ export def group [name: string block: closure] {
 export def super-trim [] {
   $in | lines | each { str trim } | str join "\n"
 }
+
+export def macos [fn: closure] {
+  if $nu.os-info.name == "macos" {
+    do $fn
+  }
+}
+
+# -----------------------------------------------------
+# --- System tooling
+# -----------------------------------------------------
 
 export def install [name: string, --aur, --sudo] {
     let cmd = if $aur { "yay" } else { "pacman" }
@@ -42,4 +56,32 @@ export def inject [file_path] {
         "\n" + $start_marker_text + "\n" + $block_content + "\n" + $end_marker_text
     )
     $managed_block | save --append $file_path
+}
+
+# -----------------------------------------------------
+# --- Addons tooling
+# -----------------------------------------------------
+
+const vendor_path = $nu.data-dir | path join "vendor"
+const autoload_dir = $vendor_path | path join "autoload"
+
+export def vendor-install [repo: string, fn: closure] {
+    let name = $repo | path basename
+    let location = ($vendor_path | path join $name)
+
+    if ($location | path exists) == false {
+        mkdir $vendor_path
+        print $"::vendor-install ($name)"
+        git clone --depth=1 $"https://($repo)" $location
+        do $fn $location
+    }
+}
+
+export def autoload-script [name: string, fn: closure] {
+    let location = ($autoload_dir | path join $name)
+    if ($location | path exists) == false {
+        print $"::autoload-script ($name)"
+        mkdir $autoload_dir
+        do $fn | save -f $location
+    }
 }

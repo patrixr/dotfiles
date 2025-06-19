@@ -1,3 +1,4 @@
+
 --
 -- Copies a .config/x folder into the home
 --
@@ -23,10 +24,17 @@ group("configs", function ()
     dotconfig("ghostty")
     dotconfig("starship.toml")
 
+
     Blockinfile({
         state = true,
         block = read("./configs/nushell/config.nu"),
         path = "~/Library/Application Support/nushell/config.nu"
+    })
+
+    Copy({
+        source = "./glue.nu",
+        dest = "~/Library/Application Support/nushell/glue.nu",
+        strategy = "merge"
     })
 
     Blockinfile({

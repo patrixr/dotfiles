@@ -1,17 +1,13 @@
 use std/util "path add"
+use glue.nu *
 
 $env.config.buffer_editor = "emacs"
-
-$env.JAVA_HOME = "/opt/homebrew/opt/openjdk@17"
-$env.ANDROID_HOME = $"($env.HOME)/Library/Android/sdk"
+$env.EDITOR = "emacs"
 $env.AWS_PROFILE = "DevOps"
 $env.AWS_SDK_LOAD_CONFIG = "true"
-$env.NVM_DIR = $"($env.HOME)/.nvm"
 $env.GOPATH = $"($env.HOME)/go"
 # --- Ruby
-$env.LDFLAGS = "-L/opt/homebrew/opt/ruby/lib"
-$env.CPPFLAGS = "-I/opt/homebrew/opt/ruby/include"
-$env.PKG_CONFIG_PATH = "/opt/homebrew/opt/ruby/lib/pkgconfig"
+
 $env.GEM_HOME = $"($env.HOME)/.gem"
 $env.GEM_PATH = $"($env.HOME)/.gem"
 
@@ -22,9 +18,17 @@ path add "/Users/prabier/Code/glue/.out"
 path add ($env.HOME | path join ".rvm/bin")
 path add "/opt/homebrew/opt/ru/bin"
 path add ($env.GOPATH | path join "bin")
-path add "/opt/homebrew/bin"
 path add "/Users/patrick/.local/bin"
 path add "/usr/local/bin"
+
+macos {
+  path add "/opt/homebrew/bin"
+  $env.LDFLAGS = "-L/opt/homebrew/opt/ruby/lib"
+  $env.CPPFLAGS = "-I/opt/homebrew/opt/ruby/include"
+  $env.PKG_CONFIG_PATH = "/opt/homebrew/opt/ruby/lib/pkgconfig"
+  $env.JAVA_HOME = "/opt/homebrew/opt/openjdk@17"
+  $env.ANDROID_HOME = $"($env.HOME)/Library/Android/sdk"
+}
 
 try {
     let gem_home = (do -i { gem env home } | str trim)
@@ -50,19 +54,22 @@ git config --global alias.s '!git status -sb'
 # --- Containers
 # ---
 
-def sandbox [
-    image: string
-] {
+def sandbox [image: string] {
   docker run --rm -w /workspace -it -v ./:/workspace $image /bin/bash
 }
 
 # ---
-# --- Theming
+# --- Addons
 # ---
 
-# --------------------------------------------
-# Starship prompt
-# --------------------------------------------
+autoload-script "starship.nu" {
+  starship init nu
+}
 
-mkdir ($nu.data-dir | path join "vendor/autoload")
-starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+vendor-install "github.com/fj0r/ai.nu" { |location|
+  let import_path = $location | path join "ai"
+
+  autoload-script "ai.nu" {
+    $"use \"($import_path)\" *"
+  }
+}
