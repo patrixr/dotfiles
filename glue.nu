@@ -3,7 +3,7 @@
 # ---------------------------------------------------------
 
 export def group [name: string block: closure] {
-  print $"[--- ($name) ---]"
+  print $":: ($name)"
   do $block
 }
 
@@ -21,7 +21,7 @@ export def macos [fn: closure] {
 # --- System tooling
 # -----------------------------------------------------
 
-export def install [name: string, --aur, --sudo] {
+export def install [name: string, postinstall?: closure, --aur, --sudo] {
     let cmd = if $aur { "yay" } else { "pacman" }
     let search_result = run-external $cmd "-Qi" $name | complete
     if $search_result.exit_code == 0 {
@@ -33,6 +33,11 @@ export def install [name: string, --aur, --sudo] {
     } else {
       run-external $cmd "-S" $name "--noconfirm"
     }
+
+    if $postinstall != null {
+      do $postinstall
+    }
+
     print $"🆕 ($name)"
 }
 

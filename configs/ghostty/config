@@ -1,1 +1,4 @@
-command = /opt/homebrew/bin/nu
+command = nu
+background-opacity = 0.9
+theme = Argonaut
+font-size = 10

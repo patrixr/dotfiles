@@ -12,8 +12,6 @@ $env.GEM_HOME = $"($env.HOME)/.gem"
 $env.GEM_PATH = $"($env.HOME)/.gem"
 
 path add ($env.HOME | path join ".volta/bin")
-path add ($env.ANDROID_HOME | path join "platform-tools")
-path add ($env.ANDROID_HOME | path join "tools")
 path add "/Users/prabier/Code/glue/.out"
 path add ($env.HOME | path join ".rvm/bin")
 path add "/opt/homebrew/opt/ru/bin"
@@ -28,6 +26,8 @@ macos {
   $env.PKG_CONFIG_PATH = "/opt/homebrew/opt/ruby/lib/pkgconfig"
   $env.JAVA_HOME = "/opt/homebrew/opt/openjdk@17"
   $env.ANDROID_HOME = $"($env.HOME)/Library/Android/sdk"
+  path add ($env.ANDROID_HOME | path join "platform-tools")
+  path add ($env.ANDROID_HOME | path join "tools")
 }
 
 try {
