@@ -17,6 +17,12 @@ export def macos [fn: closure] {
   }
 }
 
+export def linux [fn: closure] {
+  if $nu.os-info.name == "linux" {
+    do $fn
+  }
+}
+
 # -----------------------------------------------------
 # --- System tooling
 # -----------------------------------------------------
