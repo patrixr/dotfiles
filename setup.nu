@@ -43,7 +43,7 @@ group "📦 User Packages" {
     install steam --sudo --cask
 }
 
-group "Development tools" {
+group "💻 Development tools" {
     cli-installer "volta" {
         bash -c "curl https://get.volta.sh | bash"
     }
@@ -64,7 +64,7 @@ group "Development tools" {
     }
 }
 
-group "Keybinds" {
+group "🎹 Keybinds" {
     linux {
         sudo mkdir -p /etc/keyd
         sudo cp (conf-src "keyd/default.conf") /etc/keyd/default.conf
@@ -91,11 +91,11 @@ group "📁 Dot configs" {
     rm -rf ~/.emacs.d
 }
 
-group "System setup" {
+group "🐧 System setup" {
     linux { glob (conf-src "greetd/*") | each { sudo cp $in /etc/greetd } }
 }
 
-group "Nushell config" {
+group "🐚 Nushell config" {
     touch $nu.config-path
     cat (conf-src "nushell/config.nu") | inject $nu.config-path
 }
@@ -123,6 +123,6 @@ group "🎨 Assets" {
     }
 }
 
-group "Reload" {
+group "♻️ Reload" {
     linux { hyprctl reload }
 }
