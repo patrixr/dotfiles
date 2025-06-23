@@ -80,7 +80,7 @@ group "📁 Dot configs" {
     def dotconf [name: string] {
         let folder = conf-src $name
         cp -r $folder ~/.config
-        print $"✅ ($name)"
+        print $":: ✔️ .configs/($name)"
     }
 
     linux {
@@ -101,7 +101,11 @@ group "🐧 System setup" {
 
 group "🐚 Nushell config" {
     touch $nu.config-path
-    cat ($env.FILE_PWD | path join "nushell.nu") | inject $nu.config-path
+    cat ($env.FILE_PWD | path join "nushell.nu") | inject into $nu.config-path
+
+    nu-autoload-script "starship.nu" {
+      starship init nu
+    }
 }
 
 group "📓 Zed configuration" {

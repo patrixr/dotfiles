@@ -6,17 +6,12 @@ $env.EDITOR = "emacs"
 $env.AWS_PROFILE = "DevOps"
 $env.AWS_SDK_LOAD_CONFIG = "true"
 $env.GOPATH = $"($env.HOME)/go"
-# --- Ruby
-
 $env.GEM_HOME = $"($env.HOME)/.gem"
 $env.GEM_PATH = $"($env.HOME)/.gem"
 
 path add ($env.HOME | path join ".volta/bin")
-path add "/Users/prabier/Code/glue/.out"
 path add ($env.HOME | path join ".rvm/bin")
-path add "/opt/homebrew/opt/ru/bin"
 path add ($env.GOPATH | path join "bin")
-path add "/Users/patrick/.local/bin"
 path add "/usr/local/bin"
 
 macos {
@@ -56,20 +51,4 @@ git config --global alias.s '!git status -sb'
 
 def sandbox [image: string] {
   docker run --rm -w /workspace -it -v ./:/workspace $image /bin/bash
-}
-
-# ---
-# --- Addons
-# ---
-
-autoload-script "starship.nu" {
-  starship init nu
-}
-
-vendor-install "github.com/fj0r/ai.nu" { |location|
-  let import_path = $location | path join "ai"
-
-  autoload-script "ai.nu" {
-    $"use \"($import_path)\" *"
-  }
 }
