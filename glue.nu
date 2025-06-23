@@ -11,20 +11,101 @@ export def super-trim [] {
   $in | lines | each { str trim } | str join "\n"
 }
 
+export def macos? []: nothing -> bool {
+  $nu.os-info.name == "macos"
+}
+
+export def linux? [] {
+  $nu.os-info.name == "linux"
+}
+
 export def macos [fn: closure] {
-  if $nu.os-info.name == "macos" {
+  if (macos?) {
     do $fn
   }
 }
 
 export def linux [fn: closure] {
-  if $nu.os-info.name == "linux" {
+  if (linux?) {
     do $fn
   }
 }
 
 export def can-run [cmd: string] {
     (which $cmd | length) > 0
+}
+
+export def boom [msg: string] {
+    error make { msg: $msg }
+}
+
+export def platorm-do [plan: record] {
+    if (macos?) and ("macos" in $plan) {
+        do $plan.macos
+    } else if (linux?) and ("linux" in $plan) {
+        do $plan.linux
+    } else if ("default" in $plan) {
+        do $plan.default
+    } else {
+        boom $"No implementation for the current platform: ($nu.os-info.name)"
+    }
+}
+
+# Source: https://github.com/NotTheDr01ds/ntd-nushell_scripts
+export def unindent []: string -> string {
+  let text = $in
+  let length = ($text | lines | length)
+
+  let lines = $text | lines
+
+  # Determine if first and/or last lines are empty and should be dropped
+  let doNothing = {||}
+  let ifSkipFirst = match ($lines | first | str trim) {
+    "" => {{skip}}
+    _ => {$doNothing}
+  }
+  let ifDropLast = match ($lines | last | str trim) {
+    "" => {{drop}}
+    _ => {$doNothing}
+  }
+
+  let lines = (
+    $lines
+    | do $ifSkipFirst
+    | do $ifDropLast
+  )
+  | # Convert list to table
+  | wrap text
+
+  let minimumIndent = (
+    # Add a column to each row with the number of leading spaces
+    $lines | insert indent {|line|
+      if ($line.text | str trim | is-empty) {
+        # If the line contains only whitespace, don't consider it
+        null
+      } else {
+        $line.text
+        | parse -r '^(?<indent> +)'
+        | get indent.0?
+        | default ''
+        | str length
+      }
+    }
+    | # And return the minimum
+    | get indent
+    | math min
+  )
+
+  let spaces = ('' | fill -c ' ' -w $minimumIndent)
+
+  $lines
+  | update text {|line|
+      $line.text
+      | str replace -r $'^($spaces)' ''
+    }
+  | get text
+  | to text
+
 }
 
 # -----------------------------------------------------
@@ -37,17 +118,41 @@ export def cli-installer [cmd: string, cl: closure] {
     }
 }
 
-export def install [name: string, postinstall?: closure, --aur, --sudo] {
-    let cmd = if $aur { "yay" } else { "pacman" }
-    let search_result = run-external $cmd "-Qi" $name | complete
-    if $search_result.exit_code == 0 {
-      print $"✅ ($name)"
-      return
+def is-installed [name: string] {
+    platorm-do ({
+        linux: {
+            let search_result_1 = run-external "pacman" "-Qi" $name | complete
+            let search_result_2 = run-external "yay" "-Qi" $name | complete
+            return (($search_result_1.exit_code == 0) or ($search_result_2.exit_code == 0))
+        },
+        macos: {
+            let search_result = run-external "brew" "list" $name | complete
+            return ($search_result.exit_code == 0)
+        }
+    })
+}
+
+export def install [name: string, postinstall?: closure, --aur, --sudo, --cask] {
+    if (is-installed $name) {
+        print $"✅ ($name)"
+        return
     }
-    if $sudo {
-      run-external "sudo" $cmd "-S" $name "--noconfirm"
-    } else {
-      run-external $cmd "-S" $name "--noconfirm"
+
+    linux {
+        let cmd = if $aur { "yay" } else { "pacman" }
+        if $sudo {
+            run-external "sudo" $cmd "-S" $name "--noconfirm"
+        } else {
+            run-external $cmd "-S" $name "--noconfirm"
+        }
+    }
+
+    macos {
+        if $cask {
+            run-external "brew" "install" "--cask" $name
+        } else {
+            run-external "brew" "install" $name
+        }
     }
 
     if $postinstall != null {

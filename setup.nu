@@ -4,8 +4,8 @@ def conf-src [name: string] {
     $env.FILE_PWD | path join ("configs/" + $name)
 }
 
-linux {
-    group "📦 System Packages" {
+group "📦 System Packages" {
+    linux {
         install hyprland --sudo
         install hypridle --sudo
         install hyprlock --sudo
@@ -35,11 +35,23 @@ linux {
             sudo systemctl -f start bluetooth.service
         }
     }
+}
 
-    group "📦 User Packages" {
-        install zed --aur
-        install starship --sudo
-        install steam --sudo
+group "📦 User Packages" {
+    install zed --aur --cask
+    install starship --sudo
+    install steam --sudo --cask
+}
+
+group "Development tools" {
+    cli-installer "volta" {
+        bash -c "curl https://get.volta.sh | bash"
+    }
+
+    install go --sudo
+    install docker-desktop --aur
+
+    linux {
         install zen-browser-bin --aur
 
         # For zed
@@ -47,60 +59,61 @@ linux {
         install vulkan-intel --sudo
     }
 
-    group "Development tools" {
-        cli-installer "volta" {
-            bash -c "curl https://get.volta.sh | bash"
-        }
-
-        install go --sudo
-        install docker-desktop --aur
+    macos {
+        install zen --cask
     }
+}
 
-    group "Keybinds" {
+group "Keybinds" {
+    linux {
         sudo mkdir -p /etc/keyd
         sudo cp (conf-src "keyd/default.conf") /etc/keyd/default.conf
         sudo keyd reload
     }
+}
 
-    group "📁 Dot configs" {
-        def dotconf [name: string] {
-            let folder = conf-src $name
-            cp -r $folder ~/.config
-            print $"✅ ($name)"
-        }
+group "📁 Dot configs" {
+    def dotconf [name: string] {
+        let folder = conf-src $name
+        cp -r $folder ~/.config
+        print $"✅ ($name)"
+    }
 
+    linux {
         dotconf hypr
         dotconf waybar
-        dotconf emacs
-        dotconf ghostty
         dotconf fuzzel
-        dotconf "starship.toml"
-
-        rm -rf ~/.emacs.d
     }
+    dotconf emacs
+    dotconf ghostty
+    dotconf "starship.toml"
 
-    group "System setup" {
-        glob (conf-src "greetd/*") | each { sudo cp $in /etc/greetd }
-    }
+    rm -rf ~/.emacs.d
+}
 
-    group "Nushell config" {
-        touch ~/.config/nushell/config.nu
-        cat (conf-src "nushell/config.nu") | inject $"($env.HOME)/.config/nushell/config.nu"
-    }
+group "System setup" {
+    linux { glob (conf-src "greetd/*") | each { sudo cp $in /etc/greetd } }
+}
 
-    group "📓 Zed configuration" {
-        let current_config = open ~/.config/zed/settings.json
-        let saved_config = open (conf-src "zed/settings.json")
+group "Nushell config" {
+    touch $nu.config-path
+    cat (conf-src "nushell/config.nu") | inject $nu.config-path
+}
 
-        $current_config | merge $saved_config | save -f  ~/.config/zed/settings.json
-        cp (conf-src "zed/keymap.json") ~/.config/zed/
-    }
+group "📓 Zed configuration" {
+    let current_config = open ~/.config/zed/settings.json
+    let saved_config = open (conf-src "zed/settings.json")
 
-    group "💾 Install glue.nu" {
-        cp  ($env.FILE_PWD | path join "glue.nu")  ~/.config/nushell
-    }
+    $current_config | merge $saved_config | save -f  ~/.config/zed/settings.json
+    cp (conf-src "zed/keymap.json") ~/.config/zed/
+}
 
-    group "🎨 Assets" {
+group "💾 Install glue.nu" {
+    cp  ($env.FILE_PWD | path join "glue.nu") $nu.default-config-dir
+}
+
+group "🎨 Assets" {
+    linux {
         let selected_bg = "bg-3.jpg"
 
         mkdir ~/Pictures/system
@@ -108,8 +121,8 @@ linux {
         sudo cp ($env.FILE_PWD | path join "images" | path join $selected_bg) /etc/greetd/bg.jpg
         cp ($env.FILE_PWD | path join "images" | path join $selected_bg) ~/Pictures/system/active-bg.jpg
     }
+}
 
-    group "Reload" {
-        hyprctl reload
-    }
+group "Reload" {
+    linux { hyprctl reload }
 }
