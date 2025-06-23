@@ -1,5 +1,5 @@
 use std/util "path add"
-use glue.nu *
+use glue *
 
 $env.config.buffer_editor = "emacs"
 $env.EDITOR = "emacs"

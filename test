@@ -1,6 +1,0 @@
-2024/11/18 09:45:12 [1;38;5;86mINFO[0m [%s] [2mconfigs[0m[2m=[0m"missing value"
-2024/11/18 09:45:12 [1;38;5;86mINFO[0m [%s] [2mconfigs > zsh[0m[2m=[0m"missing value"
-2024/11/18 09:45:12 [1;38;5;86mINFO[0m [Copy] [2msrc[0m[2m=[0m./configs/alacritty [2mdst[0m[2m=[0m~/.config/alacritty
-2024/11/18 09:45:12 [1;38;5;86mINFO[0m [Copy] [2msrc[0m[2m=[0m./configs/emacs [2mdst[0m[2m=[0m~/.config/emacs
-2024/11/18 09:45:12 [1;38;5;86mINFO[0m [Copy] [2msrc[0m[2m=[0m./configs/tmux [2mdst[0m[2m=[0m~/.config/tmux
-2024/11/18 09:45:12 [1;38;5;86mINFO[0m Glue completed successfully

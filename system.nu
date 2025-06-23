@@ -1,4 +1,4 @@
-use glue.nu *
+use glue *
 
 def conf-src [name: string] {
     $env.FILE_PWD | path join ("configs/" + $name)
@@ -49,18 +49,22 @@ group "💻 Development tools" {
     }
 
     install go --sudo
-    install docker-desktop --aur
+    install docker-desktop --aur --cask
+    install imagemagick --sudo
+    install ffmpeg --sudo
+    install deno --sudo
+    install love --sudo
 
     linux {
         install zen-browser-bin --aur
-
-        # For zed
+        install emacs-nox --sudo
         install vulkan-icd-loader --sudo
         install vulkan-intel --sudo
     }
 
     macos {
         install zen --cask
+        install emacs
     }
 }
 
@@ -97,7 +101,7 @@ group "🐧 System setup" {
 
 group "🐚 Nushell config" {
     touch $nu.config-path
-    cat (conf-src "nushell/config.nu") | inject $nu.config-path
+    cat ($env.FILE_PWD | path join "nushell.nu") | inject $nu.config-path
 }
 
 group "📓 Zed configuration" {
@@ -109,7 +113,7 @@ group "📓 Zed configuration" {
 }
 
 group "💾 Install glue.nu" {
-    cp  ($env.FILE_PWD | path join "glue.nu") $nu.default-config-dir
+    cp -r ($env.FILE_PWD | path join "glue") $nu.default-config-dir
 }
 
 group "🎨 Assets" {

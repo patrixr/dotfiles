@@ -134,7 +134,7 @@ def is-installed [name: string] {
 
 export def install [name: string, postinstall?: closure, --aur, --sudo, --cask] {
     if (is-installed $name) {
-        print $"✅ ($name)"
+        print $"::✔️ ($name)"
         return
     }
 
