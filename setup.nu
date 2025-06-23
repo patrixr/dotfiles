@@ -101,11 +101,12 @@ linux {
     }
 
     group "🎨 Assets" {
-        let greetd_bg = "bg-3.jpg"
+        let selected_bg = "bg-3.jpg"
 
         mkdir ~/Pictures/system
         glob ($env.FILE_PWD | path join "images/*") | each { cp $in ~/Pictures/system }
-        sudo cp ($env.FILE_PWD | path join "images" | path join $greetd_bg) /etc/greetd/bg.jpg
+        sudo cp ($env.FILE_PWD | path join "images" | path join $selected_bg) /etc/greetd/bg.jpg
+        cp ($env.FILE_PWD | path join "images" | path join $selected_bg) ~/Pictures/system/active-bg.jpg
     }
 
     group "Reload" {
