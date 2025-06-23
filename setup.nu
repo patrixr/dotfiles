@@ -41,6 +41,19 @@ linux {
         install starship --sudo
         install steam --sudo
         install zen-browser-bin --aur
+
+        # For zed
+        install vulkan-icd-loader --sudo
+        install vulkan-intel --sudo
+    }
+
+    group "Development tools" {
+        cli-installer "volta" {
+            bash -c "curl https://get.volta.sh | bash"
+        }
+
+        install go --sudo
+        install docker-desktop --aur
     }
 
     group "Keybinds" {
@@ -60,6 +73,7 @@ linux {
         dotconf waybar
         dotconf emacs
         dotconf ghostty
+        dotconf fuzzel
         dotconf "starship.toml"
 
         rm -rf ~/.emacs.d
@@ -87,7 +101,7 @@ linux {
     }
 
     group "🎨 Assets" {
-        let greetd_bg = "bg-1.jpg"
+        let greetd_bg = "bg-3.jpg"
 
         mkdir ~/Pictures/system
         glob ($env.FILE_PWD | path join "images/*") | each { cp $in ~/Pictures/system }

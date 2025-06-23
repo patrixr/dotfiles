@@ -23,9 +23,19 @@ export def linux [fn: closure] {
   }
 }
 
+export def can-run [cmd: string] {
+    (which $cmd | length) > 0
+}
+
 # -----------------------------------------------------
 # --- System tooling
 # -----------------------------------------------------
+
+export def cli-installer [cmd: string, cl: closure] {
+    if (can-run $cmd) == false {
+        do $cl
+    }
+}
 
 export def install [name: string, postinstall?: closure, --aur, --sudo] {
     let cmd = if $aur { "yay" } else { "pacman" }
