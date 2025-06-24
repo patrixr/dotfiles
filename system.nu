@@ -41,6 +41,10 @@ group "📦 User Packages" {
     install zed --aur --cask
     install starship --sudo
     install steam --sudo --cask
+
+    linux {
+      install slack-desktop --aur
+    }
 }
 
 group "💻 Development tools" {
