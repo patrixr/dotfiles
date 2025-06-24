@@ -58,7 +58,13 @@ group "💻 Development tools" {
     install ffmpeg --sudo
     install deno --sudo
     install love --sudo
-    install git-delta --sudo
+
+    install git-delta --sudo {
+      ('
+      [core]
+        pager = DELTA_FEATURES=$([[ $COLUMNS -gt 160 ]] && echo "side-by-side") delta
+      ') | unindent | inject into ($env.HOME | path join ".gitconfig")
+    }
 
     linux {
         install zen-browser-bin --aur
