@@ -58,6 +58,7 @@ group "💻 Development tools" {
     install ffmpeg --sudo
     install deno --sudo
     install love --sudo
+    install git-delta --sudo
 
     linux {
         install zen-browser-bin --aur
