@@ -42,6 +42,8 @@ alias ll = ls -l
 alias fg = job unfreeze
 
 git config --global alias.poc '!git push origin $(git rev-parse --abbrev-ref HEAD)'
+git config --global alias.up '!git push origin $(git rev-parse --abbrev-ref HEAD)'
+git config --global alias.down '!git pull origin $(git rev-parse --abbrev-ref HEAD)'
 git config --global alias.co checkout
 git config --global alias.s '!git status -sb'
 
