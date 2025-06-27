@@ -14,7 +14,7 @@ path add ($env.HOME | path join ".rvm/bin")
 path add ($env.GOPATH | path join "bin")
 path add "/usr/local/bin"
 
-macos {
+if (macos?) {
   path add "/opt/homebrew/bin"
   $env.LDFLAGS = "-L/opt/homebrew/opt/ruby/lib"
   $env.CPPFLAGS = "-I/opt/homebrew/opt/ruby/include"
