@@ -35,6 +35,8 @@ group "📦 System Packages" {
             sudo systemctl -f start bluetooth.service
         }
     }
+
+    install sshpass --sudo
 }
 
 group "📦 User Packages" {
@@ -140,6 +142,21 @@ group "🎨 Assets" {
         sudo cp ($env.FILE_PWD | path join "images" | path join $selected_bg) /etc/greetd/bg.jpg
         cp ($env.FILE_PWD | path join "images" | path join $selected_bg) ~/Pictures/system/active-bg.jpg
     }
+}
+
+group "Homelab" {
+  let ip = "192.168.1.103"
+  let user = "pi"
+
+  if (sshable $ip) {
+    let pw = input ":: Pi password: " --suppress-output
+    let remote_file = "/tmp/homelab.yml"
+    let host = $"($user)@($ip)"
+
+    sshpass -p $pw ssh $host  'command -v docker >/dev/null 2>&1 || curl -fsSL https://get.docker.com | bash'
+    sshpass -p $pw scp $"($env.FILE_PWD)/homelab.yml" $"($host):($remote_file)"
+    sshpass -p $pw ssh $host  $"sudo docker compose --file ($remote_file) up --force-recreate -d"
+  }
 }
 
 group "♻️ Reload" {

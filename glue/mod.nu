@@ -250,3 +250,17 @@ export def nu-autoload-script [name: string, fn: closure] {
         do $fn | save -f $location
     }
 }
+
+# --------------------------------------------------
+# --- Remote tools
+# --------------------------------------------------
+
+export def sshable [ip: string, fn?: closure] {
+  if ((ssh-keyscan $ip) | complete | get exit_code) == 0 {
+    if $fn != null { do $fn $ip }
+    return true
+  }
+
+  print $":: ($ip) not accessible"
+  return false
+}
