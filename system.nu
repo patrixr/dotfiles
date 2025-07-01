@@ -136,7 +136,7 @@ group "💾 Install glue.nu" {
 group "🎨 Assets" {
     linux {
         let ultrawide = hyprctl monitors | str contains "3440x"
-        let selected_bg = if $ultrawide { "bg-wide-3.jpg" } else { "bg-3.jpg" }
+        let selected_bg = if $ultrawide { "bg-wide-1.jpg" } else { "bg-3.jpg" }
 
         mkdir ~/Pictures/system
         glob ($env.FILE_PWD | path join "images/*") | each { cp $in ~/Pictures/system }
