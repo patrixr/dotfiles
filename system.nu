@@ -17,7 +17,7 @@ group "📦 System Packages" {
         install fuzzel --sudo
         install thunar --sudo
         install keyd --sudo {
-            sudo usermod -aG keyd $env.USER
+            sudo usermod -aG keyd $env.USERq
             sudo systemctl -f enable keyd.service
             sudo systemctl -f start keyd.service
         }
@@ -135,7 +135,8 @@ group "💾 Install glue.nu" {
 
 group "🎨 Assets" {
     linux {
-        let selected_bg = "bg-3.jpg"
+        let ultrawide = hyprctl monitors | str contains "3440x"
+        let selected_bg = if $ultrawide { "bg-wide-3.jpg" } else { "bg-3.jpg" }
 
         mkdir ~/Pictures/system
         glob ($env.FILE_PWD | path join "images/*") | each { cp $in ~/Pictures/system }
@@ -145,6 +146,8 @@ group "🎨 Assets" {
 }
 
 group "Homelab" {
+  return # disabled
+
   let ip = "192.168.1.103"
   let user = "pi"
 

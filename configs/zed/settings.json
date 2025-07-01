@@ -43,12 +43,6 @@
     "background_coloring": "disabled",
     "active_line_width": 2
   },
-  "format_on_save": "on",
-  "code_actions_on_format": {
-    "source.fixAll.eslint": true,
-    "source.removeUnusedImports": true,
-    "source.organizeImports": true
-  },
   "scrollbar": {
     "show": "auto",
     "cursors": true,
@@ -60,6 +54,35 @@
     "axes": {
       "horizontal": false,
       "vertical": true
+    }
+  },
+  "format_on_save": "on",
+  "code_actions_on_format": {
+    "source.fixAll.eslint": true,
+    "source.removeUnusedImports": true,
+    "source.organizeImports": true
+  },
+  "languages": {
+    "TypeScript": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on"
+    },
+    "TSX": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on"
+    },
+    "JavaScript": {
+      "formatter": "prettier",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on"
     }
   }
 }
