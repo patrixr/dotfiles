@@ -73,6 +73,7 @@ group "💻 Development tools" {
         install emacs-nox --sudo
         install vulkan-icd-loader --sudo
         install vulkan-intel --sudo
+        install pulumi --sudo
     }
 
     macos {

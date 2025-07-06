@@ -17,7 +17,7 @@
     "mode": "subtle"
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "zed"
   },
   "tab_size": 2,
   "tab_bar": {
@@ -63,22 +63,52 @@
     "source.organizeImports": true
   },
   "languages": {
+    "JavaScript": {
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": [
+            "--yes",
+            "prettier",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on"
+    },
     "TypeScript": {
-      "formatter": "prettier",
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": [
+            "--yes",
+            "prettier",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
       "code_actions_on_format": {
         "source.fixAll.eslint": true
       },
       "format_on_save": "on"
     },
     "TSX": {
-      "formatter": "prettier",
-      "code_actions_on_format": {
-        "source.fixAll.eslint": true
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": [
+            "--yes",
+            "prettier",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
       },
-      "format_on_save": "on"
-    },
-    "JavaScript": {
-      "formatter": "prettier",
       "code_actions_on_format": {
         "source.fixAll.eslint": true
       },
