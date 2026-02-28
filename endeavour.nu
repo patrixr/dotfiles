@@ -11,7 +11,7 @@ group "📦 System Packages" {
   install ghostty --sudo
   install fuzzel --sudo
   install ttf-jetbrains-mono-nerd --sudo
-  install xwayland-satelite --sudo
+  install xwayland-satellite --sudo
 
   # install hyprland --sudo
   # install hypridle --sudo
