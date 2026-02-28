@@ -14,7 +14,10 @@ group "📦 System Packages" {
   install ttf-jetbrains-mono-nerd --sudo
   install xwayland-satellite --sudo
   install adw-gtk-theme --aur
-  install nwg-look --aur
+  install nwg-look --aur {
+    gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  }
 }
 
 group "📁 System dot configs" {
