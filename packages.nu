@@ -7,7 +7,6 @@ def conf-src [name: string] {
 group "📦 User Packages" {
   install zed --aur --cask
   install steam --sudo --cask
-  install beekeeper-studio --sudo --cask
 }
 
 group "💻 Development tools" {
