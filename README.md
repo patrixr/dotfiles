@@ -9,5 +9,6 @@ Written in [nushell](https://www.nushell.sh/).
 ## Getting started
 
 ```bash
-make
+make system
+make packages
 ```

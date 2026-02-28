@@ -1,4 +1,9 @@
  .PHONY: default
 
-default:
-	nu ./system.nu $(group)
+ all: packages system
+
+packages:
+	nu ./packages.nu
+
+system:
+	nu ./endeavour.nu
