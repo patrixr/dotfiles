@@ -43,3 +43,16 @@ group "📦 System Packages" {
   #     sudo systemctl -f start bluetooth.service
   # }
 }
+
+group "📁 Dot configs" {
+    def dotconf [name: string] {
+        let folder = conf-src $name
+        cp -r $folder ~/.config
+        print $":: ✔️ .configs/($name)"
+    }
+
+    dotconf fuzzel
+    dotconf niri
+
+    rm -rf ~/.emacs.d
+}
