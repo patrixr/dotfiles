@@ -10,8 +10,8 @@ group "📦 System Packages" {
   install noctalia-shell --aur
   install ghostty --sudo
   install fuzzel --sudo
-  install ttf-jetbrains-mono-nerd
-  install xwayland-sattelite
+  install ttf-jetbrains-mono-nerd --sudo
+  install xwayland-sattelite --sudo
 
   # install hyprland --sudo
   # install hypridle --sudo
