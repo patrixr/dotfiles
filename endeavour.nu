@@ -6,11 +6,11 @@ def conf-src [name: string] {
 }
 
 group "📦 System Packages" {
-  install niri --aur --sudo
-  install noctalia-shell --aur --sudo
+  install niri --aur
+  install noctalia-shell --aur
   install ghostty --sudo
   install fuzzel --sudo
-  install ttf-jetbrains-mono-nerd --sudo
+  install ttf-jetbrains-mono-nerd
   install xwayland-sattelite
 
   # install hyprland --sudo
