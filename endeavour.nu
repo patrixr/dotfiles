@@ -24,10 +24,11 @@ group "📁 System dot configs" {
 
   dotconf niri
 }
-
 group "🖼️ Wallpapers" {
   mkdir ~/Pictures/Wallpapers
   let images_folder = $env.FILE_PWD | path join "images"
-  cp -r ($images_folder | path join "*") ~/Pictures/Wallpapers/
+  for file in (ls $images_folder | where type == file) {
+    cp $file.name ~/Pictures/Wallpapers/
+  }
   print ":: ✔️ Wallpapers copied to ~/Pictures/Wallpapers"
 }
