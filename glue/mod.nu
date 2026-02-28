@@ -199,6 +199,11 @@ export def "inject into" [file_path] {
     let block_content = $in
     let start_marker_text = "# BEGIN MANAGED BLOCK"
     let end_marker_text = "# END MANAGED BLOCK"
+
+    # Ensure the directory exists and touch the file
+    mkdir ($file_path | path dirname)
+    touch $file_path
+
     let existing_content = open $file_path
     let start_marker_search = ($existing_content | lines | enumerate | where $it.item == $start_marker_text)
     let end_marker_search = ($existing_content | lines | enumerate | where $it.item == $end_marker_text)
