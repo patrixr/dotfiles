@@ -170,9 +170,9 @@ export def install [name: string, postinstall?: closure, --aur, --sudo, --cask] 
     linux {
         let cmd = if $aur { "yay" } else { "pacman" }
         if $sudo {
-            run-external "sudo" $cmd "-S" $name "--noconfirm"
+            run-external "sudo" $cmd "-S" $name
         } else {
-            run-external $cmd "-S" $name "--noconfirm"
+            run-external $cmd "-S" $name
         }
     }
 
