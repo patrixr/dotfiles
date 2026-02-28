@@ -10,6 +10,7 @@ group "📦 System Packages" {
   install noctalia-shell --aur
   install ghostty --sudo
   install fuzzel --sudo
+  install swaybg --sudo
   install ttf-jetbrains-mono-nerd --sudo
   install xwayland-satellite --sudo
 
