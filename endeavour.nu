@@ -13,6 +13,8 @@ group "📦 System Packages" {
   install swaybg --sudo
   install ttf-jetbrains-mono-nerd --sudo
   install xwayland-satellite --sudo
+  install adw-gtk-theme --aur
+  install nwg-look --aur
 }
 
 group "📁 System dot configs" {
