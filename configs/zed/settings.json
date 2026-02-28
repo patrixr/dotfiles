@@ -1,13 +1,29 @@
 {
+  "ssh_connections": [
+    {
+      "host": "139.59.109.77",
+      "username": "root",
+      "nickname": "Rhys' server",
+      "projects": [
+        {
+          "paths": ["/etc/nginx"]
+        }
+      ]
+    }
+  ],
+  "agent": {
+    "inline_assistant_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet"
+    },
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
+    }
+  },
+  "theme": "Le Blackque orange italic",
   "outline_panel": {
     "dock": "right"
-  },
-  "agent": {
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-4o"
-    },
-    "version": "2"
   },
   "cursor_shape": "block",
   "ui_font_size": 15,

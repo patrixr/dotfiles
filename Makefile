@@ -1,4 +1,4 @@
  .PHONY: default
 
 default:
-	nu ./system.nu
+	nu ./system.nu $(group)

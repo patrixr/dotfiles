@@ -1,4 +1,5 @@
-command = nu
-background-opacity = 0.9
-theme = Argonaut
-font-size = 10
+command = /opt/homebrew/bin/nu
+background-opacity = 1
+theme = ayu
+font-size = 11
+macos-option-as-alt = true

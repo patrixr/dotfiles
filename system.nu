@@ -1,5 +1,6 @@
 use glue *
 
+
 def conf-src [name: string] {
     $env.FILE_PWD | path join ("configs/" + $name)
 }
@@ -43,6 +44,7 @@ group "📦 User Packages" {
     install zed --aur --cask
     install starship --sudo
     install steam --sudo --cask
+    install beekeeper-studio --sudo --cask
 
     linux {
       install slack-desktop --aur
@@ -158,8 +160,13 @@ group "Homelab" {
     let host = $"($user)@($ip)"
 
     sshpass -p $pw ssh $host  'command -v docker >/dev/null 2>&1 || curl -fsSL https://get.docker.com | bash'
-    sshpass -p $pw scp $"($env.FILE_PWD)/homelab.yml" $"($host):($remote_file)"
-    sshpass -p $pw ssh $host  $"sudo docker compose --file ($remote_file) up --force-recreate -d"
+    sshpass -p $pw scp $"($env.FILE_PWD)/homelab.env" $"($host):/home/pi/homelab.env"
+    sshpass -p $pw scp $"($env.FILE_PWD)/homelab.yml" $"($host):/home/pi/homelab.yml"
+    sshpass -p $pw ssh $host "mkdir -p /home/pi/n8n"
+    sshpass -p $pw ssh $host "mkdir -p /home/pi/n8n-files"
+    sshpass -p $pw ssh $host "sudo chown -R 1000:1000 /home/pi/n8n"
+    sshpass -p $pw ssh $host "sudo chown -R 1000:1000 /home/pi/n8n-files"
+    sshpass -p $pw ssh $host  $"sudo docker compose --env-file homelab.env --file /home/pi/homelab.yml up --force-recreate -d"
   }
 }
 

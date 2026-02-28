@@ -1,7 +1,31 @@
 services:
+  n8n:
+    container_name: n8n
+    network_mode: host
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    env_file: homelab.env
+    environment:
+      - GENERIC_TIMEZONE=Asia/Hong_Kong
+      - TZ=Asia/Hong_Kong
+    volumes:
+      - "/home/pi/n8n:/home/node/.n8n"
+      - "/home/pi/n8n-files:/home/node/files"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    network_mode: host
+    container_name: cloudflared
+    env_file: homelab.env
+    depends_on:
+      - n8n
+    command: "tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN"
+
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
+    network_mode: host
     ports:
       # DNS Ports
       - "53:53/tcp"
