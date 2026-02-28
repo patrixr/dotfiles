@@ -1,6 +1,6 @@
  .PHONY: default
 
- all: packages system
+ all: system packages
 
 packages:
 	nu ./packages.nu
