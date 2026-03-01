@@ -7,6 +7,7 @@ def conf-src [name: string] {
 group "📦 User Packages" {
   install zed --aur --cask
   install steam --sudo --cask
+  install proton-vpn-gtk-app --sudo
 }
 
 group "💻 Development tools" {
@@ -16,6 +17,8 @@ group "💻 Development tools" {
 
   install nushell --sudo
   install go --sudo
+  install gnupg --sudo
+  install pass --sudo
   install docker-desktop --aur --cask
   install imagemagick --sudo
   install ffmpeg --sudo

@@ -35,16 +35,11 @@ try {
 
 # --- Aliases
 
-alias emacs = emacsclient -a ''
-alias e = emacsclient -a ''
 alias killemacs = emacsclient -e '(kill-emacs)'
 alias l = ls
 alias ll = ls -l
 alias fg = job unfreeze
-
-if (can-run zeditor) {
-  alias zed = zeditor
-}
+alias zed = zeditor
 
 git config --global alias.poc '!git push origin $(git rev-parse --abbrev-ref HEAD)'
 git config --global alias.up '!git push origin $(git rev-parse --abbrev-ref HEAD)'
@@ -58,4 +53,26 @@ git config --global alias.s '!git status -sb'
 
 def sandbox [image: string] {
   docker run --rm -w /workspace -it -v ./:/workspace $image /bin/bash
+}
+
+def dev-containers [] {
+  let containers = [
+    {name: "redis", port: "6379:6379", image: "redis", env: []},
+    {name: "pgvector17", port: "5432:5432", image: "pgvector/pgvector:pg17", env: ["-e", "POSTGRES_USER=postgres", "-e", "POSTGRES_PASSWORD=postgres"]}
+  ]
+  for container in $containers {
+    let running = (docker ps --filter $"name=($container.name)" --format "{{.Names}}" | lines | where $it == $container.name | length)
+    if $running == 0 {
+      let exists = (docker ps -a --filter $"name=($container.name)" --format "{{.Names}}" | lines | where $it == $container.name | length)
+      if $exists > 0 {
+        print $"Starting stopped container: ($container.name)"
+        docker start $container.name
+      } else {
+        print $"Creating new container: ($container.name)"
+        docker run -d --name $container.name -p $container.port ...$container.env $container.image
+      }
+    } else {
+      print $"Container already running: ($container.name)"
+    }
+  }
 }
