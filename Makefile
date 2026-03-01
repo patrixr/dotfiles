@@ -1,9 +1,12 @@
- .PHONY: default
+ .PHONY: all packages system homelab
 
  all: system packages
 
 packages:
-	nu ./packages.nu
+	nu ./packages/packages.nu
 
 system:
-	nu ./endeavour.nu
+	nu ./endeavour/endeavour.nu
+
+homelab:
+	nu ./homelab/homelab.nu

@@ -1,10 +1,3 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
   {
     "context": "Workspace",
@@ -13,7 +6,10 @@
       "alt-x": "command_palette::Toggle",
       "ctrl-x ctrl-f": "file_finder::Toggle",
       "ctrl-x p f": "file_finder::Toggle",
-      "ctrl-g": ["workspace::SendKeystrokes", "escape"]
+      "ctrl-g": [
+        "workspace::SendKeystrokes",
+        "escape"
+      ]
     }
   },
   {

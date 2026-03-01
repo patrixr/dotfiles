@@ -1,4 +1,7 @@
 {
+  "ui_font_size": 15,
+  "buffer_font_size": 13,
+  "theme": "Noctalia Dark",
   "ssh_connections": [
     {
       "host": "139.59.109.77",
@@ -6,7 +9,9 @@
       "nickname": "Rhys' server",
       "projects": [
         {
-          "paths": ["/etc/nginx"]
+          "paths": [
+            "/etc/nginx"
+          ]
         }
       ]
     }
@@ -17,23 +22,18 @@
       "model": "claude-3-7-sonnet"
     },
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.5"
     }
   },
-  "theme": "Le Blackque orange italic",
   "outline_panel": {
     "dock": "right"
   },
   "cursor_shape": "block",
-  "ui_font_size": 15,
-  "buffer_font_size": 13,
   "current_line_highlight": "all",
   "edit_predictions": {
+    "provider": "copilot",
     "mode": "subtle"
-  },
-  "features": {
-    "edit_prediction_provider": "zed"
   },
   "tab_size": 2,
   "tab_bar": {
