@@ -12,7 +12,7 @@ group "📦 User Packages" {
 
 group "💻 Development tools" {
   cli-installer "volta" {
-      bash -c "curl https://get.volta.sh | bash"
+    bash -c "curl https://get.volta.sh | bash"
   }
 
   install nushell --sudo
@@ -24,6 +24,7 @@ group "💻 Development tools" {
   install ffmpeg --sudo
   install deno --sudo
   install love --sudo
+  install beekeeper-studio-bin --aur
 
   install git-delta --sudo {
     ('
