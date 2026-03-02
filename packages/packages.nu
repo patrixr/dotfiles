@@ -25,6 +25,8 @@ group "💻 Development tools" {
   install deno --sudo
   install love --sudo
   install beekeeper-studio-bin --aur
+  install aws-cli --sudo
+  install aws-session-manager-plugin --aur
 
   install git-delta --sudo {
     ('
