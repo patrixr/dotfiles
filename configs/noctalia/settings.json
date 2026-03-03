@@ -39,7 +39,7 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0,
+        "backgroundOpacity": 0.7000000000000001,
         "barType": "floating",
         "capsuleColorKey": "none",
         "capsuleOpacity": 1,
@@ -59,7 +59,7 @@
         ],
         "showCapsule": false,
         "showOutline": false,
-        "useSeparateOpacity": false,
+        "useSeparateOpacity": true,
         "widgets": {
             "center": [
                 {
