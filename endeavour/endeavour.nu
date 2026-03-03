@@ -13,6 +13,7 @@ group "📦 System Packages" {
   install ttf-jetbrains-mono-nerd --sudo
   install xwayland-satellite --sudo
   install xclip --sudo
+  install swayidle --sudo
   install adw-gtk-theme --aur
   install nwg-look --aur {
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
@@ -32,7 +33,13 @@ group "📁 System dot configs" {
       print $":: ✔️ .configs/($name)"
   }
 
+  dotconf systemd
   dotconf niri
+  dotconf swayidle
+
+  group "⚡ Systemd Services" {
+    systemctl --user add-wants niri.service swayidle.service
+  }
 }
 
 group "🖼️ Wallpapers" {
