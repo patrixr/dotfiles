@@ -47,6 +47,14 @@ export def boom [msg: string = "An error occurred"] {
     error make { msg: $msg }
 }
 
+# Prompts the user to confirm an action with Y/n
+# Returns true if user confirms (Y/y or just Enter), false otherwise
+export def user-confirm [message: string]: nothing -> bool {
+    print $"($message) \(Y/n\) "
+    let response = (input)
+    return ($response in ["y", "Y", ""])
+}
+
 # Executes a platform-specific block of code based on the current operating system
 # Example usage:
 #

@@ -33,10 +33,30 @@ group "📁 System dot configs" {
       print $":: ✔️ .configs/($name)"
   }
 
+  def dotconf-backup [name: string] {
+      let target_path = ($env.HOME | path join $".config/($name)")
+      let source_path = (conf-src $name)
+      rm -rf $source_path
+      cp -r $target_path $source_path
+      print $":: ✔️ Synced ($name) system → repo"
+  }
+
   dotconf systemd
   dotconf niri
   dotconf swayidle
   dotconf ghostty
+
+  let noctalia_target = ($env.HOME | path join ".config/noctalia")
+  let noctalia_source = (conf-src "noctalia")
+  if ($noctalia_target | path exists) and ((ls $noctalia_target | get 0 | get modified) > (ls $noctalia_source | get 0 | get modified)) {
+    if (user-confirm "⚠️  noctalia system config is newer than repo. Sync system → repo?") {
+      dotconf-backup noctalia
+    } else {
+      print ":: ⏭️  Skipped noctalia backup"
+    }
+  } else {
+    dotconf noctalia
+  }
 
   group "⚡ Systemd Services" {
     systemctl --user add-wants niri.service swayidle.service
