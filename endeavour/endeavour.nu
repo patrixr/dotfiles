@@ -36,6 +36,7 @@ group "📁 System dot configs" {
   dotconf systemd
   dotconf niri
   dotconf swayidle
+  dotconf ghostty
 
   group "⚡ Systemd Services" {
     systemctl --user add-wants niri.service swayidle.service

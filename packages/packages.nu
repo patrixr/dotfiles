@@ -57,7 +57,6 @@ group "📁 Dot configs" {
   }
 
   dotconf emacs
-  dotconf ghostty
 
   rm -rf ~/.emacs.d
 }
