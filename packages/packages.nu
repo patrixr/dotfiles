@@ -8,6 +8,11 @@ group "📦 User Packages" {
   install zed --aur --cask
   install steam --sudo --cask
   install proton-vpn-gtk-app --sudo
+  install tidal-hifi --aur
+
+  group "🧹 Cleanup" {
+    uninstall spectacle --sudo
+  }
 }
 
 group "💻 Development tools" {

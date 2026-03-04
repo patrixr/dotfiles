@@ -199,6 +199,32 @@ export def install [name: string, postinstall?: closure, --aur, --sudo, --cask] 
     print $"🆕 ($name)"
 }
 
+# Uninstalls a package using the system's package manager
+# Currently supports:
+# - Linux (using `pacman` or `yay` for AUR packages)
+# - macOS (using `brew` for Homebrew packages)
+export def uninstall [name: string, --aur, --sudo] {
+    if not (is-installed $name) {
+        print $":: ($name) is not installed"
+        return
+    }
+
+    linux {
+        let cmd = if $aur { "yay" } else { "pacman" }
+        if $sudo {
+            run-external "sudo" $cmd "-R" $name
+        } else {
+            run-external $cmd "-R" $name
+        }
+    }
+
+    macos {
+        run-external "brew" "uninstall" $name
+    }
+
+    print $"🗑️  ($name)"
+}
+
 
 # Injects a managed block of content into a specified file.
 # If the file already contains a managed block (defined by start and end markers), it replaces the existing block with the new content.
