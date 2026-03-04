@@ -120,7 +120,7 @@ layout {
     // Set gaps around windows in logical pixels.
     gaps 16
 
-    background-color "#000000"
+    background-color "transparent"
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -269,6 +269,12 @@ layout {
         // top 64
         // bottom 64
     }
+}
+
+// Set the regular wallpaper on the backdrop.
+layer-rule {
+  match namespace="^noctalia-wallpaper*"
+  place-within-backdrop true
 }
 
 // Add lines like this to spawn processes at startup
@@ -599,6 +605,7 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    Ctrl+Shift+4 { screenshot; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

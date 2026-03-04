@@ -17,7 +17,7 @@ group "📦 System Packages" {
   install adw-gtk-theme --aur
   install nwg-look --aur {
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark
   }
   install keyd --sudo {
     sudo usermod -aG keyd $env.USER
