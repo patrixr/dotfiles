@@ -8,7 +8,6 @@ group "📦 User Packages" {
   install zed --aur --cask
   install steam --sudo --cask
   install proton-vpn-gtk-app --sudo
-  install tidal-hifi --aur
 
   group "🧹 Cleanup" {
     uninstall spectacle --sudo
@@ -75,9 +74,7 @@ group "📓 Zed configuration" {
     let last_update_of_source = (ls $source_path | get 0 | get modified)
 
     if $last_update_of_target > $last_update_of_source {
-      print $"⚠️  Zed ($file).json target file is newer than source. Copy it over as the new standard file? \(y/n\)"
-      let response = (input)
-      if $response == "y" {
+      if (user-confirm $"⚠️  Zed ($file).json target file is newer than source. Copy it over as the new standard file?") {
         cp $target_path $source_path
         print $":: ✔️ Copied ($file) target to source"
       }

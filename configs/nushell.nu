@@ -40,6 +40,8 @@ alias l = ls
 alias ll = ls -l
 alias fg = job unfreeze
 alias zed = zeditor
+alias pbcopy = wl-copy
+alias pbpaste = wl-paste
 
 git config --global alias.poc '!git push origin $(git rev-parse --abbrev-ref HEAD)'
 git config --global alias.up '!git push origin $(git rev-parse --abbrev-ref HEAD)'

@@ -125,8 +125,8 @@
                     "maxWidth": 145,
                     "scrollingMode": "hover",
                     "showIcon": true,
-                    "textColor": "none",
-                    "useFixedWidth": false
+                    "textColor": "primary",
+                    "useFixedWidth": true
                 },
                 {
                     "compactMode": false,
@@ -144,7 +144,7 @@
                     "showProgressRing": true,
                     "showVisualizer": false,
                     "textColor": "none",
-                    "useFixedWidth": false,
+                    "useFixedWidth": true,
                     "visualizerType": "linear"
                 }
             ],
@@ -158,7 +158,8 @@
                     "hidePassive": false,
                     "id": "Tray",
                     "pinned": [
-                        "Docker Desktop running"
+                        "Docker Desktop running",
+                        "proton.vpn.app.gtk"
                     ]
                 },
                 {
@@ -324,7 +325,7 @@
     },
     "general": {
         "allowPanelsOnScreenWithoutBar": true,
-        "allowPasswordWithFprintd": false,
+        "allowPasswordWithFprintd": true,
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
@@ -377,7 +378,7 @@
         "shadowOffsetX": 2,
         "shadowOffsetY": 3,
         "showChangelogOnStartup": true,
-        "showHibernateOnLockScreen": false,
+        "showHibernateOnLockScreen": true,
         "showScreenCorners": false,
         "showSessionButtonsOnLockScreen": true,
         "telemetryEnabled": false

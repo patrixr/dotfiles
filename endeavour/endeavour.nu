@@ -14,6 +14,7 @@ group "📦 System Packages" {
   install xwayland-satellite --sudo
   install xclip --sudo
   install swayidle --sudo
+  install wl-clipboard --sudo
   install adw-gtk-theme --aur
   install nwg-look --aur {
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'

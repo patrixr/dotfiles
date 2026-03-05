@@ -4,9 +4,9 @@
       "enabled": true,
       "remote": false,
       "settings": {
-        "database_url": "postgresql://postgres:postgres@localhost:5433/t4b?sslmode=disable",
-      },
-    },
+        "database_url": "postgresql://postgres:postgres@localhost:5433/t4b?sslmode=disable"
+      }
+    }
   },
   "ui_font_size": 15,
   "buffer_font_size": 13,
@@ -18,54 +18,56 @@
       "nickname": "Rhys' server",
       "projects": [
         {
-          "paths": ["/etc/nginx"],
-        },
-      ],
-    },
+          "paths": [
+            "/etc/nginx"
+          ]
+        }
+      ]
+    }
   ],
   "agent": {
     "default_profile": "write",
     "inline_assistant_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet",
+      "model": "claude-3-7-sonnet"
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5",
-    },
+      "model": "claude-sonnet-4.5"
+    }
   },
   "outline_panel": {
-    "dock": "right",
+    "dock": "right"
   },
   "cursor_shape": "block",
   "current_line_highlight": "all",
   "edit_predictions": {
     "provider": "copilot",
-    "mode": "subtle",
+    "mode": "subtle"
   },
   "tab_size": 2,
   "tab_bar": {
     "show": false,
-    "show_nav_history_buttons": false,
+    "show_nav_history_buttons": false
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": true,
+      "breadcrumbs": true
     },
     "shell": {
-      "program": "nu",
+      "program": "nu"
     },
     "font_size": 13,
     "dock": "right",
     "scrollbar": {
-      "show": "system",
-    },
+      "show": "system"
+    }
   },
   "indent_guides": {
     "enabled": true,
     "coloring": "indent_aware",
     "background_coloring": "disabled",
-    "active_line_width": 2,
+    "active_line_width": 2
   },
   "scrollbar": {
     "show": "auto",
@@ -77,14 +79,14 @@
     "diagnostics": "all",
     "axes": {
       "horizontal": false,
-      "vertical": true,
-    },
+      "vertical": true
+    }
   },
   "format_on_save": "on",
   "code_actions_on_format": {
     "source.fixAll.eslint": true,
     "source.removeUnusedImports": true,
-    "source.organizeImports": true,
+    "source.organizeImports": true
   },
   "languages": {
     "JavaScript": {
@@ -95,14 +97,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}",
-          ],
-        },
+            "{buffer_path}"
+          ]
+        }
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true,
+        "source.fixAll.eslint": true
       },
-      "format_on_save": "on",
+      "format_on_save": "on"
     },
     "TypeScript": {
       "formatter": {
@@ -112,14 +114,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}",
-          ],
-        },
+            "{buffer_path}"
+          ]
+        }
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true,
+        "source.fixAll.eslint": true
       },
-      "format_on_save": "on",
+      "format_on_save": "on"
     },
     "TSX": {
       "formatter": {
@@ -129,14 +131,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}",
-          ],
-        },
+            "{buffer_path}"
+          ]
+        }
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true,
+        "source.fixAll.eslint": true
       },
-      "format_on_save": "on",
-    },
-  },
+      "format_on_save": "on"
+    }
+  }
 }
