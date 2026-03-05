@@ -287,6 +287,18 @@ hotkey-overlay {
     skip-at-startup
 }
 
+// Clipboard configuration
+// Linux has 3 clipboards:
+// 1. Primary Selection (middle-click) - automatically copies selected text
+// 2. Clipboard (Ctrl+C/V) - explicit copy/paste like Windows/macOS
+// 3. Secondary (rarely used)
+//
+// By default, both Primary and Clipboard exist simultaneously.
+// This disables Primary Selection to make behavior more like macOS/Windows.
+clipboard {
+    disable-primary
+}
+
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
