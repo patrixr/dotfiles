@@ -1,16 +1,34 @@
 {
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        }
+      },
+      "enable_lsp_tasks": true
+    }
+  },
+  "rounded_selection": false,
   "context_servers": {
     "postgres-context-server": {
       "enabled": true,
       "remote": false,
       "settings": {
-        "database_url": "postgresql://postgres:postgres@localhost:5433/t4b?sslmode=disable"
+        "database_url": "postgresql://postgres:postgres@localhost:5432/t4b"
       }
     }
   },
   "ui_font_size": 15,
   "buffer_font_size": 13,
-  "theme": "Noctalia Dark",
+  "theme": "Noctis Obscuro",
   "ssh_connections": [
     {
       "host": "139.59.109.77",
@@ -26,6 +44,16 @@
     }
   ],
   "agent": {
+    "tool_permissions": {
+      "tools": {
+        "save_file": {
+          "default": "allow"
+        },
+        "move_path": {
+          "default": "allow"
+        }
+      }
+    },
     "default_profile": "write",
     "inline_assistant_model": {
       "provider": "zed.dev",

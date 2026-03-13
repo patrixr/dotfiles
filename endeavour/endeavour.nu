@@ -7,6 +7,7 @@ def conf-src [name: string] {
 group "📦 System Packages" {
   install niri --aur
   install noctalia-shell --aur
+  install fastfetch --sudo
   install ghostty --sudo
   install fuzzel --sudo
   install swaybg --sudo
@@ -15,16 +16,43 @@ group "📦 System Packages" {
   install xclip --sudo
   install swayidle --sudo
   install wl-clipboard --sudo
+  install nemo --sudo
+  install fprint --sudo {
+    sudo systemctl enable fprintd
+    sudo systemctl start fprintd
+  }
+
+  # GTK Theming
   install adw-gtk-theme --aur
   install nwg-look --aur {
     gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
     gsettings set org.gnome.desktop.interface color-scheme prefer-dark
   }
+
+  # Screenshare
+  install pipewire --sudo
+  install wireplumber --sudo
+  install xdg-desktop-portal-wlr  --sudo
+  install xdg-desktop-portal --sudo
+
+  # Keybinds
   install keyd --sudo {
     sudo usermod -aG keyd $env.USER
     sudo systemctl -f enable keyd.service
     sudo systemctl -f start keyd.service
   }
+}
+
+group "🧹 Debloat" {
+  uninstall spectacle --sudo
+  uninstall haruna --sudo
+  uninstall mpvqt --sudo
+  uninstall mpv --sudo
+  uninstall gwenview --sudo
+  uninstall kate --sudo
+  uninstall kwrite --sudo
+  uninstall dolphin-plugins --sudo
+  uninstall dolphin --sudo
 }
 
 group "📁 System dot configs" {

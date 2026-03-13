@@ -6,8 +6,11 @@
       "alt-x": "command_palette::Toggle",
       "ctrl-x ctrl-f": "file_finder::Toggle",
       "ctrl-x p f": "file_finder::Toggle",
-      "ctrl-g": ["workspace::SendKeystrokes", "escape"],
-    },
+      "ctrl-g": [
+        "workspace::SendKeystrokes",
+        "escape"
+      ]
+    }
   },
   {
     "context": "Editor",
@@ -23,38 +26,36 @@
       "ctrl-down": "editor::MoveToEndOfParagraph",
       "ctrl-x right": "pane::GoForward",
       "ctrl-x left": "pane::GoBack",
-      "alt-.": "editor::GoToDefinition",
-    },
+      "alt-.": "editor::GoToDefinition"
+    }
   },
   {
     "context": "Pane",
     "bindings": {
       "ctrl-x 0": "pane::CloseActiveItem",
       "ctrl-x 2": "pane::SplitDown",
-      "ctrl-x 3": "pane::SplitRight",
-    },
+      "ctrl-x 3": "pane::SplitRight"
+    }
   },
   {
     "context": "Terminal",
     "bindings": {
       "ctrl-y": "terminal::Paste",
-      "alt-w": "terminal::Copy",
-    },
+      "alt-w": "terminal::Copy"
+    }
   },
   {
     "context": "Editor && edit_prediction",
     "bindings": {
       "tab": "editor::AcceptEditPrediction",
-      // Optional: This makes the default `alt-l` binding do nothing.
-      "alt-l": null,
-    },
+      "alt-l": null
+    }
   },
   {
     "context": "Editor && edit_prediction_conflict",
     "bindings": {
       "alt-enter": "editor::AcceptEditPrediction",
-      // Optional: This makes the default `alt-l` binding do nothing.
-      "alt-l": null,
-    },
-  },
+      "alt-l": null
+    }
+  }
 ]

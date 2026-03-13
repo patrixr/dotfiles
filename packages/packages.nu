@@ -18,6 +18,10 @@ group "💻 Development tools" {
   cli-installer "volta" {
     bash -c "curl https://get.volta.sh | bash"
   }
+  
+  cli-installer "configcat" {
+    bash -c "curl -fsSL https://raw.githubusercontent.com/configcat/cli/main/scripts/install.sh | sudo bash"
+  }
 
   install nushell --sudo
   install go --sudo
@@ -31,6 +35,8 @@ group "💻 Development tools" {
   install beekeeper-studio-bin --aur
   install aws-cli --sudo
   install aws-session-manager-plugin --aur
+  install vscodium-bin-marketplace --aur
+  install onlyoffice-bin --aur
 
   install git-delta --sudo {
     ('
