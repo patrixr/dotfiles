@@ -14,6 +14,7 @@ path add ($env.HOME | path join ".rvm/bin")
 path add ($env.HOME | path join ".deno/bin")
 path add ($env.GOPATH | path join "bin")
 path add "/usr/local/bin"
+path add ($env.HOME | path join ".local/bin")
 
 if (macos?) {
   path add "/opt/homebrew/bin"

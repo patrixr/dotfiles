@@ -82,7 +82,8 @@ input {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-/-output "eDP-1" {
+
+output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
 
@@ -92,10 +93,10 @@ input {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "1920x1080@120.030"
+    mode "2880x1800@60"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 2
+    scale 1.5
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -111,6 +112,21 @@ input {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=1280 y=0
+}
+
+// Finob office screen
+output "Xiaomi Corporation Mi Monitor 5746110008883" {
+    mode "2560x1440@59.951"
+
+    scale 1.0
+
+    transform "normal"
+
+    // Position at top-right of the laptop screen (eDP-1)
+    // eDP-1 logical size is 1920x1200, positioned at 1280,0
+    // Place monitor to the right (x = 1280 + 1920 = 3200)
+    // and above (y negative) to align top edges
+    position x=3200 y=-240
 }
 
 // Settings that influence how windows are positioned and sized.

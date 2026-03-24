@@ -1,46 +1,42 @@
-;; Automatically reload files when they change on disk
+;;; my-editor.el --- Editor enhancements -*- lexical-binding: t; -*-
 
-(global-auto-revert-mode t)
+(eval-when-compile
+  (require 'straight nil t)
+  (require 'use-package nil t))
 
-(setq backup-directory-alist            '((".*" . "~/.Trash")))
-(setq backup-by-copying t)
-(setq auto-save-file-name-transforms `((".", "~/.emacs-saves" t)))
+;;; Editor Configuration
 
+;; Ensure syntax highlighting is always enabled
+(global-font-lock-mode 1)
 
-;; Automatic whitespace trimming
-
-(use-package ws-butler
-  :straight t
-  :hook (prog-mode . ws-butler-mode))
-
-(use-package add-node-modules-path
-  :straight (add-node-modules-path :type git :host github :repo "codesuki/add-node-modules-path"))
-
-;; Highlighted current line
-
-(global-hl-line-mode 1)
-
-;; Prettier
-
-(setq prettier-js-args
-      '(
-        "--print-width" "120"
-        "--single-quote"
-        "--tab-width" "2"
-        "--trailing-comma" "all"
-        "--bracket-spacing" "false"))
-
-(use-package prettier-js
-  :straight t
-  :init
-  (add-hook 'typescript-mode-hook 'prettier-js-mode)
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode))
-
-(eval-after-load 'js-mode
-  '(add-hook 'js-mode-hook #'add-node-modules-path))
-
-(eval-after-load 'typescript-mode
-  '(add-hook 'typescript-mode-hook #'add-node-modules-path))
+;; Temporarily disabled to debug syntax highlighting issues
+;;
+;; ;; Apheleia: Asynchronous code formatting without cursor disruption
+;; (use-package apheleia
+;;   :straight t
+;;   :commands apheleia-mode
+;;   :hook ((typescript-mode . apheleia-mode)
+;;          (js-mode . apheleia-mode)
+;;          (json-mode . apheleia-mode))
+;;   :config
+;;   ;; Apheleia automatically formats on save when apheleia-mode is enabled
+;;   ;; It uses prettier for TypeScript/JavaScript by default
+;;   ;; Ensure prettier is installed: npm install -g prettier
+;;   (setf (alist-get 'prettier apheleia-formatters)
+;;         '("prettier" "--stdin-filepath" filepath)))
+;;
+;; ;; Stripspace: Automatic removal of trailing whitespace on save
+;; (use-package stripspace
+;;   :straight t
+;;   :commands stripspace-local-mode
+;;   :hook ((prog-mode . stripspace-local-mode)
+;;          (text-mode . stripspace-local-mode)
+;;          (conf-mode . stripspace-local-mode))
+;;   :custom
+;;   ;; Always delete trailing whitespace
+;;   (stripspace-only-if-initially-clean nil)
+;;   ;; Preserve cursor column position after stripping spaces
+;;   (stripspace-restore-column t))
 
 (provide 'my-editor)
+;;; my-editor.el ends here

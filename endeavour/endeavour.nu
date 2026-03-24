@@ -17,10 +17,7 @@ group "📦 System Packages" {
   install swayidle --sudo
   install wl-clipboard --sudo
   install nemo --sudo
-  install fprint --sudo {
-    sudo systemctl enable fprintd
-    sudo systemctl start fprintd
-  }
+  install ncdu --sudo
 
   # GTK Theming
   install adw-gtk-theme --aur
