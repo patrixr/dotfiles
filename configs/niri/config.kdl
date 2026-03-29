@@ -116,6 +116,17 @@ output "eDP-1" {
     variable-refresh-rate
 }
 
+// LG Ultrawide at home
+output "LG Electronics LG ULTRAWIDE 410NTUW5G726" {
+    mode "3440x1440@84.957"
+
+    scale 1.0
+
+    transform "normal"
+
+    position x=1280 y=-1440
+}
+
 // Finob office screen
 output "Xiaomi Corporation Mi Monitor 5746110008883" {
     mode "2560x1440@143.981"
