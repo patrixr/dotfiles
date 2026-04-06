@@ -18,6 +18,7 @@ group "📦 System Packages" {
   install wl-clipboard --sudo
   install nemo --sudo
   install ncdu --sudo
+  install wdisplays --sudo
 
   # GTK Theming
   install adw-gtk-theme --aur
