@@ -1,5 +1,28 @@
 use glue *
 
+def conf-src [name: string] {
+    $env.FILE_PWD | path join ("configs/" + $name)
+}
+
+def home-dir [] {
+    let target_user = ($env | get -i HYPERION_USER | default $env.USER)
+    $"/home/($target_user)"
+}
+
+# Deploys a config folder to both the target user's ~/.config and /etc/skel/.config
+def dotconf [name: string] {
+    let folder = conf-src $name
+    let destinations = [
+        (home-dir | path join ".config")
+        "/etc/skel/.config"
+    ]
+    for dest in $destinations {
+        mkdir $dest
+        cp -r $folder $dest
+    }
+    print $":: ✔️ .config/($name)"
+}
+
 group "📦 System Packages" {
 
     install nushell {
@@ -19,4 +42,29 @@ group "📦 System Packages" {
     }
 
     install niri --aur
+    install noctalia-shell --aur
+    install ghostty --sudo
+}
+
+group "📁 Configs" {
+
+
+
+    dotconf niri
+    dotconf noctalia
+}
+
+group "🖼️ Wallpapers" {
+    let images_folder = $env.FILE_PWD | path join "images"
+    let destinations = [
+        (home-dir | path join "Pictures/Wallpapers")
+        "/etc/skel/Pictures/Wallpapers"
+    ]
+    for dest in $destinations {
+        mkdir $dest
+        for file in (ls $images_folder | where type == file) {
+            cp $file.name $dest
+        }
+    }
+    print ":: ✔️ Wallpapers copied to user home and /etc/skel"
 }
