@@ -155,8 +155,12 @@ def is-installed [name: string] {
     platorm-do ({
         linux: {
             let search_result_1 = run-external "pacman" "-Qi" $name | complete
-            let search_result_2 = run-external "yay" "-Qi" $name | complete
-            return (($search_result_1.exit_code == 0) or ($search_result_2.exit_code == 0))
+            let yay_result = if (can-run "yay") {
+                run-external "yay" "-Qi" $name | complete
+            } else {
+                {exit_code: 1}
+            }
+            return (($search_result_1.exit_code == 0) or ($yay_result.exit_code == 0))
         },
         macos: {
             let search_result = run-external "brew" "list" $name | complete
@@ -176,11 +180,15 @@ export def install [name: string, postinstall?: closure, --aur, --sudo, --cask] 
     }
 
     linux {
-        let cmd = if $aur { "yay" } else { "pacman" }
-        if $sudo {
-            run-external "sudo" $cmd "-S" $name
+        if $aur and not (can-run "yay") {
+            print $":: ⚠️  skipping ($name) — yay not available"
         } else {
-            run-external $cmd "-S" $name
+            let cmd = if $aur { "yay" } else { "pacman" }
+            if $sudo {
+                run-external "sudo" $cmd "-S" "--noconfirm" "--needed" $name
+            } else {
+                run-external $cmd "-S" "--noconfirm" "--needed" $name
+            }
         }
     }
 
