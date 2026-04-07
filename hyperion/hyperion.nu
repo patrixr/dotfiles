@@ -23,6 +23,21 @@ def dotconf [name: string] {
     print $":: ✔️ .config/($name)"
 }
 
+group "🔑 Chaotic-AUR" {
+    # noctalia-shell and noctalia-qs are available in Chaotic-AUR as pre-built binaries
+    run-external "pacman-key" "--recv-key" "3056513887B78AEB" "--keyserver" "keyserver.ubuntu.com"
+    run-external "pacman-key" "--lsign-key" "3056513887B78AEB"
+    run-external "pacman" "-U" "--noconfirm"
+        "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
+    run-external "pacman" "-U" "--noconfirm"
+        "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
+
+    "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | inject into /etc/pacman.conf
+
+    run-external "pacman" "-Sy"
+    print ":: ✔️ Chaotic-AUR configured"
+}
+
 group "📦 System Packages" {
 
     install nushell {
@@ -41,9 +56,9 @@ group "📦 System Packages" {
         print ":: ✔️ SDDM enabled"
     }
 
-    install niri --aur
-    install noctalia-shell --aur
-    install ghostty --sudo
+    install niri
+    install ghostty
+    install noctalia-shell
 }
 
 group "📁 Configs" {
