@@ -5,7 +5,7 @@ def conf-src [name: string] {
 }
 
 def home-dir [] {
-    let target_user = ($env | get -i HYPERION_USER | default $env.USER)
+    let target_user = ($env | get --optional HYPERION_USER | default $env.USER)
     $"/home/($target_user)"
 }
 
@@ -23,21 +23,6 @@ def dotconf [name: string] {
     print $":: ✔️ .config/($name)"
 }
 
-group "🔑 Chaotic-AUR" {
-    # noctalia-shell and noctalia-qs are available in Chaotic-AUR as pre-built binaries
-    run-external "pacman-key" "--recv-key" "3056513887B78AEB" "--keyserver" "keyserver.ubuntu.com"
-    run-external "pacman-key" "--lsign-key" "3056513887B78AEB"
-    run-external "pacman" "-U" "--noconfirm"
-        "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
-    run-external "pacman" "-U" "--noconfirm"
-        "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
-
-    "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | inject into /etc/pacman.conf
-
-    run-external "pacman" "-Sy"
-    print ":: ✔️ Chaotic-AUR configured"
-}
-
 group "📦 System Packages" {
 
     install nushell {
@@ -46,7 +31,7 @@ group "📦 System Packages" {
         if not ($shells | str contains $nu_path) {
             run-external "tee" "-a" "/etc/shells" | $nu_path
         }
-        let target_user = ($env | get -i HYPERION_USER | default $env.USER)
+        let target_user = ($env | get --optional HYPERION_USER | default $env.USER)
         run-external "chsh" "-s" $nu_path $target_user
         print $":: ✔️ Default shell set to ($nu_path)"
     }
@@ -58,7 +43,10 @@ group "📦 System Packages" {
 
     install niri
     install ghostty
-    install noctalia-shell
+
+    with-chaotic-aur {
+        install noctalia-shell
+    }
 }
 
 group "📁 Configs" {

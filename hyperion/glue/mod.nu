@@ -264,6 +264,44 @@ export def "inject into" [file_path] {
     $managed_block | save --append $file_path
 }
 
+# Temporarily adds Chaotic-AUR to pacman.conf, runs a closure, then removes it.
+# Restores the original pacman.conf even if the closure fails.
+export def with-chaotic-aur [block: closure] {
+    let pacman_conf_path = "/etc/pacman.conf"
+    let backup = (open $pacman_conf_path)
+
+    let chaotic_block = "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist"
+    let already_present = ($backup | str contains "[chaotic-aur]")
+
+    if not $already_present {
+        print ":: Adding Chaotic-AUR keyring..."
+        run-external "pacman-key" "--recv-key" "3056513887B78AEB" "--keyserver" "keyserver.ubuntu.com"
+        run-external "pacman-key" "--lsign-key" "3056513887B78AEB"
+        run-external "pacman" "-U" "--noconfirm" "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
+        run-external "pacman" "-U" "--noconfirm" "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
+        $chaotic_block | inject into $pacman_conf_path
+        run-external "pacman" "-Sy" "--noconfirm"
+        print ":: ✔️ Chaotic-AUR temporarily enabled"
+    }
+
+    let result = try {
+        do $block
+        {ok: true}
+    } catch {|e|
+        {ok: false, error: $e}
+    }
+
+    if not $already_present {
+        $backup | save -f $pacman_conf_path
+        run-external "pacman" "-Sy" "--noconfirm"
+        print ":: ✔️ Chaotic-AUR removed, pacman.conf restored"
+    }
+
+    if not $result.ok {
+        error make { msg: $result.error.msg }
+    }
+}
+
 # -----------------------------------------------------
 # --- Addons tooling
 # -----------------------------------------------------
