@@ -19,6 +19,8 @@ group "📦 System Packages" {
   install nemo --sudo
   install ncdu --sudo
   install wdisplays --sudo
+  install evolution --sudo
+  install evolution-data-server --sudo
 
   # GTK Theming
   install adw-gtk-theme --aur
@@ -75,7 +77,9 @@ group "📁 System dot configs" {
 
   let noctalia_target = ($env.HOME | path join ".config/noctalia")
   let noctalia_source = (conf-src "noctalia")
-  if ($noctalia_target | path exists) and ((ls $noctalia_target | get 0 | get modified) > (ls $noctalia_source | get 0 | get modified)) {
+  let newest_system = if ($noctalia_target | path exists) { (ls -al $noctalia_target | sort-by modified | last | get modified) } else { 1970-01-01 }
+  let newest_repo = (ls -al $noctalia_source | sort-by modified | last | get modified)
+  if ($noctalia_target | path exists) and ($newest_system > $newest_repo) {
     if (user-confirm "⚠️  noctalia system config is newer than repo. Sync system → repo?") {
       dotconf-backup noctalia
     } else {
