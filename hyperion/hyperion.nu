@@ -8,7 +8,8 @@ group "📦 System Packages" {
         if not ($shells | str contains $nu_path) {
             run-external "tee" "-a" "/etc/shells" | $nu_path
         }
-        run-external "chsh" "-s" $nu_path $env.USER
+        let target_user = ($env | get -i HYPERION_USER | default $env.USER)
+        run-external "chsh" "-s" $nu_path $target_user
         print $":: ✔️ Default shell set to ($nu_path)"
     }
 

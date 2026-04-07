@@ -24,8 +24,8 @@ echo ":: Hyperion CE — manual install for user: $username"
 echo ":: Bootstrapping nushell..."
 pacman -S --needed --noconfirm nushell
 
-# Run the main nushell install script as the target user
+# Run the main nushell install script as root, passing the target username via env
 echo ":: Handing off to hyperion.nu..."
-sudo -u "$username" nu "$(dirname "$0")/hyperion.nu"
+HYPERION_USER="$username" nu "$(dirname "$0")/hyperion.nu"
 
 echo ":: Hyperion CE install complete. Please reboot."

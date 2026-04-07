@@ -19,9 +19,9 @@ git clone --depth=1 --branch feat/hyperion https://github.com/patrixr/dotfiles.g
 echo ":: Bootstrapping nushell..."
 pacman -S --needed --noconfirm nushell
 
-# Run the main nushell install script as the target user
+# Run the main nushell install script as root, passing the target username via env
 echo ":: Handing off to hyperion.nu..."
-sudo -u "$username" nu hyperion/hyperion/hyperion.nu
+HYPERION_USER="$username" nu hyperion/hyperion/hyperion.nu
 
 # Clean up the cloned repo
 echo ":: Cleaning up..."
