@@ -52,6 +52,23 @@ group "📦 System Packages" {
 group "📁 Configs" {
     dotconf niri
     dotconf noctalia
+    dotconf ghostty
+}
+
+group "🎨 SDDM Theme" {
+    # Deploy SDDM theme
+    let theme_src = $env.FILE_PWD | path join "configs/sddm"
+    let theme_dest = "/usr/share/sddm/themes/hyperion"
+    mkdir $theme_dest
+    cp -r ($theme_src | path join "*") $theme_dest
+    print ":: ✔️ SDDM theme deployed to /usr/share/sddm/themes/hyperion"
+
+    # Configure SDDM to use the theme
+    let sddm_conf_dir = "/etc/sddm.conf.d"
+    mkdir $sddm_conf_dir
+    let sddm_config = "[Theme]\nCurrent=hyperion\n"
+    $sddm_config | save -f ($sddm_conf_dir | path join "hyperion.conf")
+    print ":: ✔️ SDDM configured to use hyperion theme"
 }
 
 group "🖼️ Wallpapers" {
@@ -67,4 +84,17 @@ group "🖼️ Wallpapers" {
         }
     }
     print ":: ✔️ Wallpapers copied to user home and /etc/skel"
+
+    # Create Noctalia wallpaper configuration for current user
+    let cache_dir = (home-dir | path join ".cache/noctalia")
+    mkdir $cache_dir
+
+    let wallpaper_config = {
+        defaultWallpaper: (home-dir | path join "Pictures/Wallpapers/night-sky-1.jpg"),
+        usedRandomWallpapers: {},
+        wallpapers: {}
+    }
+
+    $wallpaper_config | to json | save -f ($cache_dir | path join "wallpapers.json")
+    print ":: ✔️ Noctalia wallpaper configuration created"
 }

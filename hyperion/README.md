@@ -6,13 +6,13 @@ Hyperion is a custom [EndeavourOS Community Edition](https://github.com/Endeavou
 
 ## What's included
 
-| Component       | Choice                                                              |
-|-----------------|---------------------------------------------------------------------|
+| Component       | Choice                                                             |
+| --------------- | ------------------------------------------------------------------ |
 | Compositor      | [Niri](https://github.com/YaLTeR/niri) (scrollable tiling Wayland) |
-| Display Manager | SDDM                                                                |
-| Shell           | [Noctalia](https://github.com/noctalia-dev/noctalia-shell)          |
-| Terminal        | [Ghostty](https://ghostty.org/)                                     |
-| Default Shell   | Nushell                                                             |
+| Display Manager | SDDM                                                               |
+| Shell           | [Noctalia](https://github.com/noctalia-dev/noctalia-shell)         |
+| Terminal        | [Ghostty](https://ghostty.org/)                                    |
+| Default Shell   | Nushell                                                            |
 
 ---
 
@@ -21,8 +21,10 @@ Hyperion is a custom [EndeavourOS Community Edition](https://github.com/Endeavou
 ```
 hyperion/
 ├── configs/
+│   ├── ghostty/        # Ghostty terminal config
 │   ├── niri/           # Niri compositor config (output blocks stripped — add your own)
-│   └── noctalia/       # Noctalia shell config (plugins cleared)
+│   ├── noctalia/       # Noctalia shell config (plugins cleared)
+│   └── sddm/           # SDDM theme (eos-breeze with night-sky background)
 ├── glue/
 │   └── mod.nu          # Local copy of the shared Nushell glue library
 ├── images/             # Wallpapers, copied to ~/Pictures/Wallpapers
@@ -43,12 +45,14 @@ hyperion/
 There are two bash entry points, both of which bootstrap Nushell and then hand off to `hyperion.nu`:
 
 **ISO mode** (called by the EOS Welcome app during a live install):
+
 ```bash
 # Paste this URL into the EOS Welcome app
 https://raw.githubusercontent.com/patrixr/dotfiles/feat/hyperion/hyperion/setup_hyperion_isomode.bash
 ```
 
 **Manual post-install** (after a "no desktop" EOS installation):
+
 ```bash
 git clone --depth=1 --branch feat/hyperion https://github.com/patrixr/dotfiles.git hyperion
 cd hyperion/hyperion
@@ -56,6 +60,7 @@ sudo ./hyperion-install.sh
 ```
 
 Both scripts:
+
 1. Clone this repo (shallow, `feat/hyperion` branch)
 2. Install Nushell via pacman if not already present
 3. Run `hyperion.nu` as root with the target username passed via `$HYPERION_USER`
@@ -68,8 +73,9 @@ The real work happens in `hyperion.nu`, which uses the glue library to:
    - `noctalia-shell` is only available in [Chaotic-AUR](https://aur.chaotic.cx/). It is installed using the `with-chaotic-aur` helper, which temporarily enables the Chaotic-AUR repo, installs the package, then **restores `/etc/pacman.conf` to its original state** afterwards (even on failure).
 2. **Set Nushell as the default shell** — registers it in `/etc/shells` and runs `chsh`
 3. **Enable SDDM** — via `systemctl enable sddm`
-4. **Deploy configs** — copies `configs/niri` and `configs/noctalia` to both `~/.config/` and `/etc/skel/.config/` (so future users get the same setup)
-5. **Copy wallpapers** — deploys `images/` to both `~/Pictures/Wallpapers` and `/etc/skel/Pictures/Wallpapers`
+4. **Deploy configs** — copies `configs/niri`, `configs/noctalia`, and `configs/ghostty` to both `~/.config/` and `/etc/skel/.config/` (so future users get the same setup)
+5. **Deploy SDDM theme** — installs the custom SDDM theme to `/usr/share/sddm/themes/hyperion` and configures SDDM to use it
+6. **Copy wallpapers** — deploys `images/` to both `~/Pictures/Wallpapers` and `/etc/skel/Pictures/Wallpapers`, and creates Noctalia wallpaper configuration with `night-sky-1.jpg` as default
 
 ### The glue library (`glue/mod.nu`)
 
@@ -82,8 +88,9 @@ A local copy of the shared Nushell utility library. Key helpers used by this CE:
 
 ### Configs
 
-- **Niri** — monitor/output blocks have been removed. Add your own `output` sections to `~/.config/niri/config.kdl` after install.
-- **Noctalia** — plugin sources are kept, but no plugins are enabled by default. Enable them through the Noctalia UI after install.
+- **Niri** — monitor/output blocks have been removed. Niri will auto-detect monitors by default. Add your own `output` sections to `~/.config/niri/config.kdl` after install if you need specific configuration (run `niri msg outputs` to see monitor names).
+- **Noctalia** — plugin sources are kept, but no plugins are enabled by default. Enable them through the Noctalia UI after install. Default wallpaper is set to `night-sky-1.jpg`.
+- **Ghostty** — includes the Aura theme with opacity and font settings.
 
 ---
 

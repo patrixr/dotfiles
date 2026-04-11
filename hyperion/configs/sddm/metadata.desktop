@@ -1,0 +1,18 @@
+[SddmGreeterTheme]
+Name=eos-Breeze
+Description=Breeze SDDM theme modified for EndeavourOS
+Original-Author=KDE Visual Design Group
+Author=EndeavourOS
+Copyright=(c) 2014, David Edmundson
+License=CC-BY-SA
+Type=sddm-theme
+Version=0.1
+Website=https://github.com/endeavouros-team/eos-breeze-sddm
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=info@endeavouros.com
+Theme-Id=eos-breeze
+Theme-API=2.0
+QtVersion=6
