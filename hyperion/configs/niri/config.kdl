@@ -86,11 +86,11 @@ input {
 // Output configuration — add your monitor configs here.
 // Run `niri msg outputs` inside a niri session to list available outputs.
 // Example:
-// output "eDP-1" {
-//     mode "1920x1080@60"
-//     scale 1.0
-//     transform "normal"
-// }
+output "eDP-1" {
+  mode "1920x1080@60"
+  scale 1.0
+  transform "normal"
+}
 
 
 // Settings that influence how windows are positioned and sized.

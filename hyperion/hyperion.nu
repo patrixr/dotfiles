@@ -50,9 +50,6 @@ group "📦 System Packages" {
 }
 
 group "📁 Configs" {
-
-
-
     dotconf niri
     dotconf noctalia
 }
