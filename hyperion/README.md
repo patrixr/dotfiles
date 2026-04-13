@@ -91,6 +91,7 @@ A local copy of the shared Nushell utility library. Key helpers used by this CE:
 - **Niri** — monitor/output blocks have been removed. Niri will auto-detect monitors by default. Add your own `output` sections to `~/.config/niri/config.kdl` after install if you need specific configuration (run `niri msg outputs` to see monitor names).
 - **Noctalia** — plugin sources are kept, but no plugins are enabled by default. Enable them through the Noctalia UI after install. Default wallpaper is set to `night-sky-1.jpg`.
 - **Ghostty** — includes the Aura theme with opacity and font settings.
+- **SDDM** — based on [SilentSDDM](https://github.com/uiriansan/SilentSDDM) by uiriansan (GPL-3.0), customized with `night-sky-1.jpg` background.
 
 ---
 
@@ -104,3 +105,15 @@ nu hyperion/test/test.nu
 ```
 
 The test spins up an EndeavourOS container, runs `hyperion.nu`, and asserts that key packages are installed. `systemctl` and `chsh` are stubbed out since there is no init system in Docker.
+
+---
+
+## Acknowledgments
+
+Hyperion incorporates and builds upon the following open source projects:
+
+- **[SilentSDDM](https://github.com/uiriansan/SilentSDDM)** by uiriansan (GPL-3.0) - SDDM theme
+- **[Niri](https://github.com/YaLTeR/niri)** by YaLTeR - Scrollable-tiling Wayland compositor
+- **[Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell)** by noctalia-dev - Wayland shell
+- **[Ghostty](https://ghostty.org/)** by Mitchell Hashimoto - Terminal emulator
+- **[Nushell](https://www.nushell.sh/)** - Modern shell written in Rust

@@ -1,13 +1,15 @@
+; https://github.com/uiriansan/SilentSDDM
+
 [SddmGreeterTheme]
-Name=Hyperion
-Description=Hyperion SDDM Theme (based on ittu_bottom by Adhe)
-Author=Hyperion
-Copyright=(c) 2024, Hyperion
-License=CC-BY-SA
+Name=Silent
 Type=sddm-theme
-Version=0.1
-Website=https://github.com/patrixr/dotfiles
-MainScript=Main.qml
-ConfigFile=theme.conf
-Theme-Id=hyperion
+Description=A very customizable SDDM theme that actually looks good.
+License=GPL-3.0-or-later
+Version=1.4.0
+Theme-Id=silent
 Theme-API=2.0
+MainScript=Main.qml
+TranslationsDirectory=translations
+QtVersion=6
+
+ConfigFile=configs/default.conf

@@ -41,6 +41,10 @@ group "📦 System Packages" {
         print ":: ✔️ SDDM enabled"
     }
 
+    install qt6-svg
+    install qt6-virtualkeyboard
+    install qt6-multimedia-ffmpeg
+
     install niri
     install ghostty
 
@@ -65,10 +69,17 @@ group "🎨 SDDM Theme" {
     }
     print ":: ✔️ SDDM theme deployed to /usr/share/sddm/themes/hyperion"
 
-    # Configure SDDM to use the theme
+    # Install fonts
+    let fonts_src = $theme_dest | path join "fonts"
+    for item in (ls $fonts_src) {
+        cp -r $item.name "/usr/share/fonts/"
+    }
+    print ":: ✔️ SDDM theme fonts installed"
+
+    # Configure SDDM to use the theme with environment variables
     let sddm_conf_dir = "/etc/sddm.conf.d"
     mkdir $sddm_conf_dir
-    let sddm_config = "[Theme]\nCurrent=hyperion\n"
+    let sddm_config = "[General]\nInputMethod=qtvirtualkeyboard\nGreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/hyperion/components/,QT_IM_MODULE=qtvirtualkeyboard\n\n[Theme]\nCurrent=hyperion\n"
     $sddm_config | save -f ($sddm_conf_dir | path join "hyperion.conf")
     print ":: ✔️ SDDM configured to use hyperion theme"
 }

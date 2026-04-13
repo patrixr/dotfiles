@@ -1,361 +1,241 @@
-/*
- *   Copyright 2016 David Edmundson <davidedmundson@kde.org>
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Library General Public License as
- *   published by the Free Software Foundation; either version 2 or
- *   (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
- *
- *   You should have received a copy of the GNU Library General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
-import QtQuick 2.2
-
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.1
-
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-
+import "."
+import QtQuick
+import SddmComponents
+import QtQuick.Effects
+import QtMultimedia
 import "components"
 
-PlasmaCore.ColorScope {
+Item {
     id: root
-    colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
+    state: Config.lockScreenDisplay ? "lockState" : "loginState"
 
-    width: 1600
-    height: 900
-
-    property string notificationMessage
-
-    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
-    LayoutMirroring.childrenInherit: true
-
-    PlasmaCore.DataSource {
-        id: keystateSource
-        engine: "keystate"
-        connectedSources: "Caps Lock"
+    // TODO: Add own translations: https://github.com/sddm/sddm/wiki/Localization
+    TextConstants {
+        id: textConstants
     }
 
-    Repeater {
-        model: screenModel
-
-        Background {
-            x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
-            sceneBackgroundType: config.type
-            sceneBackgroundColor: config.color
-            sceneBackgroundImage: config.background
-        }
+    property bool capsLockOn: false
+    Component.onCompleted: {
+        if (keyboard)
+            capsLockOn = keyboard.capsLock;
+    }
+    onCapsLockOnChanged: {
+        loginScreen.updateCapsLock();
     }
 
-    Clock { }
-
-
-    StackView {
-        id: mainStack
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        height: root.height
-
-        focus: true //StackView is an implicit focus scope, so we need to give this focus so the item inside will have it
-
-
-        Timer {
-            //SDDM has a bug in 0.13 where even though we set the focus on the right item within the window, the window doesn't have focus
-            //it is fixed in 6d5b36b28907b16280ff78995fef764bb0c573db which will be 0.14
-            //we need to call "window->activate()" *After* it's been shown. We can't control that in QML so we use a shoddy timer
-            //it's been this way for all Plasma 5.x without a huge problem
-            running: true
-            repeat: false
-            interval: 200
-            onTriggered: mainStack.forceActiveFocus()
-        }
-
-        initialItem: Login {
-            id: userListComponent
-            userListModel: userModel
-            userListCurrentIndex: userModel.lastIndex >= 0 ? userModel.lastIndex : 0
-            lastUserName: userModel.lastUser
-            showUserList: {
-                if ( !userListModel.hasOwnProperty("count")
-                || !userListModel.hasOwnProperty("disableAvatarsThreshold"))
-                    return (userList.y + mainStack.y) > 0
-
-                if ( userListModel.count == 0 ) return false
-
-                return userListModel.count <= userListModel.disableAvatarsThreshold && (userList.y + mainStack.y) > 0
+    states: [
+        State {
+            name: "lockState"
+            PropertyChanges {
+                target: lockScreen
+                opacity: 1.0
             }
-
-            notificationMessage: {
-                var text = ""
-                if (keystateSource.data["Caps Lock"]["Locked"]) {
-                    text += i18nd("plasma_lookandfeel_org.kde.lookandfeel","Caps Lock is on")
-                    if (root.notificationMessage) {
-                        text += " • "
-                    }
-                }
-                text += root.notificationMessage
-                return text
+            PropertyChanges {
+                target: loginScreen
+                opacity: 0.0
             }
-
-            actionItems: [
-                ActionButton {
-                    iconSource: "system-suspend"
-                    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel","Suspend")
-                    onClicked: sddm.suspend()
-                    enabled: sddm.canSuspend
-                    visible: !inputPanel.keyboardActive
-                },
-                ActionButton {
-                    iconSource: "system-reboot"
-                    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel","Restart")
-                    onClicked: sddm.reboot()
-                    enabled: sddm.canReboot
-                    visible: !inputPanel.keyboardActive
-                },
-                ActionButton {
-                    iconSource: "system-shutdown"
-                    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel","Shutdown")
-                    onClicked: sddm.powerOff()
-                    enabled: sddm.canPowerOff
-                    visible: !inputPanel.keyboardActive
-                },
-                ActionButton {
-                    iconSource: "system-search"
-                    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel","Different User")
-                    onClicked: mainStack.push(userPromptComponent)
-                    enabled: true
-                    visible: !userListComponent.showUsernamePrompt && !inputPanel.keyboardActive
-                }
-            ]
-
-
-            onLoginRequest: {
-                root.notificationMessage = ""
-                sddm.login(username, password, sessionButton.currentIndex)
+            PropertyChanges {
+                target: loginScreen.loginContainer
+                scale: 0.5
+            }
+            PropertyChanges {
+                target: backgroundEffect
+                blurMax: Config.lockScreenBlur
+                brightness: Config.lockScreenBrightness
+                saturation: Config.lockScreenSaturation
+            }
+        },
+        State {
+            name: "loginState"
+            PropertyChanges {
+                target: lockScreen
+                opacity: 0.0
+            }
+            PropertyChanges {
+                target: loginScreen
+                opacity: 1.0
+            }
+            PropertyChanges {
+                target: loginScreen.loginContainer
+                scale: 1.0
+            }
+            PropertyChanges {
+                target: backgroundEffect
+                blurMax: Config.loginScreenBlur
+                brightness: Config.loginScreenBrightness
+                saturation: Config.loginScreenSaturation
             }
         }
-
-        Behavior on opacity {
-            OpacityAnimator {
-                duration: units.longDuration
-            }
+    ]
+    transitions: Transition {
+        enabled: Config.enableAnimations
+        PropertyAnimation {
+            duration: 150
+            properties: "opacity"
+        }
+        PropertyAnimation {
+            duration: 400
+            properties: "blurMax"
+        }
+        PropertyAnimation {
+            duration: 400
+            properties: "brightness"
+        }
+        PropertyAnimation {
+            duration: 400
+            properties: "saturation"
         }
     }
 
-    Loader {
-        id: inputPanel
-        state: "hidden"
-        property bool keyboardActive: item ? item.active : false
-        onKeyboardActiveChanged: {
-            if (keyboardActive) {
-                state = "visible"
-            } else {
-                state = "hidden";
+    Item {
+        id: mainFrame
+        property variant geometry: screenModel.geometry(screenModel.primary)
+        x: geometry.x
+        y: geometry.y
+        width: geometry.width
+        height: geometry.height
+
+        // AnimatedImage { // `.gif`s are seg faulting with multi monitors... QT/SDDM issue?
+        Image {
+            // Background
+            id: backgroundImage
+            property string tsource: root.state === "lockState" ? Config.lockScreenBackground : Config.loginScreenBackground
+
+            property bool isVideo: {
+                if (!tsource || tsource.toString().length === 0)
+                    return false;
+                var parts = tsource.toString().split(".");
+                if (parts.length === 0)
+                    return false;
+                var ext = parts[parts.length - 1];
+                return ["avi", "mp4", "mov", "mkv", "m4v", "webm"].indexOf(ext) !== -1;
             }
-        }
-        source: "components/VirtualKeyboard.qml"
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
+            property bool displayColor: root.state === "lockState" && Config.lockScreenUseBackgroundColor || root.state === "loginState" && Config.loginScreenUseBackgroundColor
+            property string placeholder: Config.animatedBackgroundPlaceholder // Idea stolen from astronaut-theme. Not a fan of it, but works...
 
-        function showHide() {
-            state = state == "hidden" ? "visible" : "hidden";
-        }
-
-        states: [
-            State {
-                name: "visible"
-                PropertyChanges {
-                    target: mainStack
-                    y: Math.min(0, root.height - inputPanel.height - userListComponent.visibleBoundary)
-                }
-                PropertyChanges {
-                    target: inputPanel
-                    y: root.height - inputPanel.height
-                    opacity: 1
-                }
-            },
-            State {
-                name: "hidden"
-                PropertyChanges {
-                    target: mainStack
-                    y: 0
-                }
-                PropertyChanges {
-                    target: inputPanel
-                    y: root.height - root.height/4
-                    opacity: 0
+            anchors.fill: parent
+            source: !isVideo ? "backgrounds/" + tsource : ""
+            cache: true
+            mipmap: true
+            fillMode: {
+                if (Config.backgroundFillMode === "stretch") {
+                    return Image.Stretch;
+                } else if (Config.backgroundFillMode === "fit") {
+                    return Image.PreserveAspectFit;
+                } else {
+                    return Image.PreserveAspectCrop;
                 }
             }
-        ]
-        transitions: [
-            Transition {
-                from: "hidden"
-                to: "visible"
-                SequentialAnimation {
-                    ScriptAction {
-                        script: {
-                            inputPanel.item.activated = true;
-                            Qt.inputMethod.show();
-                        }
-                    }
-                    ParallelAnimation {
-                        NumberAnimation {
-                            target: mainStack
-                            property: "y"
-                            duration: units.longDuration
-                            easing.type: Easing.InOutQuad
-                        }
-                        NumberAnimation {
-                            target: inputPanel
-                            property: "y"
-                            duration: units.longDuration
-                            easing.type: Easing.OutQuad
-                        }
-                        OpacityAnimator {
-                            target: inputPanel
-                            duration: units.longDuration
-                            easing.type: Easing.OutQuad
-                        }
-                    }
+
+            function updateVideo() {
+                if (isVideo && tsource.toString().length > 0) {
+                    backgroundVideo.source = Qt.resolvedUrl("backgrounds/" + tsource);
+
+                    if (placeholder.length > 0)
+                        source = "backgrounds/" + placeholder;
                 }
-            },
-            Transition {
-                from: "visible"
-                to: "hidden"
-                SequentialAnimation {
-                    ParallelAnimation {
-                        NumberAnimation {
-                            target: mainStack
-                            property: "y"
-                            duration: units.longDuration
-                            easing.type: Easing.InOutQuad
-                        }
-                        NumberAnimation {
-                            target: inputPanel
-                            property: "y"
-                            duration: units.longDuration
-                            easing.type: Easing.InQuad
-                        }
-                        OpacityAnimator {
-                            target: inputPanel
-                            duration: units.longDuration
-                            easing.type: Easing.InQuad
-                        }
-                    }
-                    ScriptAction {
-                        script: {
-                            Qt.inputMethod.hide();
-                        }
+            }
+
+            onSourceChanged: {
+                updateVideo();
+            }
+            Component.onCompleted: {
+                updateVideo();
+            }
+            onStatusChanged: {
+                if (status === Image.Error) {
+                    if (source !== "backgrounds/default.jpg" && source !== "") {
+                        source = "backgrounds/default.jpg";
+                    } else if (source === "backgrounds/default.jpg") {
+                        // If even default fails, show color background
+                        displayColor = true;
                     }
                 }
             }
-        ]
-    }
 
-
-    Component {
-        id: userPromptComponent
-        Login {
-            showUsernamePrompt: true
-            notificationMessage: root.notificationMessage
-            property string idx: "20"
-
-            userListModel: QtObject {
-                property string name: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Another user")
-                property string iconSource: ""
+            Rectangle {
+                id: backgroundColor
+                anchors.fill: parent
+                anchors.margins: 0
+                color: root.state === "lockState" && Config.lockScreenUseBackgroundColor ? Config.lockScreenBackgroundColor : root.state === "loginState" && Config.loginScreenUseBackgroundColor ? Config.loginScreenBackgroundColor : "black"
+                visible: parent.displayColor || (backgroundVideo.visible && parent.placeholder.length === 0)
             }
 
-            onLoginRequest: {
-                root.notificationMessage = ""
-                sddm.login(username, password, sessionButton.currentIndex)
-            }
-
-            actionItems: [
-                ActionButton {
-                    iconSource: "go-previous"
-                    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel","Back")
-                    onClicked: mainStack.pop()
+            // TODO: This is slow af. Removing the property bindings and doing everything at startup should help.
+            Video {
+                id: backgroundVideo
+                anchors.fill: parent
+                visible: parent.isVideo && !parent.displayColor
+                enabled: visible
+                autoPlay: false
+                loops: MediaPlayer.Infinite
+                muted: true
+                fillMode: {
+                    if (Config.backgroundFillMode === "stretch") {
+                        return VideoOutput.Stretch;
+                    } else if (Config.backgroundFillMode === "fit") {
+                        return VideoOutput.PreserveAspectFit;
+                    } else {
+                        return VideoOutput.PreserveAspectCrop;
+                    }
                 }
-            ]
-        }
-    }
 
-    //Footer
-    RowLayout {
-        id: footer
-        anchors {
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-            margins: units.smallSpacing
-        }
+                onSourceChanged: {
+                    if (source && source.toString().length > 0) {
+                        backgroundVideo.play();
+                    }
+                }
+                onErrorOccurred: function (error) {
+                    if (error !== MediaPlayer.NoError && (!backgroundImage.placeholder || backgroundImage.placeholder.length === 0)) {
+                        backgroundImage.displayColor = true;
+                    }
+                }
+            }
 
-        Behavior on opacity {
-            OpacityAnimator {
-                duration: units.longDuration
+            // Overkill, but fine...
+            Component.onDestruction: {
+                if (backgroundVideo) {
+                    backgroundVideo.stop();
+                    backgroundVideo.source = "";
+                }
             }
         }
-
-        PlasmaComponents.ToolButton {
-            text: i18ndc("plasma_lookandfeel_org.kde.lookandfeel", "Button to show/hide virtual keyboard", "Virtual Keyboard")
-            iconName: inputPanel.keyboardActive ? "input-keyboard-virtual-on" : "input-keyboard-virtual-off"
-            onClicked: inputPanel.showHide()
-            visible: inputPanel.status == Loader.Ready
-        }
-
-        KeyboardButton {
-        }
-
-        SessionButton {
-            id: sessionButton
+        MultiEffect {
+            // Background effects
+            id: backgroundEffect
+            source: backgroundImage
+            anchors.fill: parent
+            blurEnabled: backgroundImage.visible && blurMax > 0
+            blur: blurMax > 0 ? 1.0 : 0.0
+            autoPaddingEnabled: false
         }
 
         Item {
-            Layout.fillWidth: true
+            id: screenContainer
+            anchors.fill: parent
+            anchors.top: parent.top
+
+            LockScreen {
+                id: lockScreen
+                z: root.state === "lockState" ? 2 : 1 // Fix tooltips from the login screen showing up on top of the lock screen.
+                anchors.fill: parent
+                focus: root.state === "lockState"
+                enabled: root.state === "lockState"
+                onLoginRequested: {
+                    root.state = "loginState";
+                    loginScreen.resetFocus();
+                }
+            }
+            LoginScreen {
+                id: loginScreen
+                z: root.state === "loginState" ? 2 : 1
+                anchors.fill: parent
+                enabled: root.state === "loginState"
+                opacity: 0.0
+                onClose: {
+                    root.state = "lockState";
+                }
+            }
         }
-
-        Battery { }
     }
-
-    Connections {
-        target: sddm
-        onLoginFailed: {
-            notificationMessage = i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Login Failed")
-        }
-        onLoginSucceeded: {
-            //note SDDM will kill the greeter at some random point after this
-            //there is no certainty any transition will finish, it depends on the time it
-            //takes to complete the init
-            mainStack.opacity = 0
-            footer.opacity = 0
-        }
-    }
-
-    onNotificationMessageChanged: {
-        if (notificationMessage) {
-            notificationResetTimer.start();
-        }
-    }
-
-    Timer {
-        id: notificationResetTimer
-        interval: 3000
-        onTriggered: notificationMessage = ""
-    }
-
 }
