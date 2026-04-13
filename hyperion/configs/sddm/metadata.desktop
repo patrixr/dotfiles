@@ -1,18 +1,13 @@
 [SddmGreeterTheme]
-Name=eos-Breeze
-Description=Breeze SDDM theme modified for EndeavourOS
-Original-Author=KDE Visual Design Group
-Author=EndeavourOS
-Copyright=(c) 2014, David Edmundson
-License=CC-BY-SA
+Name=Hyperion
+Description=Hyperion SDDM Theme
+Author=Hyperion
+Copyright=(c) 2024
+License=MIT
 Type=sddm-theme
-Version=0.1
-Website=https://github.com/endeavouros-team/eos-breeze-sddm
-Screenshot=preview.png
+Version=1.0
+Website=https://github.com/patrixr/dotfiles
 MainScript=Main.qml
 ConfigFile=theme.conf
-TranslationsDirectory=translations
-Email=info@endeavouros.com
-Theme-Id=eos-breeze
+Theme-Id=hyperion
 Theme-API=2.0
-QtVersion=6
