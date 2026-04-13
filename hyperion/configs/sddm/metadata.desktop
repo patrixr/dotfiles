@@ -1,11 +1,11 @@
 [SddmGreeterTheme]
 Name=Hyperion
-Description=Hyperion SDDM Theme
+Description=Hyperion SDDM Theme (based on ittu_bottom by Adhe)
 Author=Hyperion
-Copyright=(c) 2024
-License=MIT
+Copyright=(c) 2024, Hyperion
+License=CC-BY-SA
 Type=sddm-theme
-Version=1.0
+Version=0.1
 Website=https://github.com/patrixr/dotfiles
 MainScript=Main.qml
 ConfigFile=theme.conf
