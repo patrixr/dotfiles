@@ -60,7 +60,9 @@ group "🎨 SDDM Theme" {
     let theme_src = $env.FILE_PWD | path join "configs/sddm"
     let theme_dest = "/usr/share/sddm/themes/hyperion"
     mkdir $theme_dest
-    cp -r ($theme_src | path join "*") $theme_dest
+    for item in (ls $theme_src) {
+        cp -r $item.name $theme_dest
+    }
     print ":: ✔️ SDDM theme deployed to /usr/share/sddm/themes/hyperion"
 
     # Configure SDDM to use the theme
