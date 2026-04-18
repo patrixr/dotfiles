@@ -1,12 +1,14 @@
- .PHONY: all packages system homelab
+.PHONY: all hyperion configs homelab
 
- all: system packages
+all: hyperion configs
 
-packages:
-	nu ./packages/packages.nu
+hyperion:
+	@echo "🚀 Installing/updating Hyperion CE..."
+	curl -sL https://raw.githubusercontent.com/patrixr/hyperion/main/hyperion.sh | sudo bash
 
-system:
-	nu ./endeavour/endeavour.nu
+configs:
+	@echo "⚙️  Applying personal configs..."
+	nu ./configs.nu
 
 homelab:
 	nu ./homelab/homelab.nu

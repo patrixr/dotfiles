@@ -1,40 +1,54 @@
 # Dotfiles
 
-My personal configuration for [EndeavourOS](https://endeavouros.com/), built around [Nushell](https://www.nushell.sh/) as the base shell.
+My personal configuration layer for [Hyperion CE](https://github.com/patrixr/hyperion), built around [Nushell](https://www.nushell.sh/).
 
-## Desktop Environment
+## What is this?
 
-Uses [Niri](https://github.com/YaLTeR/niri), a scrollable-tiling Wayland compositor, with:
+This repository contains my **personal** configurations and preferences that layer on top of [Hyperion CE](https://github.com/patrixr/hyperion) - an EndeavourOS Community Edition featuring Niri compositor and Noctalia shell.
 
-- Ghostty terminal emulator
-- Fuzzel application launcher
-- Starship prompt
+**Hyperion provides:**
+- Base OS configuration (Niri, Noctalia, Ghostty, SDDM)
+- System-level packages
+- Generic defaults for any Hyperion user
+
+**This dotfiles repo provides:**
+- Personal applications (Zed, Steam, ProtonVPN, etc.)
+- Development tools (Volta, Docker, AWS CLI, etc.)
+- Personal editor configs (Emacs, Zed)
+- Custom keybinds and Noctalia customizations
+- Personal wallpapers
 
 ## The Glue Library
 
-`glue` is a Nushell utility library that provides helper functions for system configuration and package management. It includes:
+`glue` is a Nushell utility library shared between Hyperion and this repo. It provides:
 
 - Cross-platform helpers (Linux/macOS detection and execution)
 - Package installation wrappers for system package managers
 - Configuration injection utilities
 - Nushell vendor package management
 
-The library is designed to make dotfile management and system setup declarative and reproducible.
-
 ## Getting Started
 
-Install system packages and desktop environment:
+Install or update Hyperion base system:
 
 ```bash
-make system
+make hyperion
 ```
 
-Install additional packages:
+Apply personal configurations:
 
 ```bash
-make packages
+make configs
+# or just: make
+```
+
+Do everything:
+
+```bash
+make all
 ```
 
 ## Dependencies
 
 - [Nushell](https://www.nushell.sh/)
+- [Hyperion CE](https://github.com/patrixr/hyperion) (installed via `make hyperion`)

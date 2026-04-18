@@ -1,28 +1,24 @@
 {
-  "sources": [
-    {
-      "enabled": true,
-      "name": "Noctalia Plugins",
-      "url": "https://github.com/noctalia-dev/noctalia-plugins"
-    }
-  ],
-  "states": {
-    "mini-docker": {
-      "enabled": true,
-      "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+    "sources": [
+        {
+            "enabled": true,
+            "name": "Noctalia Plugins",
+            "url": "https://github.com/noctalia-dev/noctalia-plugins"
+        }
+    ],
+    "states": {
+        "mini-docker": {
+            "enabled": true,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        },
+        "screenshot": {
+            "enabled": true,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        },
+        "weekly-calendar": {
+            "enabled": true,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        }
     },
-    "screenshot": {
-      "enabled": true,
-      "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
-    },
-    "weekly-calendar": {
-      "enabled": true,
-      "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
-    },
-    "markdown-notes": {
-      "enabled": true,
-      "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
-    }
-  },
-  "version": 2
+    "version": 2
 }

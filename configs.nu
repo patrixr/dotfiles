@@ -1,24 +1,87 @@
-use ../glue *
+use glue *
 
 def conf-src [name: string] {
-    $env.FILE_PWD | path join ("../configs/" + $name)
+    $env.FILE_PWD | path join ("configs/" + $name)
+}
+
+group "📁 Personal dot configs" {
+  def dotconf [name: string] {
+      let folder = conf-src $name
+      cp -r $folder ~/.config
+      print $":: ✔️ .configs/($name)"
+  }
+
+  def dotconf-backup [name: string] {
+      let target_path = ($env.HOME | path join $".config/($name)")
+      let source_path = (conf-src $name)
+      rm -rf $source_path
+      cp -r $target_path $source_path
+      print $":: ✔️ Synced ($name) system → repo"
+  }
+
+  # Personal configs layered on top of Hyperion
+  dotconf emacs
+  dotconf ghostty
+  dotconf keyd
+  
+  let noctalia_target = ($env.HOME | path join ".config/noctalia")
+  let noctalia_source = (conf-src "noctalia")
+  let newest_system = if ($noctalia_target | path exists) { (ls -al $noctalia_target | sort-by modified | last | get modified) } else { 1970-01-01 }
+  let newest_repo = (ls -al $noctalia_source | sort-by modified | last | get modified)
+  if ($noctalia_target | path exists) and ($newest_system > $newest_repo) {
+    if (user-confirm "⚠️  noctalia system config is newer than repo. Sync system → repo?") {
+      dotconf-backup noctalia
+    } else {
+      print ":: ⏭️  Skipped noctalia backup"
+    }
+  } else {
+    dotconf noctalia
+  }
+}
+
+group "🎹 Personal Keybinds" {
+  linux {
+    sudo mkdir -p /etc/keyd
+    sudo cp (conf-src "keyd/default.conf") /etc/keyd/default.conf
+    sudo keyd reload
+  }
+}
+
+group "💾 Install glue.nu" {
+    cp -r ($env.FILE_PWD | path join "glue") $nu.default-config-dir
+}
+
+group "🐚 Nushell config" {
+  touch $nu.config-path
+  cat (conf-src "nushell.nu") | inject into $nu.config-path
+
+  install starship --sudo
+
+  nu-autoload-script "starship.nu" {
+    starship init nu
+  }
+}
+
+group "🖼️ Personal Wallpapers" {
+  mkdir ~/Pictures/Wallpapers
+  let images_folder = $env.FILE_PWD | path join "images"
+  for file in (ls $images_folder | where type == file) {
+    cp $file.name ~/Pictures/Wallpapers/
+  }
+  print ":: ✔️ Wallpapers copied to ~/Pictures/Wallpapers"
 }
 
 group "📦 User Packages" {
   install zed --aur --cask
   install steam --sudo --cask
   install proton-vpn-gtk-app --sudo
-
-  group "🧹 Cleanup" {
-    uninstall spectacle --sudo
-  }
 }
 
 group "💻 Development tools" {
   cli-installer "volta" {
     bash -c "curl https://get.volta.sh | bash"
   }
-  
+
   cli-installer "configcat" {
     bash -c "curl -fsSL https://raw.githubusercontent.com/configcat/cli/main/scripts/install.sh | sudo bash"
   }
@@ -37,6 +100,8 @@ group "💻 Development tools" {
   install aws-session-manager-plugin --aur
   install vscodium-bin-marketplace --aur
   install onlyoffice-bin --aur
+  install pulumi --sudo
+  install github-cli --sudo
 
   install git-delta --sudo {
     ('
@@ -57,18 +122,6 @@ group "💻 Development tools" {
     install zen --cask
     install emacs
   }
-}
-
-group "📁 Dot configs" {
-  def dotconf [name: string] {
-    let folder = conf-src $name
-    cp -r $folder ~/.config
-    print $":: ✔️ .configs/($name)"
-  }
-
-  dotconf emacs
-
-  rm -rf ~/.emacs.d
 }
 
 group "📓 Zed configuration" {
