@@ -13,7 +13,7 @@ echo ":: Hyperion CE — ISO mode install for user: $username"
 
 # Clone the repo
 echo ":: Cloning the Hyperion CE repo..."
-git clone --depth=1 --branch feat/hyperion https://github.com/patrixr/dotfiles.git hyperion
+git clone --depth=1 https://github.com/patrixr/hyperion.git
 
 # Install nushell first so we can hand off to hyperion.nu
 echo ":: Bootstrapping nushell..."
@@ -21,7 +21,7 @@ pacman -S --needed --noconfirm nushell
 
 # Run the main nushell install script as root, passing the target username via env
 echo ":: Handing off to hyperion.nu..."
-HYPERION_USER="$username" nu hyperion/hyperion/hyperion.nu
+HYPERION_USER="$username" nu hyperion/hyperion.nu
 
 # Clean up the cloned repo
 echo ":: Cleaning up..."

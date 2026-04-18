@@ -48,18 +48,26 @@ There are two bash entry points, both of which bootstrap Nushell and then hand o
 
 ```bash
 # Paste this URL into the EOS Welcome app
-https://raw.githubusercontent.com/patrixr/dotfiles/feat/hyperion/hyperion/setup_hyperion_isomode.bash
+https://raw.githubusercontent.com/patrixr/hyperion/main/setup_hyperion_isomode.bash
 ```
 
-**Manual post-install** (after a "no desktop" EOS installation):
+**Manual install/update** (after installation or to update):
 
 ```bash
-git clone --depth=1 --branch feat/hyperion https://github.com/patrixr/dotfiles.git hyperion
-cd hyperion/hyperion
-sudo ./hyperion-install.sh
+# One-line install/update
+curl -sL https://raw.githubusercontent.com/patrixr/hyperion/main/hyperion.sh | sudo bash
+
+# Or clone first
+git clone --depth=1 https://github.com/patrixr/hyperion.git
+cd hyperion
+sudo ./hyperion.sh
 ```
 
 Both scripts:
+
+1. Clone or use the local repo
+2. Install Nushell via pacman if not already present
+3. Run `hyperion.nu` as root with the target username passed via `$HYPERION_USER`
 
 1. Clone this repo (shallow, `feat/hyperion` branch)
 2. Install Nushell via pacman if not already present

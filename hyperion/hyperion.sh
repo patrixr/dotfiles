@@ -4,9 +4,9 @@
 # Manual install/update script for post-installation use
 #
 # Usage:
-#   curl -sL https://raw.githubusercontent.com/patrixr/dotfiles/feat/hyperion/hyperion/hyperion.sh | sudo bash
+#   curl -sL https://raw.githubusercontent.com/patrixr/hyperion/main/hyperion.sh | sudo bash
 #   OR
-#   git clone ... && cd hyperion/hyperion && sudo ./hyperion.sh
+#   git clone https://github.com/patrixr/hyperion.git && cd hyperion && sudo ./hyperion.sh
 #
 # Must be run with sudo.
 
@@ -31,8 +31,8 @@ else
     echo ":: Fetching latest Hyperion from GitHub..."
     TEMP_DIR=$(mktemp -d)
     trap "rm -rf $TEMP_DIR" EXIT
-    git clone --depth=1 --branch feat/hyperion https://github.com/patrixr/dotfiles.git "$TEMP_DIR/hyperion"
-    HYPERION_DIR="$TEMP_DIR/hyperion/hyperion"
+    git clone --depth=1 https://github.com/patrixr/hyperion.git "$TEMP_DIR/hyperion"
+    HYPERION_DIR="$TEMP_DIR/hyperion"
 fi
 
 # Install nushell if needed
