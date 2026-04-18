@@ -22,13 +22,18 @@ username="${SUDO_USER:-$(logname)}"
 echo ":: Hyperion CE — install/update for user: $username"
 
 # Check if we're running from inside the repo
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ -f "$SCRIPT_DIR/hyperion.nu" ]; then
+if [ -n "${BASH_SOURCE[0]:-}" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+    SCRIPT_DIR=""
+fi
+
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/hyperion.nu" ]; then
     # Running from cloned repo - use it directly
     echo ":: Using local Hyperion repo..."
     HYPERION_DIR="$SCRIPT_DIR"
 else
-    # Need to clone the repo
+    # Need to clone the repo (either piped from curl or not in repo)
     echo ":: Fetching latest Hyperion from GitHub..."
     TEMP_DIR=$(mktemp -d)
     trap "rm -rf $TEMP_DIR" EXIT
