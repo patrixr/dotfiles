@@ -111,3 +111,9 @@ group "🖼️ Wallpapers" {
     $wallpaper_config | to json | save -f ($cache_dir | path join "wallpapers.json")
     print ":: ✔️ Noctalia wallpaper configuration created"
 }
+
+group "🔑 Permissions" {
+    let target_user = ($env | get --optional HYPERION_USER | default $env.USER)
+    run-external "chown" "-R" $"($target_user):($target_user)" (home-dir)
+    print $":: ✔️ Ownership of (home-dir) restored to ($target_user)"
+}
