@@ -10,6 +10,15 @@
 #
 # Must be run with sudo.
 
+# Check if running from file or piped (before strict mode)
+if [ -n "${BASH_SOURCE:-}" ] && [ -f "${BASH_SOURCE[0]:-}" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    FROM_FILE=true
+else
+    SCRIPT_DIR=""
+    FROM_FILE=false
+fi
+
 set -euo pipefail
 
 if [ "$EUID" -ne 0 ]; then
@@ -22,13 +31,7 @@ username="${SUDO_USER:-$(logname)}"
 echo ":: Hyperion CE — install/update for user: $username"
 
 # Check if we're running from inside the repo
-if [ -n "${BASH_SOURCE[0]:-}" ]; then
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-else
-    SCRIPT_DIR=""
-fi
-
-if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/hyperion.nu" ]; then
+if [ "$FROM_FILE" = true ] && [ -f "$SCRIPT_DIR/hyperion.nu" ]; then
     # Running from cloned repo - use it directly
     echo ":: Using local Hyperion repo..."
     HYPERION_DIR="$SCRIPT_DIR"
