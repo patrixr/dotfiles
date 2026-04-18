@@ -1,4 +1,5 @@
 {
+  "diff_view_style": "unified",
   "lsp": {
     "vtsls": {
       "settings": {
@@ -28,7 +29,7 @@
   },
   "ui_font_size": 15,
   "buffer_font_size": 13,
-  "theme": "Noctis Obscuro",
+  "theme": "1984 Cyberpunk",
   "ssh_connections": [
     {
       "host": "139.59.109.77",
@@ -44,8 +45,41 @@
     }
   ],
   "agent": {
+    "profiles": {
+      "write": {
+        "default_model": {
+          "provider": "copilot_chat",
+          "model": "claude-sonnet-4.6",
+          "enable_thinking": true,
+          "effort": "high"
+        },
+        "name": "Write",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      },
+      "custom": {
+        "name": "Custom",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
     "tool_permissions": {
       "tools": {
+        "create_directory": {
+          "always_allow": [
+            {
+              "pattern": "^uniplan\\-databoards/"
+            },
+            {
+              "pattern": "^uniplan\\-databoards/databoards/"
+            }
+          ]
+        },
+        "fetch": {
+          "default": "allow"
+        },
         "save_file": {
           "default": "allow"
         },
@@ -56,12 +90,14 @@
     },
     "default_profile": "write",
     "inline_assistant_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-7-sonnet"
+      "provider": "mistral",
+      "model": "devstral-medium-latest"
     },
     "default_model": {
+      "effort": "medium",
+      "enable_thinking": true,
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "model": "claude-sonnet-4.6"
     }
   },
   "outline_panel": {
