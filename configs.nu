@@ -21,22 +21,7 @@ group "📁 Personal dot configs" {
 
   # Personal configs layered on top of Hyperion
   dotconf emacs
-  dotconf ghostty
   dotconf keyd
-  
-  let noctalia_target = ($env.HOME | path join ".config/noctalia")
-  let noctalia_source = (conf-src "noctalia")
-  let newest_system = if ($noctalia_target | path exists) { (ls -al $noctalia_target | sort-by modified | last | get modified) } else { 1970-01-01 }
-  let newest_repo = (ls -al $noctalia_source | sort-by modified | last | get modified)
-  if ($noctalia_target | path exists) and ($newest_system > $newest_repo) {
-    if (user-confirm "⚠️  noctalia system config is newer than repo. Sync system → repo?") {
-      dotconf-backup noctalia
-    } else {
-      print ":: ⏭️  Skipped noctalia backup"
-    }
-  } else {
-    dotconf noctalia
-  }
 }
 
 group "🎹 Personal Keybinds" {
@@ -122,6 +107,12 @@ group "💻 Development tools" {
     install zen --cask
     install emacs
   }
+}
+
+group "Set up PI Agent" {
+  npm install -g @mariozechner/pi-coding-agent
+  pi install npm:pi-psql
+  pi install npm:@modemdev/glance-pi
 }
 
 group "📓 Zed configuration" {

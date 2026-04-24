@@ -1,21 +1,26 @@
 {
+  "icon_theme": {
+    "mode": "light",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
   "diff_view_style": "unified",
   "lsp": {
     "vtsls": {
       "settings": {
         "typescript": {
           "updateImportsOnFileMove": {
-            "enabled": "always"
-          }
+            "enabled": "always",
+          },
         },
         "javascript": {
           "updateImportsOnFileMove": {
-            "enabled": "always"
-          }
-        }
+            "enabled": "always",
+          },
+        },
       },
-      "enable_lsp_tasks": true
-    }
+      "enable_lsp_tasks": true,
+    },
   },
   "rounded_selection": false,
   "context_servers": {
@@ -23,13 +28,17 @@
       "enabled": true,
       "remote": false,
       "settings": {
-        "database_url": "postgresql://postgres:postgres@localhost:5432/t4b"
-      }
-    }
+        "database_url": "postgresql://postgres:postgres@localhost:5432/t4b",
+      },
+    },
   },
   "ui_font_size": 15,
   "buffer_font_size": 13,
-  "theme": "1984 Cyberpunk",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "1984 Fancy"
+  },
   "ssh_connections": [
     {
       "host": "139.59.109.77",
@@ -37,12 +46,10 @@
       "nickname": "Rhys' server",
       "projects": [
         {
-          "paths": [
-            "/etc/nginx"
-          ]
-        }
-      ]
-    }
+          "paths": ["/etc/nginx"],
+        },
+      ],
+    },
   ],
   "agent": {
     "profiles": {
@@ -51,87 +58,87 @@
           "provider": "copilot_chat",
           "model": "claude-sonnet-4.6",
           "enable_thinking": true,
-          "effort": "high"
+          "effort": "high",
         },
         "name": "Write",
         "tools": {},
         "enable_all_context_servers": false,
-        "context_servers": {}
+        "context_servers": {},
       },
       "custom": {
         "name": "Custom",
         "tools": {},
         "enable_all_context_servers": false,
-        "context_servers": {}
-      }
+        "context_servers": {},
+      },
     },
     "tool_permissions": {
       "tools": {
         "create_directory": {
           "always_allow": [
             {
-              "pattern": "^uniplan\\-databoards/"
+              "pattern": "^uniplan\\-databoards/",
             },
             {
-              "pattern": "^uniplan\\-databoards/databoards/"
-            }
-          ]
+              "pattern": "^uniplan\\-databoards/databoards/",
+            },
+          ],
         },
         "fetch": {
-          "default": "allow"
+          "default": "allow",
         },
         "save_file": {
-          "default": "allow"
+          "default": "allow",
         },
         "move_path": {
-          "default": "allow"
-        }
-      }
+          "default": "allow",
+        },
+      },
     },
     "default_profile": "write",
     "inline_assistant_model": {
-      "provider": "mistral",
-      "model": "devstral-medium-latest"
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.6",
     },
     "default_model": {
       "effort": "medium",
       "enable_thinking": true,
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.6"
-    }
+      "model": "claude-sonnet-4.6",
+    },
   },
   "outline_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "cursor_shape": "block",
   "current_line_highlight": "all",
   "edit_predictions": {
     "provider": "copilot",
-    "mode": "subtle"
+    "mode": "subtle",
   },
   "tab_size": 2,
   "tab_bar": {
     "show": false,
-    "show_nav_history_buttons": false
+    "show_nav_history_buttons": false,
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": true
+      "breadcrumbs": true,
     },
     "shell": {
-      "program": "nu"
+      "program": "nu",
     },
     "font_size": 13,
     "dock": "right",
     "scrollbar": {
-      "show": "system"
-    }
+      "show": "system",
+    },
   },
   "indent_guides": {
     "enabled": true,
     "coloring": "indent_aware",
     "background_coloring": "disabled",
-    "active_line_width": 2
+    "active_line_width": 2,
   },
   "scrollbar": {
     "show": "auto",
@@ -143,16 +150,19 @@
     "diagnostics": "all",
     "axes": {
       "horizontal": false,
-      "vertical": true
-    }
+      "vertical": true,
+    },
   },
   "format_on_save": "on",
   "code_actions_on_format": {
     "source.fixAll.eslint": true,
     "source.removeUnusedImports": true,
-    "source.organizeImports": true
+    "source.organizeImports": true,
   },
   "languages": {
+    "Nu": {
+      "tab_size": 2,
+    },
     "JavaScript": {
       "formatter": {
         "external": {
@@ -161,14 +171,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}"
-          ]
-        }
+            "{buffer_path}",
+          ],
+        },
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
       },
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "TypeScript": {
       "formatter": {
@@ -178,14 +188,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}"
-          ]
-        }
+            "{buffer_path}",
+          ],
+        },
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
       },
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "TSX": {
       "formatter": {
@@ -195,14 +205,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}"
-          ]
-        }
+            "{buffer_path}",
+          ],
+        },
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
       },
-      "format_on_save": "on"
-    }
-  }
+      "format_on_save": "on",
+    },
+  },
 }
