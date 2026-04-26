@@ -41,7 +41,11 @@ group "📁 Personal dot configs" {
 
 group "🎹 Personal Keybinds" {
   linux {
-    install keyd --sudo
+    install keyd --sudo {
+      sudo usermod -aG keyd $env.USER
+      sudo systemctl -f enable keyd.service
+      sudo systemctl -f start keyd.service
+    }
     sudo mkdir -p /etc/keyd
     sudo cp (conf-src "keyd/default.conf") /etc/keyd/default.conf
     sudo keyd reload
