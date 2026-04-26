@@ -4,6 +4,18 @@ def conf-src [name: string] {
     $env.FILE_PWD | path join ("configs/" + $name)
 }
 
+
+group "System enhancements" {
+  install ttf-jetbrains-mono-nerd --sudo
+  install xwayland-satellite --sudo
+  install xclip --sudo
+  install adw-gtk-theme --aur
+  install nwg-look --aur {
+    gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  }
+}
+
 group "📁 Personal dot configs" {
   def dotconf [name: string] {
       let folder = conf-src $name
