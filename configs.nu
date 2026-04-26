@@ -35,7 +35,7 @@ group "📁 Personal dot configs" {
   dotconf emacs
   dotconf ghostty
   dotconf keyd
-  
+
   let noctalia_target = ($env.HOME | path join ".config/noctalia")
   let noctalia_source = (conf-src "noctalia")
   let newest_system = if ($noctalia_target | path exists) { (ls -al $noctalia_target | sort-by modified | last | get modified) } else { 1970-01-01 }
@@ -77,6 +77,9 @@ group "🐚 Nushell config" {
   nu-autoload-script "starship.nu" {
     starship init nu
   }
+
+  source $nu.env-path
+  source $nu.config-path
 }
 
 group "🖼️ Personal Wallpapers" {
@@ -120,6 +123,9 @@ group "💻 Development tools" {
   install pulumi --sudo
   install github-cli --sudo
 
+  mkdir ~/.npm
+  npm config set prefix '~/.npm'
+
   install git-delta --sudo {
     ('
     [core]
@@ -148,11 +154,14 @@ group "Set up PI Agent" {
 }
 
 group "📓 Zed configuration" {
+  mkdir ~/.config/zed
+
   for file in ["settings", "keymap"] {
     let target_path = ($env.HOME | path join $".config/zed/($file).json")
     let source_path = (conf-src $"zed/($file).json")
 
-    let last_update_of_target = (ls $target_path | get 0 | get modified)
+    let target_exists = ($target_path | path exists)
+    let last_update_of_target = if $target_exists { (ls $target_path | get 0 | get modified) } else { (0 | into datetime) }
     let last_update_of_source = (ls $source_path | get 0 | get modified)
 
     if $last_update_of_target > $last_update_of_source {
@@ -161,12 +170,16 @@ group "📓 Zed configuration" {
         print $":: ✔️ Copied ($file) target to source"
       }
     } else if $last_update_of_source > $last_update_of_target {
-      # Only merge and update target when source has changes
-      let current_config = open $target_path
-      let saved_config = open $source_path
+      if (not $target_exists) {
+        cp $source_path $target_path
+      } else {
+        # Only merge and update target when source has changes
+        let current_config = open $target_path
+        let saved_config = open $source_path
 
-      $current_config | merge $saved_config | save -f $target_path
-      print $":: ✔️ Updated ($file).json from source"
+        $current_config | merge $saved_config | save -f $target_path
+        print $":: ✔️ Updated ($file).json from source"
+      }
     }
   }
 }

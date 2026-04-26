@@ -9,6 +9,7 @@ $env.GOPATH = $"($env.HOME)/go"
 $env.GEM_HOME = $"($env.HOME)/.gem"
 $env.GEM_PATH = $"($env.HOME)/.gem"
 
+path add ($env.HOME | path join ".npm/bin")
 path add ($env.HOME | path join ".volta/bin")
 path add ($env.HOME | path join ".rvm/bin")
 path add ($env.HOME | path join ".deno/bin")
