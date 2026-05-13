@@ -35,6 +35,7 @@ group "📁 Personal dot configs" {
   dotconf emacs
   dotconf ghostty
   dotconf keyd
+  dotconf niri
 
   let noctalia_target = ($env.HOME | path join ".config/noctalia")
   let noctalia_source = (conf-src "noctalia")
@@ -48,6 +49,49 @@ group "📁 Personal dot configs" {
     }
   } else {
     dotconf noctalia
+  }
+}
+
+group "🔵 Bluetooth" {
+  linux {
+    let bt_status = (do -i { sudo systemctl is-enabled bluetooth.service } | complete | get stdout | str trim)
+    if $bt_status != "enabled" {
+      print ":: Bluetooth service not enabled — enabling now..."
+      sudo systemctl enable bluetooth.service
+      sudo systemctl start bluetooth.service
+      print ":: ✔️ Bluetooth service enabled and started"
+    } else {
+      print ":: ✔️ Bluetooth service is already enabled"
+    }
+  }
+}
+
+group "🖨️ Printing" {
+  linux {
+    install cups --sudo
+    install cups-filters --sudo
+    install cups-browsed --sudo
+    install system-config-printer --sudo
+
+    let cups_status = (do -i { sudo systemctl is-enabled cups.service } | complete | get stdout | str trim)
+    if $cups_status != "enabled" {
+      print ":: CUPS service not enabled — enabling now..."
+      sudo systemctl enable cups.service
+      sudo systemctl start cups.service
+      print ":: ✔️ CUPS service enabled and started"
+    } else {
+      print ":: ✔️ CUPS service is already enabled"
+    }
+
+    let browsed_status = (do -i { sudo systemctl is-enabled cups-browsed.service } | complete | get stdout | str trim)
+    if $browsed_status != "enabled" {
+      print ":: cups-browsed service not enabled — enabling now..."
+      sudo systemctl enable cups-browsed.service
+      sudo systemctl start cups-browsed.service
+      print ":: ✔️ cups-browsed service enabled and started"
+    } else {
+      print ":: ✔️ cups-browsed service is already enabled"
+    }
   }
 }
 
@@ -122,6 +166,8 @@ group "💻 Development tools" {
   install onlyoffice-bin --aur
   install pulumi --sudo
   install github-cli --sudo
+  install ollama --sudo
+  install rpi-imager --sudo
 
   mkdir ~/.npm
   npm config set prefix '~/.npm'

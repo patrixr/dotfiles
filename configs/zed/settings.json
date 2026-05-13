@@ -1,8 +1,23 @@
 {
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    },
+    "pi-acp": {
+      "type": "registry",
+    },
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "cli_default_open_behavior": "existing_window",
+  "project_panel": {
+    "dock": "left",
+  },
   "icon_theme": {
     "mode": "light",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "light": "Soft Charmed Icons",
+    "dark": "Zed (Default)",
   },
   "diff_view_style": "unified",
   "lsp": {
@@ -10,17 +25,17 @@
       "settings": {
         "typescript": {
           "updateImportsOnFileMove": {
-            "enabled": "always"
-          }
+            "enabled": "always",
+          },
         },
         "javascript": {
           "updateImportsOnFileMove": {
-            "enabled": "always"
-          }
-        }
+            "enabled": "always",
+          },
+        },
       },
-      "enable_lsp_tasks": true
-    }
+      "enable_lsp_tasks": true,
+    },
   },
   "rounded_selection": false,
   "context_servers": {
@@ -28,16 +43,16 @@
       "enabled": true,
       "remote": false,
       "settings": {
-        "database_url": "postgresql://postgres:postgres@localhost:5432/t4b"
-      }
-    }
+        "database_url": "postgresql://postgres:postgres@localhost:5432/t4b",
+      },
+    },
   },
   "ui_font_size": 15,
   "buffer_font_size": 13,
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "1984 Fancy"
+    "dark": "Aura Dark",
   },
   "ssh_connections": [
     {
@@ -46,101 +61,122 @@
       "nickname": "Rhys' server",
       "projects": [
         {
-          "paths": [
-            "/etc/nginx"
-          ]
-        }
-      ]
-    }
+          "paths": ["/etc/nginx"],
+        },
+      ],
+    },
   ],
   "agent": {
+    "sidebar_side": "right",
+    "dock": "right",
     "profiles": {
       "write": {
         "default_model": {
           "provider": "copilot_chat",
           "model": "claude-sonnet-4.6",
           "enable_thinking": true,
-          "effort": "high"
+          "effort": "high",
         },
         "name": "Write",
         "tools": {},
         "enable_all_context_servers": false,
-        "context_servers": {}
+        "context_servers": {},
       },
       "custom": {
         "name": "Custom",
         "tools": {},
         "enable_all_context_servers": false,
-        "context_servers": {}
-      }
+        "context_servers": {},
+      },
     },
     "tool_permissions": {
       "tools": {
-        "create_directory": {
+        "delete_path": {
           "always_allow": [
             {
-              "pattern": "^uniplan\\-databoards/"
+              "pattern": "^project\\-samantha/packages/training/",
             },
             {
-              "pattern": "^uniplan\\-databoards/databoards/"
-            }
-          ]
+              "pattern": "^packages/training/src/cli/lib/",
+            },
+          ],
+        },
+        "terminal": {
+          "default": "allow",
+          "always_allow": [
+            {
+              "pattern": "^cat\\s+/home/patrick/Code/matchmaking/13_DECISIONS_AND_LESSONS\\.md(\\s|$)",
+            },
+            {
+              "pattern": "^tail\\b",
+            },
+          ],
+        },
+        "create_directory": {
+          "default": "allow",
+          "always_allow": [
+            {
+              "pattern": "^uniplan\\-databoards/",
+            },
+            {
+              "pattern": "^uniplan\\-databoards/databoards/",
+            },
+          ],
         },
         "fetch": {
-          "default": "allow"
+          "default": "allow",
         },
         "save_file": {
-          "default": "allow"
+          "default": "allow",
         },
         "move_path": {
-          "default": "allow"
-        }
-      }
+          "default": "allow",
+        },
+      },
     },
     "default_profile": "write",
     "inline_assistant_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.6"
+      "provider": "Z.ai",
+      "model": "glm-5.1",
     },
     "default_model": {
-      "effort": "medium",
-      "enable_thinking": true,
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.6"
-    }
+      "enable_thinking": false,
+      "provider": "Z.ai",
+      "model": "glm-5.1",
+    },
   },
   "outline_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "cursor_shape": "block",
   "current_line_highlight": "all",
   "edit_predictions": {
     "provider": "copilot",
-    "mode": "subtle"
+    "mode": "subtle",
   },
   "tab_size": 2,
   "tab_bar": {
     "show": false,
-    "show_nav_history_buttons": false
+    "show_nav_history_buttons": false,
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": true
+      "breadcrumbs": true,
     },
     "shell": {
-      "program": "nu"
+      "program": "nu",
     },
     "font_size": 13,
     "dock": "right",
     "scrollbar": {
-      "show": "system"
-    }
+      "show": "system",
+    },
   },
   "indent_guides": {
     "enabled": true,
     "coloring": "indent_aware",
     "background_coloring": "disabled",
-    "active_line_width": 2
+    "active_line_width": 2,
   },
   "scrollbar": {
     "show": "auto",
@@ -152,18 +188,18 @@
     "diagnostics": "all",
     "axes": {
       "horizontal": false,
-      "vertical": true
-    }
+      "vertical": true,
+    },
   },
   "format_on_save": "on",
   "code_actions_on_format": {
     "source.fixAll.eslint": true,
     "source.removeUnusedImports": true,
-    "source.organizeImports": true
+    "source.organizeImports": true,
   },
   "languages": {
     "Nu": {
-      "tab_size": 2
+      "tab_size": 2,
     },
     "JavaScript": {
       "formatter": {
@@ -173,14 +209,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}"
-          ]
-        }
+            "{buffer_path}",
+          ],
+        },
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
       },
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "TypeScript": {
       "formatter": {
@@ -190,14 +226,14 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}"
-          ]
-        }
+            "{buffer_path}",
+          ],
+        },
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
       },
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "TSX": {
       "formatter": {
@@ -207,14 +243,36 @@
             "--yes",
             "prettier",
             "--stdin-filepath",
-            "{buffer_path}"
-          ]
-        }
+            "{buffer_path}",
+          ],
+        },
       },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
       },
-      "format_on_save": "on"
-    }
-  }
+      "format_on_save": "on",
+    },
+  },
+  "language_models": {
+    "openai_compatible": {
+      "Z.ai": {
+        "api_url": "https://api.z.ai/api/coding/paas/v4",
+        "available_models": [
+          {
+            "name": "glm-5.1",
+            "display_name": "GLM-5.1",
+            "max_tokens": 200000,
+            "max_output_tokens": 128000,
+            "max_completion_tokens": 128000,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": true,
+            },
+          },
+        ],
+      },
+    },
+  },
 }

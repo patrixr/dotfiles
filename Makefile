@@ -11,4 +11,5 @@ hyperion:
 	curl -sL https://raw.githubusercontent.com/patrixr/hyperion/main/hyperion.sh | sudo bash
 
 homelab:
+	@echo "🏠 Deploying homelab..."
 	nu ./homelab/homelab.nu
