@@ -193,12 +193,6 @@ group "💻 Development tools" {
   }
 }
 
-group "Set up PI Agent" {
-  npm install -g @mariozechner/pi-coding-agent
-  pi install npm:pi-psql
-  pi install npm:@modemdev/glance-pi
-}
-
 group "📓 Zed configuration" {
   mkdir ~/.config/zed
 
@@ -228,4 +222,11 @@ group "📓 Zed configuration" {
       }
     }
   }
+}
+
+group "Install Agent Skills" {
+  npx skills add https://github.com/browser-use/browser-use --skill browser-use --agent mistral-vibe --global --yes
+  npx skills add https://github.com/patrixr/pi-psql --skill pi-psql --agent mistral-vibe --global --yes
+
+  print ":: ✔️ Installed browser-use skill"
 }
