@@ -14,7 +14,7 @@ path add ($env.HOME | path join ".volta/bin")
 path add ($env.HOME | path join ".rvm/bin")
 path add ($env.HOME | path join ".deno/bin")
 path add ($env.GOPATH | path join "bin")
-path add ($env.GOPATH | path join ".opencode/bin")
+path add ($env.HOME | path join ".opencode/bin")
 path add "/usr/local/bin"
 path add ($env.HOME | path join ".local/bin")
 
